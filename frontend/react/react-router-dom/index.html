@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React-router-dom 적용하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,router,react-router-dom">
+    
+    <meta name="description" content="시작하기리액트 싱글페이지 SPA(Single page application)에서 다른페이지로 이동하고 싶을때 사용하는 라이브러리입니다.create-react-app에서 라우터를 사용해 보겠습니다. 설치npm install react-router-dom @types/react-router-dom 라우터 설정index.tsx12345678910111213imp">
+<meta name="keywords" content="react,router,react-router-dom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-router-dom 적용하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/react/react-router-dom/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기리액트 싱글페이지 SPA(Single page application)에서 다른페이지로 이동하고 싶을때 사용하는 라이브러리입니다.create-react-app에서 라우터를 사용해 보겠습니다. 설치npm install react-router-dom @types/react-router-dom 라우터 설정index.tsx12345678910111213imp">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-router-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-router-dom 적용하기">
+<meta name="twitter:description" content="시작하기리액트 싱글페이지 SPA(Single page application)에서 다른페이지로 이동하고 싶을때 사용하는 라이브러리입니다.create-react-app에서 라우터를 사용해 보겠습니다. 설치npm install react-router-dom @types/react-router-dom 라우터 설정index.tsx12345678910111213imp">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-router-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/react/react-router-dom/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/react/">react</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/react/react-router-dom" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React-router-dom 적용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/react/react-router-dom/" class="article-date">
+         <time datetime="2019-12-19T11:55:53.000Z" itemprop="datePublished">2019-12-19</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-router-dom/">react-router-dom</a>, <a class="tag-link" href="/tags/router/">router</a>
+    </div>
+
+                
+   <span id="/frontend/react/react-router-dom/" class="leancloud-visitors" data-flag-title="React-router-dom 적용하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">950</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>리액트 싱글페이지 SPA(Single page application)에서 다른페이지로 이동하고 싶을때 사용하는 라이브러리입니다.<br><a href="https://flamingotiger.github.io/react/create-react-app/">create-react-app</a>에서 라우터를 사용해 보겠습니다.</p>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p><code>npm install react-router-dom @types/react-router-dom</code></p>
+<h3 id="라우터-설정"><a href="#라우터-설정" class="headerlink" title="라우터 설정"></a>라우터 설정</h3><figure class="highlight typescript"><figcaption><span>index.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> serviceWorker <span class="keyword">from</span> <span class="string">'./serviceWorker'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;BrowserRouter&gt;</span><br><span class="line">        &lt;App /&gt;</span><br><span class="line">    &lt;<span class="regexp">/BrowserRouter&gt;, document.getElementById('root'));</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">serviceWorker.unregister();</span></span><br></pre></td></tr></table></figure>
+
+<p>최상단 App컴포넌트를 BrowserRouter로 감싸주어야 내부 컴포넌트에서 react-router-dom기능을 사용할 수 있습니다.</p>
+<p>라우터를 관리할 <code>Main.tsx</code> 파일을 만들어 줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Main.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Switch, Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Main:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">          &lt;Route path=<span class="string">"/about"</span> component=&#123;About&#125;/&gt;</span><br><span class="line">          &lt;Route path=<span class="string">"/users"</span> component=&#123;Users&#125;/&gt;</span><br><span class="line">          &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">        &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Main;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const Home:React.FC = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  return &lt;h2&gt;Home&lt;/</span>h2&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> About:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;h2&gt;About&lt;<span class="regexp">/h2&gt;;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const Users:React.FC = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  return &lt;h2&gt;Users&lt;/</span>h2&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Switch 태그 내부의 Route중에 path가 현재 라우터 값과 일치하는 컴포넌트를 뿌려줍니다.<br>Route 의 속성으로 </p>
+<ul>
+<li>component:컴포넌트</li>
+<li>exact: 중복 되지않고 하나만 존재해야할때</li>
+<li>path: 라우터 주소</li>
+</ul>
+<p>라우터의 배치 순서도 중요합니다.<br>예를들어서 위의 예제를 통해 배치 순서도를 설명하겠습니다.<br>현재 URL을 <code>http://localhost:3000/users</code> 라고 가정하겠습니다.</p>
+<ul>
+<li>참고: <code>/users</code>와 같이 앞에 아무것도 없이 <code>/</code>가 있는 경우 루트를 의미합니다.</li>
+</ul>
+<figure class="highlight typescript"><figcaption><span>Main.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 이 경우에는 path가 /인 Home컴포넌트가 실행됩니다.</span></span><br><span class="line">&lt;Switch&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/users"</span> component=&#123;Users&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/about"</span> component=&#123;About&#125;/&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 정상적으로 path가 /u</span>sers인 Users컴포넌트가 실행됩니다.</span><br><span class="line">&lt;Switch&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/users"</span> component=&#123;Users&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/about"</span> component=&#123;About&#125;/&gt;</span><br><span class="line">    &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">&lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 다른방법으로 exact를 사용하는 방법이 있습니다.</span></span><br><span class="line"><span class="regexp">&lt;Switch&gt;</span></span><br><span class="line"><span class="regexp">    &lt;Route exact path="/</span><span class="string">" component=&#123;Home&#125;/&gt;</span></span><br><span class="line"><span class="string">    // exact는 exact=&#123;true&#125;을 줄인것입니다.</span></span><br><span class="line"><span class="string">    // 오로지 url이 / 루트일때만 Home을 실행합니다.</span></span><br><span class="line"><span class="string">    &lt;Route path="</span>/users<span class="string">" component=&#123;Users&#125;/&gt;</span></span><br><span class="line"><span class="string">    &lt;Route path="</span>/about<span class="string">" component=&#123;About&#125;/&gt;</span></span><br><span class="line"><span class="string">&lt;/Switch&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>라우터를 설정할때 위에서부터 아래로 차례차례 읽습니다.<br>순서에 맞게 라우터를 설정해 주면됩니다.</p>
+<h3 id="Link-컴포넌트"><a href="#Link-컴포넌트" class="headerlink" title="Link 컴포넌트"></a>Link 컴포넌트</h3><figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> Main <span class="keyword">from</span> <span class="string">'./Main'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;nav&gt;</span><br><span class="line">          &lt;ul&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/"</span>&gt;Home&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/about"</span>&gt;About&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/users"</span>&gt;Users&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">          &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>nav&gt;</span><br><span class="line">        &lt;Main /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p>코드를 보시면 <code>Link</code>라는 컴포넌트를 사용했습니다. Link에 to속성으로 url을 넣어줍니다.<br>중요한 컴포넌트로, 이 컴포넌트의 기능은 다른 라우터로 이동하게 해주는 <code>&lt;a&gt;</code>태그와 비슷한 기능을 합니다.<br>하지만 중요한 차이점이 있습니다.<br>a태그를 사용할시에는 웹사이트 페이지가 새로고침이 됩니다. 그렇게 되면 페이지를 다시 읽어 내는 것이기에 속도가 조금 느릴수 밖에 없습니다.<br>하지만 Link는 페이지를 새로고침하지 않으면서 라우터를 빠르게 이동할수 있습니다.</p>
+<p><img src="/image/frontend/react/react-router-dom_0.gif" alt="a태그와 Link컴포넌트 비교"><br>a태그의 경우 상단에 로딩바가 계속생겨나는 것이 보입니다.<br>하지만 Link의 경우 로딩바없이 바로바로 라우터 변경이 되는것을 확인할 수 있습니다.<br>현재이미지의 경우 많은 정보가 없기 때문에 차이점이 적게 느껴지지만 사이트가 커질수록 더 많은 차이를 느낄수 있습니다.</p>
+<h3 id="Router-hooks"><a href="#Router-hooks" class="headerlink" title="Router hooks"></a>Router hooks</h3><p>react-router-dom에서도 훅스를 지원합니다.<br>React가 16.8.X보다 높은 버젼이어야합니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> Main <span class="keyword">from</span> <span class="string">'./Main'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/"</span>&gt;Home&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/about"</span>&gt;About&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/users"</span>&gt;Users&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/movie/marvel"</span>&gt;마블&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link to=<span class="string">"/movie/dc-comics"</span>&gt;DC코믹스&lt;<span class="regexp">/Link&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="useParams"><a href="#useParams" class="headerlink" title="useParams"></a>useParams</h4><figure class="highlight typescript"><figcaption><span>Main.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Switch, Route, useParams &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Main:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Switch&gt;</span><br><span class="line">            <span class="comment">//..</span></span><br><span class="line">          &lt;Route path=<span class="string">"/movie/:type"</span> component=&#123;Movie&#125;/&gt;</span><br><span class="line">          &lt;Route path=<span class="string">"/"</span> component=&#123;Home&#125;/&gt;</span><br><span class="line">        &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Main;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const Movie:React.FC = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    const &#123; type &#125; = useParams();</span></span><br><span class="line"><span class="regexp">    return (&lt;div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;h2&gt;Movie&lt;/</span>h2&gt;</span><br><span class="line">        &lt;p&gt;&#123;<span class="keyword">type</span>&#125;&lt;<span class="regexp">/p&gt; </span></span><br><span class="line"><span class="regexp">        /</span><span class="regexp">/  "marvel"</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>useParams로 <code>/movie/:type</code> :뒤에 있는 파라미터 값을 가져올 수 있습니다.</p>
+<h4 id="useLocation"><a href="#useLocation" class="headerlink" title="useLocation"></a>useLocation</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useLocation &#125; <span class="keyword">from</span> <span class="string">'source/_posts/frontend/react-router-dom/react-router-dom'</span>;</span><br><span class="line"><span class="keyword">const</span> location = useLocation();</span><br><span class="line">&#123;</span><br><span class="line">    hash: <span class="string">""</span></span><br><span class="line">    key: <span class="string">"hhedtc"</span></span><br><span class="line">    pathname: <span class="string">"/movie/marvel"</span></span><br><span class="line">    search: <span class="string">""</span></span><br><span class="line">    state: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="useRouteMatch"><a href="#useRouteMatch" class="headerlink" title="useRouteMatch"></a>useRouteMatch</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouteMatch &#125; <span class="keyword">from</span> <span class="string">'source/_posts/frontend/react/react-router-dom'</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="keyword">type</span> &#125; = useRouteMatch();</span><br><span class="line">&#123;</span><br><span class="line">    isExact: <span class="literal">true</span></span><br><span class="line">    params: &#123;<span class="keyword">type</span>: <span class="string">"marvel"</span>&#125;</span><br><span class="line">    path: <span class="string">"/movie/:type"</span></span><br><span class="line">    url: <span class="string">"/movie/marvel"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="useHistory"><a href="#useHistory" class="headerlink" title="useHistory"></a>useHistory</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">"source/_posts/frontend/react/react-router-dom"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Button = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> history = useHistory();</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    history.push(<span class="string">"/home"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> handleClick()&#125;&gt;GO HOME&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>useHistory에서 push/replace를 통해 페이지를 이동할수있습니다.</p>
+<p><strong>push/replace 차이점</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">history.push(<span class="string">"/home"</span>); <span class="comment">// home으로 페이지 이동하고 뒤로가기가 가능합니다.</span></span><br><span class="line">history.replace(<span class="string">"/home"</span>); <span class="comment">// home으로 페이지 이동하고 뒤로가기가 불가능합니다.</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/react/react-router-dom/" data-id="ckotn38q9009z9cqqvcztru9d" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React-router-dom 적용하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-router-thumb.jpg",
+        "keywords": "react router react-router-dom",
+        "genre": "frontend react",
+        "datePublished": "2019-12-19",
+        "dateCreated": "2019-12-19",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/react/react-router-dom/",
+        "description": "시작하기리액트 싱글페이지 SPA(Single page application)에서 다른페이지로 이동하고 싶을때 사용하는 라이브러리입니다.create-react-app에서 라우터를 사용해 보겠습니다.
+설치npm install react-router-dom @types/react-router-dom
+라우터 설정index.tsx12345678910111213imp",
+        "wordCount": 1724
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/react/react-element-clone/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            React Element 복제하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/style/react-bootstrap/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">리액트에 부트스트랩(bootstrap) 사용하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-style/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에 스타일(margin, padding, border, border-radius) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/crossplatform/">crossplatform</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-style/" class="title">flutter에 스타일(margin, padding, border, border-radius) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-02-22T01:42:48.000Z" itemprop="datePublished">2021-02-22</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

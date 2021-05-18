@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React 상태 관리 라이브러리 Recoil-js 사용해보기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,recoil,recoiljs,recoil-js">
+    
+    <meta name="description" content="시작하기리액트 유럽에서 리액트의 새로운 상태관리 라이브러리 recoil을 발표했습니다.기존에 사용하던 redux 라이브러리와 어떤차이가 있는지 사용해보도록 하겠습니다.Recoil js홈페이지에서 자세한 내용을 확인 할 수 있습니다.Recoil 소개 유투브 설치하기1npx create-react-app my-app  프로젝트를 생성합니다. 1npm insta">
+<meta name="keywords" content="react,recoil,recoiljs,recoil-js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 상태 관리 라이브러리 Recoil-js 사용해보기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/recoil/react-recoil-js/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기리액트 유럽에서 리액트의 새로운 상태관리 라이브러리 recoil을 발표했습니다.기존에 사용하던 redux 라이브러리와 어떤차이가 있는지 사용해보도록 하겠습니다.Recoil js홈페이지에서 자세한 내용을 확인 할 수 있습니다.Recoil 소개 유투브 설치하기1npx create-react-app my-app  프로젝트를 생성합니다. 1npm insta">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 상태 관리 라이브러리 Recoil-js 사용해보기">
+<meta name="twitter:description" content="시작하기리액트 유럽에서 리액트의 새로운 상태관리 라이브러리 recoil을 발표했습니다.기존에 사용하던 redux 라이브러리와 어떤차이가 있는지 사용해보도록 하겠습니다.Recoil js홈페이지에서 자세한 내용을 확인 할 수 있습니다.Recoil 소개 유투브 설치하기1npx create-react-app my-app  프로젝트를 생성합니다. 1npm insta">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/recoil/react-recoil-js/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/recoil/">recoil</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/recoil/react-recoil-js" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React 상태 관리 라이브러리 Recoil-js 사용해보기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/recoil/react-recoil-js/" class="article-date">
+         <time datetime="2020-05-17T05:42:52.000Z" itemprop="datePublished">2020-05-17</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/recoil/">recoil</a>, <a class="tag-link" href="/tags/recoil-js/">recoil-js</a>, <a class="tag-link" href="/tags/recoiljs/">recoiljs</a>
+    </div>
+
+                
+   <span id="/frontend/recoil/react-recoil-js/" class="leancloud-visitors" data-flag-title="React 상태 관리 라이브러리 Recoil-js 사용해보기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">772</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>리액트 유럽에서 리액트의 새로운 상태관리 라이브러리 recoil을 발표했습니다.<br>기존에 사용하던 redux 라이브러리와 어떤차이가 있는지 사용해보도록 하겠습니다.<br><a href="https://recoiljs.org/" rel="external nofollow noopener noreferrer" target="_blank">Recoil js홈페이지</a>에서 자세한 내용을 확인 할 수 있습니다.<br><a href="https://www.youtube.com/watch?v=_ISAA_Jt9kI" rel="external nofollow noopener noreferrer" target="_blank">Recoil 소개 유투브</a></p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app my-app</span><br></pre></td></tr></table></figure>
+
+<p>프로젝트를 생성합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install recoil</span><br></pre></td></tr></table></figure>
+
+<p>recoil을 설치합니다.</p>
+<h2 id="설정"><a href="#설정" class="headerlink" title="설정"></a>설정</h2><p>Redux에서 최상단에 provider를 사용해주는 것과 같이 최상단에 RecoilRoot를 설정해주어야합니다.</p>
+<figure class="highlight javascript"><figcaption><span>index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"./index.css"</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">"./App"</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> serviceWorker <span class="keyword">from</span> <span class="string">"./serviceWorker"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; RecoilRoot &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;React.StrictMode&gt;</span><br><span class="line">    &lt;RecoilRoot&gt;</span><br><span class="line">      &lt;App /&gt;</span><br><span class="line">    &lt;<span class="regexp">/RecoilRoot&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>React.StrictMode&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you want your app to work offline and load faster, you can change</span></span><br><span class="line"><span class="comment">// unregister() to register() below. Note this comes with some pitfalls.</span></span><br><span class="line"><span class="comment">// Learn more about service workers: https://bit.ly/CRA-PWA</span></span><br><span class="line">serviceWorker.unregister();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><em>RecoilRoot</em> : 프로젝트의 최상단에 설정해주어야 내부에서 recoil을 사용할 수 있습니다.</li>
+<li><em>atom</em>: key와 value를 설정해줍니다. 기본 state입니다.</li>
+<li><em>selector</em>: reducer와 흡사합니다. selector에서 atom의 값을 가져오고, switch문으로 매개변수의 해당부분을 찾아, 값을 변형시켜 반환할 수 있습니다.</li>
+<li><em>useRecoilState</em>: useState와 흡사하게 [value, setValue]형식으로 setValue로 값을 변경 할 수 있습니다.</li>
+<li><em>useRecoilValue</em>: 오로지 recoil의 값만 가져오고 싶으면 사용합니다.</li>
+</ul>
+<h2 id="사용하기"><a href="#사용하기" class="headerlink" title="사용하기"></a>사용하기</h2><p>Counter예시를 만들어 보도록 하겠습니다.</p>
+<figure class="highlight javascript"><figcaption><span>src/Counter.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Counter Component State : <span class="number">0</span>&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button type="button"&gt;+&lt;/</span>button&gt;</span><br><span class="line">      &lt;button type=<span class="string">"button"</span>&gt;-<span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><figcaption><span>src/App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">"./Counter"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p&gt;App Count State: <span class="number">0</span>&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Counter /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p>컴포넌트를 추가합니다.</p>
+<figure class="highlight javascript"><figcaption><span>src/atoms.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; atom &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CountState = atom(&#123;</span><br><span class="line">  key: <span class="string">"CountState"</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>count의 state값을 설정합니다.</p>
+<h2 id="사용하기-1"><a href="#사용하기-1" class="headerlink" title="사용하기"></a>사용하기</h2><figure class="highlight javascript"><figcaption><span>src/Counter.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useRecoilState &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CountState &#125; <span class="keyword">from</span> <span class="string">"./atoms"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useRecoilState(CountState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Counter Component State : &#123;count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button</span></span><br><span class="line"><span class="regexp">        type="button"</span></span><br><span class="line"><span class="regexp">        onClick=&#123;() =&gt; setCount((prevState) =&gt; prevState + 1)&#125;</span></span><br><span class="line"><span class="regexp">      &gt;</span></span><br><span class="line"><span class="regexp">        +</span></span><br><span class="line"><span class="regexp">      &lt;/</span>button&gt;</span><br><span class="line">      &lt;button</span><br><span class="line">        type=<span class="string">"button"</span></span><br><span class="line">        onClick=&#123;() =&gt; setCount(<span class="function">(<span class="params">prevState</span>) =&gt;</span> prevState - <span class="number">1</span>)&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        -</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><figcaption><span>src/App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">"./Counter"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useRecoilValue &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CountState &#125; <span class="keyword">from</span> <span class="string">"./atoms"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> count = useRecoilValue(CountState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p&gt;App Count State: &#123;count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Counter /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p>실행을 해보면 다음과 같이 작동이 잘 되는것을 확인할 수 있습니다.<br><img src="/image/frontend/recoil/react-recoil-setting-0.gif" alt="Counter 실행"></p>
+<h2 id="Selector-사용하기"><a href="#Selector-사용하기" class="headerlink" title="Selector 사용하기"></a>Selector 사용하기</h2><p>selector를 통해서 카운터가 증가인 상태인지 감소한 상태인지를 나타내는 라벨을 설정해보겠습니다.</p>
+<figure class="highlight javascript"><figcaption><span>src/atoms.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; atom, selector &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CountState = atom(&#123;</span><br><span class="line">  key: <span class="string">"CountState"</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="number">0</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CountTypeState = atom(&#123;</span><br><span class="line">  key: <span class="string">"CountTypeState"</span>,</span><br><span class="line">  <span class="keyword">default</span>: <span class="string">"normal"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> CountLabelState = selector(&#123;</span><br><span class="line">  key: <span class="string">"CountLabelState"</span>,</span><br><span class="line">  <span class="keyword">get</span>: (&#123; <span class="keyword">get</span> &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="keyword">get</span>(CountState);</span><br><span class="line">    const countType = <span class="keyword">get</span>(CountTypeState);</span><br><span class="line">    switch (countType) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"increment"</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`증가 =&gt; <span class="subst">$&#123;count&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">"decrement"</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`감소 =&gt; <span class="subst">$&#123;count&#125;</span>`</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;count&#125;</span>`</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>현재 카운터의 상태를 나타낼 CountTypeState 값,<br>CountTypeState값 변경에 따라 CountLabelState 다른값을 반환합니다.</p>
+<figure class="highlight javascript"><figcaption><span>src/Counter.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useRecoilState, useRecoilValue &#125; <span class="keyword">from</span> <span class="string">"recoil"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CountState, CountTypeState, CountLabelState &#125; <span class="keyword">from</span> <span class="string">"./atoms"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [, setCount] = useRecoilState(CountState);</span><br><span class="line">  <span class="keyword">const</span> [, setCountType] = useRecoilState(CountTypeState);</span><br><span class="line">  <span class="keyword">const</span> countLabel = useRecoilValue(CountLabelState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Counter Component State : &#123;countLabel&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button</span></span><br><span class="line"><span class="regexp">        type="button"</span></span><br><span class="line"><span class="regexp">        onClick=&#123;() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          setCountType("increment");</span></span><br><span class="line"><span class="regexp">          setCount((prevState) =&gt; prevState + 1);</span></span><br><span class="line"><span class="regexp">        &#125;&#125;</span></span><br><span class="line"><span class="regexp">      &gt;</span></span><br><span class="line"><span class="regexp">        +</span></span><br><span class="line"><span class="regexp">      &lt;/</span>button&gt;</span><br><span class="line">      &lt;button</span><br><span class="line">        type=<span class="string">"button"</span></span><br><span class="line">        onClick=&#123;() =&gt; &#123;</span><br><span class="line">          setCountType(<span class="string">"decrement"</span>);</span><br><span class="line">          setCount(<span class="function">(<span class="params">prevState</span>) =&gt;</span> prevState - <span class="number">1</span>);</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      &gt;</span><br><span class="line">        -</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>setCount로 카운터의 값을 변경하고, setCountType으로 지금 값이 increment인지 decrement인지 값을 저장합니다.<br>이후 selector를 통해 countLabel로 값이 나타납니다.</p>
+<figure class="highlight javascript"><figcaption><span>src/App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">'./Counter'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useRecoilValue &#125; <span class="keyword">from</span> <span class="string">'recoil'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; CountLabelState &#125; <span class="keyword">from</span> <span class="string">'./atoms'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> countLabel = useRecoilValue(CountLabelState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;p&gt;App Count State: &#123;countLabel&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Counter /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/recoil/react-recoil-setting-1.gif" alt="Counter 실행"></p>
+<p>Recoil을 사용해보았는데 정말 만족스럽습니다.<br>redux의 경우 action reducers를 설정하고 combineReducers로 합쳐주고 사용할때는 dispatch를 통해서 사용을 하는 방식의 많이 복잡한 과정이 필요한데, recoil의 경우에는 hooks에 최적화되고 더욱 단순해진 것 같습니다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/recoil/react-recoil-js/" data-id="ckotn38q5009h9cqqdxc4p9sv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React 상태 관리 라이브러리 Recoil-js 사용해보기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-thumb.jpg",
+        "keywords": "react recoil recoiljs recoil-js",
+        "genre": "frontend recoil",
+        "datePublished": "2020-05-17",
+        "dateCreated": "2020-05-17",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/recoil/react-recoil-js/",
+        "description": "시작하기리액트 유럽에서 리액트의 새로운 상태관리 라이브러리 recoil을 발표했습니다.기존에 사용하던 redux 라이브러리와 어떤차이가 있는지 사용해보도록 하겠습니다.Recoil js홈페이지에서 자세한 내용을 확인 할 수 있습니다.Recoil 소개 유투브
+설치하기1npx create-react-app my-app
+
+프로젝트를 생성합니다.
+1npm insta",
+        "wordCount": 1540
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/react/gatsby-typescript/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Gatsby에 typescript 적용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/etc/etc/git-shortcut/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Git 명령어 단축해보기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-style/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에 스타일(margin, padding, border, border-radius) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/crossplatform/">crossplatform</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-style/" class="title">flutter에 스타일(margin, padding, border, border-radius) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-02-22T01:42:48.000Z" itemprop="datePublished">2021-02-22</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

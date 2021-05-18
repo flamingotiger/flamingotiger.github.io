@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>Typescript v3.7 특징 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content>
+    
+    <meta name="description" content="시작하기Kotlin이나 Swift등의 언어에서는 사용중인 문법으로,3.7버전을 통해 타입스크립트에서도 Optional Chaining을 지원합니다. Optional Chaining서버에서 데이터를 가져오는 상황이라고 가정하고 예시를 들어 보겠습니다.data: { animal:{ name: &amp;#39;dog&amp;#39; } } 를 반환할 예정입니다.data는 un">
+<meta name="keywords" content="플타, 플라밍고 타이거, 플라밍고, flamingotiger, flamingo tiger, flamingoTiger, flamingo-tiger, flamingo, Flamingo, tiger, flamingo, tiger, frontend, 프론트엔드, 개발자, js, javascript, ts, typescript, 타입스크립트, react, 리액트, redux, 리덕스, ft, 앞발자, 삽질, 삽질로그">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typescript v3.7 특징">
+<meta property="og:url" content="http://flamingotiger.github.io/javascript/typescript-optional-chaining/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기Kotlin이나 Swift등의 언어에서는 사용중인 문법으로,3.7버전을 통해 타입스크립트에서도 Optional Chaining을 지원합니다. Optional Chaining서버에서 데이터를 가져오는 상황이라고 가정하고 예시를 들어 보겠습니다.data: { animal:{ name: &amp;#39;dog&amp;#39; } } 를 반환할 예정입니다.data는 un">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/typescript-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typescript v3.7 특징">
+<meta name="twitter:description" content="시작하기Kotlin이나 Swift등의 언어에서는 사용중인 문법으로,3.7버전을 통해 타입스크립트에서도 Optional Chaining을 지원합니다. Optional Chaining서버에서 데이터를 가져오는 상황이라고 가정하고 예시를 들어 보겠습니다.data: { animal:{ name: &amp;#39;dog&amp;#39; } } 를 반환할 예정입니다.data는 un">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/typescript-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/javascript/typescript-optional-chaining/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Js-Ts/">Js / Ts</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Js-Ts/typescript/">typescript</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-javascript/typescript-optional-chaining" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Typescript v3.7 특징
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/javascript/typescript-optional-chaining/" class="article-date">
+         <time datetime="2019-12-27T04:23:13.000Z" itemprop="datePublished">2019-12-27</time>
+      </a>
+    </div>
+
+
+                
+
+                
+                
+   <span id="/javascript/typescript-optional-chaining/" class="leancloud-visitors" data-flag-title="Typescript v3.7 특징">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">441</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>Kotlin이나 Swift등의 언어에서는 사용중인 문법으로,<br>3.7버전을 통해 타입스크립트에서도 <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#optional-chaining" rel="external nofollow noopener noreferrer" target="_blank">Optional Chaining</a>을 지원합니다.</p>
+<h2 id="Optional-Chaining"><a href="#Optional-Chaining" class="headerlink" title="Optional Chaining"></a>Optional Chaining</h2><p>서버에서 데이터를 가져오는 상황이라고 가정하고 예시를 들어 보겠습니다.<br><code>data: { animal:{ name: &#39;dog&#39; } }</code> 를 반환할 예정입니다.<br>data는 undefined이나 null 일 수 있습니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 이전</span></span><br><span class="line"><span class="keyword">if</span> (data &amp;&amp; data.animal &amp;&amp; data.animal.name) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.7 이후</span></span><br><span class="line"><span class="keyword">if</span> (data?.animal?.name) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>코드가 훨씬 간단해 졌습니다.</p>
+<h3 id="반환값"><a href="#반환값" class="headerlink" title="반환값"></a>반환값</h3><p>?. 연산자는 좌측의 값에 대해 null인지 undefined인지 확인하고 해당한다면 이후 속성을 찾는 작업은 중지하고 undefined를 반환합니다.</p>
+<h3 id="amp-amp-와의-차이점"><a href="#amp-amp-와의-차이점" class="headerlink" title="&amp;&amp;와의 차이점"></a>&amp;&amp;와의 차이점</h3><p>?.연산자는 기존 코드에서 많이 사용된 &amp;&amp;를 대체할 수 있겠지만 둘은 체크하는 타입이 다릅니다.<br>&amp;&amp;연산자는 앞의 피연산자가 falsy(false, null, undefined, ‘’, 0, NaN)인지 확인하지만 ?.연산자는 null과 undefined만을 확인합니다.</p>
+<h3 id="Optional-요소에의-접근"><a href="#Optional-요소에의-접근" class="headerlink" title="Optional 요소에의 접근"></a>Optional 요소에의 접근</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tryGetFirstElement</span>&lt;<span class="title">T</span>&gt;(<span class="params">arr?: T[]</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 이전</span></span><br><span class="line">    <span class="comment">//   return (arr === null || arr === undefined) ?</span></span><br><span class="line">    <span class="comment">//       undefined : arr[0];</span></span><br><span class="line">       </span><br><span class="line">    <span class="comment">// 3.7 이후</span></span><br><span class="line">    <span class="keyword">return</span> arr?.[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>arr가 optional이지만 배열 요소 접근하는 방법으로 사용할 수 있습니다. </p>
+<h3 id="Optional-함수-실행"><a href="#Optional-함수-실행" class="headerlink" title="Optional 함수 실행"></a>Optional 함수 실행</h3><p>함수에 대해서 함수의 유무에 따라 실행 혹은 undefined 반환할 수 있습니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url: <span class="built_in">string</span>, log?: (msg: <span class="built_in">string</span>) =&gt; <span class="built_in">void</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 3.7이후</span></span><br><span class="line">    log?.(<span class="string">`Request started at <span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toISOString()&#125;</span>`</span>);</span><br><span class="line">    <span class="comment">//  이전</span></span><br><span class="line">    <span class="comment">//   if (log != null) &#123;</span></span><br><span class="line">    <span class="comment">//       log(`Request started at $&#123;new Date().toISOString()&#125;`);</span></span><br><span class="line">    <span class="comment">//   &#125;</span></span><br><span class="line">    <span class="keyword">const</span> result = (<span class="keyword">await</span> fetch(url)).json();</span><br><span class="line">    log?.(<span class="string">`Request finished at at <span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toISOString()&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nullish-Coalescing-Operator"><a href="#Nullish-Coalescing-Operator" class="headerlink" title="Nullish Coalescing Operator"></a>Nullish Coalescing Operator</h2><p>Nullish Coalescing Operator도 Optional Chaining과 마찬가지로<br>??라는 연산자를 통해 앞의 피연산자가 null 혹은 undefined 인지 확인하고, || 와 같습니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> False = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">const</span> True = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">Boolean</span> = False || True; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">const</span> BooleanNCO = False ?? True; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>|| 의 경우 둘중하나가 true가 되는값이 반환되고,<br>?? 의 경우 Optional Chaining과 같이 앞 피연산자가 undefined 혹은 null 인지 확인합니다.</p>
+<h2 id="Type-Alias"><a href="#Type-Alias" class="headerlink" title="Type Alias"></a>Type Alias</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 이전</span></span><br><span class="line"><span class="keyword">type</span> Json =</span><br><span class="line">    | <span class="built_in">string</span></span><br><span class="line">    | <span class="built_in">number</span></span><br><span class="line">    | <span class="built_in">boolean</span></span><br><span class="line">    | <span class="literal">null</span></span><br><span class="line">    | JsonObject</span><br><span class="line">    | JsonArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> JsonObject &#123;</span><br><span class="line">    [property: <span class="built_in">string</span>]: Json;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> JsonArray <span class="keyword">extends</span> Array&lt;Json&gt; &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.7 이후</span></span><br><span class="line"><span class="keyword">type</span> Json =</span><br><span class="line">    | <span class="built_in">string</span></span><br><span class="line">    | <span class="built_in">number</span></span><br><span class="line">    | <span class="built_in">boolean</span></span><br><span class="line">    | <span class="literal">null</span></span><br><span class="line">    | &#123; [property: <span class="built_in">string</span>]: Json &#125;</span><br><span class="line">    | Json[];</span><br></pre></td></tr></table></figure>
+
+<h2 id="호출하지-않는-함수를-체크"><a href="#호출하지-않는-함수를-체크" class="headerlink" title="호출하지 않는 함수를 체크"></a>호출하지 않는 함수를 체크</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 수정 이전</span></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">    isAdministrator(): <span class="built_in">boolean</span>;</span><br><span class="line">    notify(): <span class="built_in">void</span>;</span><br><span class="line">    doNotDisturb?(): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 에러코드!!</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAdminThing</span>(<span class="params">user: User</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// oops! isAdministrator 는 함수입니다!</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (user.isAdministrator) &#123;</span><br><span class="line">        sudo();</span><br><span class="line">        editTheConfiguration();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> AccessDeniedError(<span class="string">"User is not an admin"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 수정 이후</span></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">    isAdministrator(): <span class="built_in">boolean</span>;</span><br><span class="line">    notify(): <span class="built_in">void</span>;</span><br><span class="line">    doNotDisturb?(): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">issueNotification</span>(<span class="params">user: User</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (user.doNotDisturb) &#123;</span><br><span class="line">        <span class="comment">// OK, property is optional</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (user.notify) &#123;</span><br><span class="line">        <span class="comment">// OK, called the function</span></span><br><span class="line">        user.notify();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>함수 콜없이 테스트하려고 한다면, undefined/null을 포함하도록 수정하거나,<br>if(!!user.isAdministrator)와 같은 것을 쓰면서 의도적으로 강요한 것이라고 나타내야 합니다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/javascript/typescript-optional-chaining/" data-id="ckotn38kh000b9cqqrd0tf6ty" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "Typescript v3.7 특징",
+        "image": "http://flamingotiger.github.io/image/thumb/typescript-thumb.jpg",
+        "keywords": "",
+        "genre": "Js / Ts typescript",
+        "datePublished": "2019-12-27",
+        "dateCreated": "2019-12-27",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/javascript/typescript-optional-chaining/",
+        "description": "시작하기Kotlin이나 Swift등의 언어에서는 사용중인 문법으로,3.7버전을 통해 타입스크립트에서도 Optional Chaining을 지원합니다.
+Optional Chaining서버에서 데이터를 가져오는 상황이라고 가정하고 예시를 들어 보겠습니다.data: { animal:{ name: &#39;dog&#39; } } 를 반환할 예정입니다.data는 un",
+        "wordCount": 932
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/style/tailwindcss-nextjs/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            React Next.js에 Tailwindcss 적용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/style/styled-components/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">styled-components 리액트 컴포넌트 스타일링</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-style/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에 스타일(margin, padding, border, border-radius) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/crossplatform/">crossplatform</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-style/" class="title">flutter에 스타일(margin, padding, border, border-radius) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-02-22T01:42:48.000Z" itemprop="datePublished">2021-02-22</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
