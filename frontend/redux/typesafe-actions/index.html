@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>Redux에 typesafe-actions 적용하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="frontend,typescript,redux">
+    
+    <meta name="description" content="들어가면서기존에 redux actions룰 사용해왔었는데, 이번에 타입스크립트를 도입하게되면서사용할수록 타입정의에 번거로움을 느꼇습니다.그래서 타입정의를 용이하게 해주는 typesafe-actions으로 변경하였습니다. 기본 리덕스 초기 셋팅이 되어있는 상태에서 진행하도록 하겠습니다.counter 예제를 만들어 보도록 하겠습니다. 시작하기npm i type">
+<meta name="keywords" content="frontend,typescript,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux에 typesafe-actions 적용하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/redux/typesafe-actions/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="들어가면서기존에 redux actions룰 사용해왔었는데, 이번에 타입스크립트를 도입하게되면서사용할수록 타입정의에 번거로움을 느꼇습니다.그래서 타입정의를 용이하게 해주는 typesafe-actions으로 변경하였습니다. 기본 리덕스 초기 셋팅이 되어있는 상태에서 진행하도록 하겠습니다.counter 예제를 만들어 보도록 하겠습니다. 시작하기npm i type">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/redux-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux에 typesafe-actions 적용하기">
+<meta name="twitter:description" content="들어가면서기존에 redux actions룰 사용해왔었는데, 이번에 타입스크립트를 도입하게되면서사용할수록 타입정의에 번거로움을 느꼇습니다.그래서 타입정의를 용이하게 해주는 typesafe-actions으로 변경하였습니다. 기본 리덕스 초기 셋팅이 되어있는 상태에서 진행하도록 하겠습니다.counter 예제를 만들어 보도록 하겠습니다. 시작하기npm i type">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/redux-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/redux/typesafe-actions/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/redux/">redux</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/redux/typesafe-actions" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Redux에 typesafe-actions 적용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/redux/typesafe-actions/" class="article-date">
+         <time datetime="2019-12-14T04:11:12.000Z" itemprop="datePublished">2019-12-14</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/redux/">redux</a>, <a class="tag-link" href="/tags/typescript/">typescript</a>
+    </div>
+
+                
+   <span id="/frontend/redux/typesafe-actions/" class="leancloud-visitors" data-flag-title="Redux에 typesafe-actions 적용하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">403</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="들어가면서"><a href="#들어가면서" class="headerlink" title="들어가면서"></a>들어가면서</h1><p>기존에 redux actions룰 사용해왔었는데, 이번에 타입스크립트를 도입하게되면서<br>사용할수록 타입정의에 번거로움을 느꼇습니다.<br>그래서 타입정의를 용이하게 해주는 <a href="https://github.com/piotrwitek/typesafe-actions" rel="external nofollow noopener noreferrer" target="_blank">typesafe-actions</a>으로 변경하였습니다.</p>
+<p><a href="/redux/redux-setting/">기본 리덕스 초기 셋팅</a>이 되어있는 상태에서 진행하도록 하겠습니다.<br>counter 예제를 만들어 보도록 하겠습니다.</p>
+<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p><code>npm i typesafe-actions</code>로 패키지를 설치합니다.</p>
+<h2 id="counter-ts-리듀서-생성"><a href="#counter-ts-리듀서-생성" class="headerlink" title="counter.ts 리듀서 생성"></a>counter.ts 리듀서 생성</h2><p>액션과 액션 생성자, 리듀서를 작성합니다.<br>ActionType을 이용하면 액션생성자의 타입을 가져올수있습니다.<br>리듀서의 Action타입정의가 한줄로 간편해집니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; action, ActionType, createReducer &#125; <span class="keyword">from</span> <span class="string">'source/_posts/frontend/redux/typesafe-actions'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> INCREMENT = <span class="string">'COUNTER/INCREMENT'</span>;</span><br><span class="line"><span class="keyword">const</span> DECREMENT = <span class="string">'COUNTER/DEREMENT'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> onIncrement = <span class="function"><span class="params">()</span> =&gt;</span> action(INCREMENT);</span><br><span class="line"><span class="keyword">const</span> onDecrement = <span class="function"><span class="params">()</span> =&gt;</span> action(DECREMENT);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actionCreator = &#123;</span><br><span class="line">    onIncrement,</span><br><span class="line">    onDecrement</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; INCREMENT, DECREMENT, onIncrement, onDecrement, actionCreator &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface CounterState &#123;</span><br><span class="line">    count:number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type CounterAction = ActionType&lt;<span class="keyword">typeof</span> actionCreator&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initialState: CounterState = &#123;</span><br><span class="line">    count:<span class="number">0</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createReducer&lt;CounterState, CounterAction&gt;(initialState, &#123;</span><br><span class="line">    [INCREMENT]: <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...state, <span class="attr">counter</span>: state.count + <span class="number">1</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [DECREMENT]: <span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...state, <span class="attr">counter</span>: state.count - <span class="number">1</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="rootReducer-ts"><a href="#rootReducer-ts" class="headerlink" title="rootReducer.ts"></a>rootReducer.ts</h2><p>rootReducer.ts 에서 counter리듀서 불러옵니다.<br>이것으로 counter를 사용할 준비가 끝났습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;combineReducers&#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> counter <span class="keyword">from</span> <span class="string">'./modules/counter'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootReducers = combineReducers(&#123;</span><br><span class="line">    counter</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducers;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> type RootState = ReturnType&lt;<span class="keyword">typeof</span> rootReducers&gt;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Counter-컴포넌트작성"><a href="#Counter-컴포넌트작성" class="headerlink" title="Counter 컴포넌트작성"></a>Counter 컴포넌트작성</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Counter:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>0<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span>&gt;</span>Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span>&gt;</span>Decrement<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Counter;</span><br></pre></td></tr></table></figure>
+
+<p>react-redux에서 제공하는 훅스를 이용하여 리덕스와 컴포넌트를 연동합니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;useSelector, useDispatch&#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; RootState &#125; <span class="keyword">from</span> <span class="string">'../store/rootReducer'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; onIncrement, onDecrement &#125; <span class="keyword">from</span> <span class="string">'../store/modules/counter'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Counter:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> state = useSelector(<span class="function">(<span class="params">state:RootState</span>) =&gt;</span> state.counter);</span><br><span class="line">    <span class="keyword">const</span> dispatch = useDispatch();</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;state.count&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(onIncrement())&#125;&gt;Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(onDecrement())&#125;&gt;Decrement<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Counter;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/redux/redux-typesafe-counter.gif" alt="결과물"></p>
+<h1 id="이슈"><a href="#이슈" class="headerlink" title="이슈"></a>이슈</h1><p>typesafe-actions를 설치한이후 콘솔에서 warning과 함께 느리게 서버가 켜지는 경우<br><img src="/image/frontend/redux/redux-typesafe-actions.png" alt="경고메세지"></p>
+<p>해결방법으로는 typesafe-actions의 버전을 4.X 이하로 다운그레이드를 하거나<br>typescript를 3.7.X 이상으로 업데이트 하면 해결됩니다.<br>create-react-app을 사용하는경우 react-scripts 또한 3.3.X 이상으로 업데이트 해주면 됩니다. </p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/redux/typesafe-actions/" data-id="ckuntwyb9009dk5qqnoavz6fn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "Redux에 typesafe-actions 적용하기",
+        "image": "http://flamingotiger.github.io/image/thumb/redux-thumb.jpg",
+        "keywords": "frontend typescript redux",
+        "genre": "frontend redux",
+        "datePublished": "2019-12-14",
+        "dateCreated": "2019-12-14",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/redux/typesafe-actions/",
+        "description": "들어가면서기존에 redux actions룰 사용해왔었는데, 이번에 타입스크립트를 도입하게되면서사용할수록 타입정의에 번거로움을 느꼇습니다.그래서 타입정의를 용이하게 해주는 typesafe-actions으로 변경하였습니다.
+기본 리덕스 초기 셋팅이 되어있는 상태에서 진행하도록 하겠습니다.counter 예제를 만들어 보도록 하겠습니다.
+시작하기npm i type",
+        "wordCount": 667
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/axios/axios-get-progress/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Axios get progress (react + redux + axios)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/frontend/redux/redux-setting/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Redux에 초기설정</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

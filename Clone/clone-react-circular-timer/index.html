@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React와 SVG로 Circular 타이머 구현하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="moment,react,svg,path,circular progress bar,progress bar,circular">
+    
+    <meta name="description" content="시작하기svg와 react, moment를 이용해서 다음 이미지와 같지는 않더라고 흡사한 타이머를 구현해 보도록 하겠습니다.  설치하기123create-react-app timer --typescriptcd timernpm i moment @types/moment styled-components @types/styled-components @fortawes">
+<meta name="keywords" content="moment,react,svg,path,circular progress bar,progress bar,circular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React와 SVG로 Circular 타이머 구현하기">
+<meta property="og:url" content="http://flamingotiger.github.io/Clone/clone-react-circular-timer/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기svg와 react, moment를 이용해서 다음 이미지와 같지는 않더라고 흡사한 타이머를 구현해 보도록 하겠습니다.  설치하기123create-react-app timer --typescriptcd timernpm i moment @types/moment styled-components @types/styled-components @fortawes">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/clone-watch-timer-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React와 SVG로 Circular 타이머 구현하기">
+<meta name="twitter:description" content="시작하기svg와 react, moment를 이용해서 다음 이미지와 같지는 않더라고 흡사한 타이머를 구현해 보도록 하겠습니다.  설치하기123create-react-app timer --typescriptcd timernpm i moment @types/moment styled-components @types/styled-components @fortawes">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/clone-watch-timer-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/clone/clone-react-circular-timer/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Clone/">Clone</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Clone/clone-react-circular-timer" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React와 SVG로 Circular 타이머 구현하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/Clone/clone-react-circular-timer/" class="article-date">
+         <time datetime="2020-01-08T09:54:47.000Z" itemprop="datePublished">2020-01-08</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/circular/">circular</a>, <a class="tag-link" href="/tags/circular-progress-bar/">circular progress bar</a>, <a class="tag-link" href="/tags/moment/">moment</a>, <a class="tag-link" href="/tags/path/">path</a>, <a class="tag-link" href="/tags/progress-bar/">progress bar</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/svg/">svg</a>
+    </div>
+
+                
+   <span id="/Clone/clone-react-circular-timer/" class="leancloud-visitors" data-flag-title="React와 SVG로 Circular 타이머 구현하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">1.8k</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h2 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h2><p>svg와 react, moment를 이용해서 다음 이미지와 같지는 않더라고 흡사한 타이머를 구현해 보도록 하겠습니다.</p>
+<p><img src="/image/Clone/react-clone-watchtimer_0.jpg" alt="클론할 타이머 디자인"></p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create-react-app timer --typescript</span><br><span class="line">cd timer</span><br><span class="line">npm i moment @types/moment styled-components @types/styled-components @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome</span><br></pre></td></tr></table></figure>
+
+<p>create-react-app으로 프로젝트를 생성합니다.</p>
+<h2 id="컴포넌트-생성"><a href="#컴포넌트-생성" class="headerlink" title="컴포넌트 생성"></a>컴포넌트 생성</h2><figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Timer:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;p&gt;<span class="number">2</span>:<span class="number">35</span>&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;Timer&lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default Timer;</span></span><br></pre></td></tr></table></figure>
+
+<p>실제 타이머가 나올 컴포넌트입니다.<br>시간과 이름그리고 그래프가 나올 중요한 컴포넌트 입니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> Timer <span class="keyword">from</span> <span class="string">'./Timer'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"App"</span>&gt;</span><br><span class="line">      &lt;header&gt;</span><br><span class="line">        &lt;span&gt;Back&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;span&gt;Time&lt;/</span>span&gt;</span><br><span class="line">      &lt;<span class="regexp">/header&gt;</span></span><br><span class="line"><span class="regexp">      &lt;Timer /</span>&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button <span class="keyword">type</span>=<span class="string">"button"</span>&gt;일시정지&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button type="button"&gt;기록&lt;/</span>button&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<p>기본 레이아웃이 생성했습니다.<br>라우터 기능은 따로 구현하지는 않지만 ui를 보여주기만 합니다.<br>타이머를 멈추고 재생기능을 할 버튼 한가지를 생성하고<br>기록버튼도 ui를 보여주기만 합니다.</p>
+<h2 id="스타일-적용"><a href="#스타일-적용" class="headerlink" title="스타일 적용"></a>스타일 적용</h2><figure class="highlight css"><figcaption><span>index.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">justify-content</span>:center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100vw</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>가운데로 옮겨줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;useState, useEffect&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TimerStyle = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> SvgWrapper = styled.svg<span class="string">`</span></span><br><span class="line"><span class="string">    transform: scale(0.85);</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> Timer: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> size = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">const</span> center = size / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">const</span> strokeWidth = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> radius = center - strokeWidth / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &lt;TimerStyle&gt;</span><br><span class="line">        &lt;SvgWrapper viewBox=&#123;<span class="string">`0 0 <span class="subst">$&#123;size&#125;</span> <span class="subst">$&#123;size&#125;</span>`</span>&#125; &gt;</span><br><span class="line">            &lt;defs&gt;</span><br><span class="line">                &lt;linearGradient id=<span class="string">"gradient"</span>&gt;</span><br><span class="line">                    &lt;stop offset=<span class="string">"0%"</span> stopColor=<span class="string">"rgb(245,221,100)"</span> /&gt;</span><br><span class="line">                    &lt;stop offset=<span class="string">"100%"</span> stopColor=<span class="string">"rgb(234,111,37)"</span> /&gt;</span><br><span class="line">                &lt;<span class="regexp">/linearGradient&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>defs&gt;</span><br><span class="line">            &lt;circle cx=&#123;center&#125; cy=&#123;center&#125; r=&#123;center&#125; fill=<span class="string">'rgb(20,13,4)'</span> stroke=<span class="string">'none'</span> /&gt;</span><br><span class="line">            &lt;circle cx=&#123;center&#125; cy=&#123;center&#125; r=&#123;center - strokeWidth&#125; fill=<span class="string">'#000'</span> stroke=<span class="string">'none'</span> /&gt;</span><br><span class="line">            &lt;path</span><br><span class="line">                strokeLinecap=<span class="string">"round"</span></span><br><span class="line">                strokeWidth=&#123;strokeWidth&#125;</span><br><span class="line">                stroke=<span class="string">"url(#gradient)"</span></span><br><span class="line">                fill=<span class="string">'none'</span></span><br><span class="line">            /&gt;</span><br><span class="line">            &lt;text x=&#123;center - <span class="number">28</span>&#125; y=&#123;center + <span class="number">2</span>&#125; fill=<span class="string">"#fff"</span> fontSize=<span class="string">"20"</span> fontWeight=<span class="string">"900"</span>&gt;<span class="number">02</span>:<span class="number">35</span>&lt;<span class="regexp">/text&gt;</span></span><br><span class="line"><span class="regexp">            &lt;text x=&#123;center - 20&#125; y=&#123;center + 15&#125; fill="rgb(108,108,108)" fontSize="8"&gt;Watch Timer&lt;/</span>text&gt;</span><br><span class="line">        &lt;<span class="regexp">/SvgWrapper&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>TimerStyle&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Timer;</span><br></pre></td></tr></table></figure>
+
+<p>타이머 컴포넌트의 스타일을 넣어주면서 svg를 그려줍니다.</p>
+<p><img src="/image/Clone/react-clone-watchtimer_1.jpg" alt="스타일 적용"></p>
+<h2 id="SVG-Timer-Circle-적용"><a href="#SVG-Timer-Circle-적용" class="headerlink" title="SVG Timer Circle 적용"></a>SVG Timer Circle 적용</h2><p>원형 그래프를 그리는 기능을 추가해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TimerStyle = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> SvgWrapper = styled.svg<span class="string">`</span></span><br><span class="line"><span class="string">    transform: scale(0.85);</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> Timer: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> size = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">const</span> center = size / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">const</span> strokeWidth = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> radius = center - strokeWidth / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">const</span> [angle, setAngle] = useState(<span class="number">360</span>); <span class="comment">// 기본각도</span></span><br><span class="line">    <span class="keyword">const</span> [draw, setDraw] = useState(<span class="string">``</span>); <span class="comment">// path d 값</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> radians = <span class="function">(<span class="params">degrees: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> degrees / <span class="number">180</span> * <span class="built_in">Math</span>.PI;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> drawPath = <span class="function">(<span class="params">angle: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> getArc = <span class="function">(<span class="params">angle: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> x = center + radius * <span class="built_in">Math</span>.cos(radians(angle));</span><br><span class="line">                <span class="keyword">const</span> y = center + radius * <span class="built_in">Math</span>.sin(radians(angle));</span><br><span class="line">                <span class="keyword">return</span> <span class="string">`A<span class="subst">$&#123;radius&#125;</span>,<span class="subst">$&#123;radius&#125;</span> 1 0 1 <span class="subst">$&#123;x&#125;</span>,<span class="subst">$&#123;y&#125;</span>`</span>; <span class="comment">// 곡선</span></span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">const</span> firstAngle = angle &gt; <span class="number">180</span> ? <span class="number">90</span> : angle - <span class="number">90</span>; <span class="comment">// 왼쪽 각도</span></span><br><span class="line">            <span class="keyword">const</span> secondAngle = <span class="number">-270</span> + angle - <span class="number">180</span>; <span class="comment">// 오른쪽 각도</span></span><br><span class="line">            <span class="keyword">const</span> firstArc = getArc(firstAngle); <span class="comment">// 왼쪽 반원</span></span><br><span class="line">            <span class="keyword">const</span> secondArc = angle &gt; <span class="number">180</span> ? getArc(secondAngle) : <span class="string">''</span>; <span class="comment">// 오른쪽 반원</span></span><br><span class="line">            <span class="keyword">const</span> start = <span class="string">`M<span class="subst">$&#123;center&#125;</span>,<span class="subst">$&#123;center&#125;</span> m0,-<span class="subst">$&#123;center - strokeWidth <span class="regexp">/ 2&#125;`; /</span><span class="regexp">/ 시작점</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            const d = `$&#123;start&#125; $&#123;firstArc&#125; $&#123;secondArc&#125;`; /</span><span class="regexp">/ 시작점 왼쪽 반원 오른쪽 반원 그리는 값</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            setDraw(d);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            setAngle(angle);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        drawPath(angle);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    &#125;, [angle, center, radius]);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    return &lt;TimerStyle&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &lt;SvgWrapper viewBox=&#123;`0 0 $&#123;size&#125; $&#123;size&#125;`&#125;&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            &lt;defs&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">                &lt;linearGradient id="gradient"&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">                    &lt;stop offset="0%" stopColor="rgb(245,221,100)"/</span>&gt;</span></span></span><br><span class="line"><span class="string"><span class="subst">                    &lt;stop offset=<span class="string">"100%"</span> stopColor=<span class="string">"rgb(234,111,37)"</span><span class="regexp">/&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">                &lt;/</span>linearGradient&gt;</span></span></span><br><span class="line"><span class="string"><span class="subst">            &lt;<span class="regexp">/defs&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            &lt;circle cx=&#123;center&#125; cy=&#123;center&#125; r=&#123;center&#125; fill='rgb(20,13,4)' stroke='none'/</span>&gt;</span></span></span><br><span class="line"><span class="string"><span class="subst">            &lt;circle cx=&#123;center&#125;</span> cy=&#123;center&#125; r=&#123;center - strokeWidth&#125; fill='#000' stroke='none'/&gt;</span></span><br><span class="line"><span class="string">            &lt;path</span></span><br><span class="line"><span class="string">                strokeLinecap="round"</span></span><br><span class="line"><span class="string">                strokeWidth=&#123;strokeWidth&#125;</span></span><br><span class="line"><span class="string">                stroke="url(#gradient)"</span></span><br><span class="line"><span class="string">                fill='none'</span></span><br><span class="line"><span class="string">                d=&#123;draw&#125;</span></span><br><span class="line"><span class="string">            /&gt;</span></span><br><span class="line"><span class="string">            &lt;text x=&#123;center - 28&#125; y=&#123;center + 2&#125; fill="#fff" fontSize="20" fontWeight="900"</span></span><br><span class="line"><span class="string">                  style=&#123;&#123;userSelect: 'none'&#125;&#125;&gt;02:35</span></span><br><span class="line"><span class="string">            &lt;/text&gt;</span></span><br><span class="line"><span class="string">            &lt;text x=&#123;center - 20&#125; y=&#123;center + 15&#125; fill="rgb(108,108,108)" fontSize="8"</span></span><br><span class="line"><span class="string">                  style=&#123;&#123;userSelect: 'none'&#125;&#125;&gt;Watch Timer</span></span><br><span class="line"><span class="string">            &lt;/text&gt;</span></span><br><span class="line"><span class="string">        &lt;/SvgWrapper&gt;</span></span><br><span class="line"><span class="string">    &lt;/TimerStyle&gt;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">export default Timer;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/Clone/react-clone-watchtimer_2.jpg" alt="Path 그리기"></p>
+<h2 id="Timer-시간-기능"><a href="#Timer-시간-기능" class="headerlink" title="Timer 시간 기능"></a>Timer 시간 기능</h2><figure class="highlight typescript"><figcaption><span>App.tsx </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> defaultTime = <span class="number">180000</span>; <span class="comment">// 1000 * 60 * 3 = 3분</span></span><br><span class="line">    <span class="keyword">const</span> [timer, setTimer] = useState(moment.duration(defaultTime)); </span><br><span class="line">    <span class="keyword">const</span> [timerStatus, setTimerStatus] = useState&lt;<span class="string">'play'</span> | <span class="string">'pause'</span> | <span class="string">'stop'</span>&gt;(<span class="string">'stop'</span>);</span><br><span class="line">    <span class="keyword">const</span> [currentTime, setCurrentTime] = useState(moment());</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">    &lt;CurrentTime&gt;&#123;currentTime.format(<span class="string">'mm:ss'</span>)&#125;&lt;<span class="regexp">/CurrentTime&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/...</span></span><br><span class="line"><span class="regexp">    &lt;Timer timer=&#123;timer&#125; defaultTime=&#123;defaultTime&#125;/</span>&gt;</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>타이머 지정한 시간 및 타이머와 타이머의 현재 상태를 저장해줍니다.<br>그리고 타이머 컴포넌트에 timer와 defaultTimer를 props로 넘겨주도록 합니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> currentTimer:NodeJS.Timeout = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        setCurrentTime(<span class="function"><span class="params">prevCurrentTime</span> =&gt;</span> prevCurrentTime.clone().add(<span class="number">1</span>, <span class="string">'minute'</span>))</span><br><span class="line">    &#125;, <span class="number">60000</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        clearInterval(currentTimer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, []);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>1분단위로 현재 시간을 변경해주는 이펙트입니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">import</span> moment, &#123; Duration &#125; <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> Timer: React.FC&lt;&#123; timer: Duration, defaultTime: <span class="built_in">number</span> &#125;&gt; = <span class="function">(<span class="params">&#123;timer, defaultTime&#125;</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&lt;text x=&#123;center - <span class="number">28</span>&#125; y=&#123;center + <span class="number">2</span>&#125; fill=<span class="string">"#fff"</span> fontSize=<span class="string">"20"</span> fontWeight=<span class="string">"900"</span> style=&#123;&#123;userSelect: <span class="string">'none'</span>&#125;&#125;&gt;</span><br><span class="line">    &#123;moment.utc(timer.asMilliseconds()).format(<span class="string">'mm:ss'</span>)&#125;</span><br><span class="line">&lt;<span class="regexp">/text&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/...</span></span><br></pre></td></tr></table></figure>
+
+<p>넘어온 타이머를 텍스트가 변경되도록 수정합니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">import</span> &#123; clearInterval, setInterval &#125; <span class="keyword">from</span> <span class="string">'timers'</span>;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">    useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;   </span><br><span class="line">        <span class="keyword">let</span> timerInterval: NodeJS.Timeout | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (timerStatus === <span class="string">'play'</span>) &#123;</span><br><span class="line">            timerInterval = setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                setTimer(<span class="function"><span class="params">prevTimer</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">const</span> duration = prevTimer.clone().subtract(<span class="number">1</span>, <span class="string">'second'</span>);</span><br><span class="line">                        <span class="keyword">if</span> (prevTimer.asMilliseconds() === <span class="number">0</span>) &#123;</span><br><span class="line">                            setTimerStatus(<span class="string">'stop'</span>);</span><br><span class="line">                            <span class="keyword">return</span> moment.duration(<span class="number">0</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">return</span> duration;</span><br><span class="line">                    &#125;</span><br><span class="line">                )</span><br><span class="line">            &#125;, <span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (timerStatus === <span class="string">'pause'</span> || timerStatus === <span class="string">'stop'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (timerInterval) &#123;</span><br><span class="line">                clearInterval(timerInterval);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (timerInterval) &#123;</span><br><span class="line">                clearInterval(timerInterval);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, [timerStatus]);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>타이머의 상태가 play가 되면 1초씩 감소하는 기능입니다.<br>setInterval 부분의 타입이 에러가 나올시에 <a href="http://flamingotiger.github.io/backend/node/node-interval-method/">setInterval 포스트</a>를 참고 해주세요</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> timerControl = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timerStatus === <span class="string">'play'</span>) &#123;</span><br><span class="line">        setTimerStatus(<span class="string">'pause'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;    </span><br><span class="line">        setTimerStatus(<span class="string">'play'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&lt;Button <span class="keyword">type</span>=<span class="string">"button"</span> onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> timerControl()&#125;&gt;</span><br><span class="line">    &lt;FontAwesomeIcon icon=&#123;timerStatus === <span class="string">'play'</span> ? faPause : faPlay&#125; color=<span class="string">"#fff"</span> size=<span class="string">"lg"</span>/&gt;</span><br><span class="line">&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/...</span></span><br></pre></td></tr></table></figure>
+
+<p>타이머 시작과 중지버튼 컨트롤러 기능을 설정해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timer.asMilliseconds() &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> percent = timer.asMilliseconds() / defaultTime;</span><br><span class="line">        <span class="keyword">const</span> angle = <span class="number">360</span> * percent;</span><br><span class="line">        setAngle(angle);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, [timer, defaultTime])</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>타이머가 변경시 angle을 변경해주는 이펙트입니다.</p>
+<h2 id="Timer-animation"><a href="#Timer-animation" class="headerlink" title="Timer animation"></a>Timer animation</h2><p>이것으로 타이머를 만들어 보았습니다. 하지만 뭔가 어색한 점이 있습니다. 그것은 애니메이션이죠!<br>svg에 애니메이션 기능을 추가하겠습니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> Timer: React.FC&lt;&#123; timer: Duration, defaultTime: <span class="built_in">number</span> &#125;&gt; = <span class="function">(<span class="params">&#123;timer, defaultTime&#125;</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="keyword">const</span> animDuration = <span class="number">300</span>; <span class="comment">// 애니메이션 속도</span></span><br><span class="line"><span class="keyword">const</span> [prevAngle, setPrevAngle] = useState(angle); <span class="comment">// 애니메이션 시작 이전 각도</span></span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>애니메이션이 시작되기 이전의 angle을 별도로 저장해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"> React.useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timer.asMilliseconds() &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> percent = timer.asMilliseconds() / defaultTime;</span><br><span class="line">        <span class="keyword">const</span> angle = <span class="number">360</span> * percent;</span><br><span class="line">        setPrevAngle(angle); <span class="comment">// setAngle에서 prevAngle로 수정</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, [timer, defaultTime])</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>앞에서 사용했던 이펙트를 조금 수정합니다.<br>애니메이션 시작전이기 때문에 이전 각도 값으로 먼저 상태를 저장 해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> drawPath = <span class="function">(<span class="params">angle: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">const</span> step = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'애니메이션 단계'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> anim = <span class="function">(<span class="params">argAngle: <span class="built_in">number</span>, time: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">         <span class="keyword">if</span> (argAngle &gt; <span class="number">360</span>) &#123; <span class="comment">// 각도가 360도를 넘어가면 360도의 나머지 값으로 계산합니다</span></span><br><span class="line">            argAngle = argAngle % <span class="number">360</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">const</span> startTime = <span class="keyword">new</span> <span class="built_in">Date</span>().valueOf(); <span class="comment">// 시작시간</span></span><br><span class="line">         <span class="keyword">const</span> endTime = startTime + time; <span class="comment">// 끝나는 시간</span></span><br><span class="line">         <span class="keyword">const</span> angleOffset = argAngle - angle; <span class="comment">// 이전각도와 현재각도 비교</span></span><br><span class="line">         requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> step());</span><br><span class="line">     &#125;</span><br><span class="line">    anim(prevAngle, animDuration);</span><br><span class="line">&#125;, [prevAngle, animDuration]);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>애니메이션 시작과 끝나는 시간 각도 비교값을 step 함수에 넘겨줍니다.<br>draw 기능을 이펙트 내부로 옮깁니다.</p>
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">const</span> step = <span class="function">(<span class="params">angleOffset: <span class="built_in">number</span>, argAngle: <span class="built_in">number</span>, time: <span class="built_in">number</span>, endTime: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().valueOf(); <span class="comment">// 애니메이션 시작 시간</span></span><br><span class="line">        <span class="keyword">const</span> timeOffset = endTime - now; <span class="comment">// 끝나는 시간 - 시작 시간  </span></span><br><span class="line">        <span class="keyword">if</span> (timeOffset &lt;= <span class="number">0</span>) &#123; <span class="comment">// 끝나는 시간이 지났을때</span></span><br><span class="line">            drawPath(argAngle); </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> incrementAngle = argAngle - (angleOffset * timeOffset / time); <span class="comment">// 이전각도 - (이전각도 - 현재각도) * (끝나는 시간 - 시작 시간) / 애니메이션 시간</span></span><br><span class="line">            drawPath(incrementAngle); <span class="comment">// path를 그려줍니다.</span></span><br><span class="line">            requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> step(angleOffset, argAngle, time, endTime)); <span class="comment">// 끝나는 시간이 지날때까지 step을 계속 실행시킵니다. </span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> anim = <span class="function">(<span class="params">argAngle: <span class="built_in">number</span>, time: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> step(angleOffset, argAngle, time, endTime));</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&#125;&#125;,[prevAngle, animDuration])</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>Timer.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> drawPath = <span class="function">(<span class="params">angle: <span class="built_in">number</span>, finished: <span class="built_in">boolean</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> getArc = <span class="function">(<span class="params">angle: <span class="built_in">number</span></span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> x = center + radius * <span class="built_in">Math</span>.cos(radians(angle));</span><br><span class="line">            <span class="keyword">const</span> y = center + radius * <span class="built_in">Math</span>.sin(radians(angle));</span><br><span class="line">            <span class="keyword">return</span> <span class="string">`A<span class="subst">$&#123;radius&#125;</span>,<span class="subst">$&#123;radius&#125;</span> 1 0 1 <span class="subst">$&#123;x&#125;</span>,<span class="subst">$&#123;y&#125;</span>`</span>; <span class="comment">// 곡선</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">const</span> firstAngle = angle &gt; <span class="number">180</span> ? <span class="number">90</span> : angle - <span class="number">90</span>; <span class="comment">// 왼쪽 각도</span></span><br><span class="line">        <span class="keyword">const</span> secondAngle = <span class="number">-270</span> + angle - <span class="number">180</span>; <span class="comment">// 오른쪽 각도</span></span><br><span class="line">        <span class="keyword">const</span> firstArc = getArc(firstAngle); <span class="comment">// 왼쪽 반원</span></span><br><span class="line">        <span class="keyword">const</span> secondArc = angle &gt; <span class="number">180</span> ? getArc(secondAngle) : <span class="string">''</span>; <span class="comment">// 오른쪽 반원</span></span><br><span class="line">        <span class="keyword">const</span> start = <span class="string">`M<span class="subst">$&#123;center&#125;</span>,<span class="subst">$&#123;center&#125;</span> m0,-<span class="subst">$&#123;center - strokeWidth <span class="regexp">/ 2&#125;`; /</span><span class="regexp">/ 시작점</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const d = `$&#123;start&#125; $&#123;firstArc&#125; $&#123;secondArc&#125;`; /</span><span class="regexp">/ 시작점 왼쪽 반원 오른쪽 반원 그리는 값</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        setDraw(d);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        if(finished)&#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            setAnlge(angle);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    const step = (angleOffset: number, argAngle: number, time: number, endTime: number) =&gt; &#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const now = new Date().valueOf(); /</span><span class="regexp">/ 애니메이션 시작 시간</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const timeOffset = endTime - now; /</span><span class="regexp">/ 끝나는 시간 - 시작 시간</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        if (timeOffset &lt;= 0) &#123; /</span><span class="regexp">/ 끝나는 시간이 지났을때</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            drawPath(argAngle);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125; else &#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            const incrementAngle = argAngle - (angleOffset * timeOffset /</span> time); <span class="regexp">//</span> 이전각도 - (이전각도 - 현재각도) * (끝나는 시간 - 시작 시간) <span class="regexp">/ 애니메이션 시간</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            drawPath(incrementAngle); /</span><span class="regexp">/ path를 그려줍니다.</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            requestAnimationFrame(() =&gt; step(angleOffset, argAngle, time, endTime)); /</span><span class="regexp">/ 끝나는 시간이 지날때까지 step을 계속 실행시킵니다.</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp"></span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    const anim = (argAngle: number, time: number) =&gt; &#123;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        if (argAngle &gt; 360) &#123; /</span><span class="regexp">/ 각도가 360도를 넘어가면 360도의 나머지 값으로 계산합니다</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">            argAngle = argAngle % 360;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const startTime = new Date().valueOf(); /</span><span class="regexp">/ 시작시간</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const endTime = startTime + time; /</span><span class="regexp">/ 끝나는 시간</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        const angleOffset = argAngle - angle; /</span><span class="regexp">/ 이전각도와 현재각도 비교</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">        requestAnimationFrame(() =&gt; step(angleOffset, argAngle, time, endTime));</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    &#125;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">    anim(prevAngle, animDuration);</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="regexp">&#125;, [prevAngle, animDuration, center, radius, angle]);</span></span></span></span><br></pre></td></tr></table></figure>
+
+<p>useEffect dependancy에서 warning이 나옵니다. dependancy를 추가해줍니다.<br>angle는 마지막에만 수정할수 있도록 draw 할때 finished 확인을 해줍니다.<br>이것으로 타이머 애니메이션 기능까지 구현하였습니다.</p>
+<p><img src="/image/Clone/react-clone-watchtimer_3.gif" alt="최종"></p>
+<p>코드는 깃헙에서 확인할 수 있습니다.<br><a href="https://github.com/flamingotiger/timer-clone" rel="external nofollow noopener noreferrer" target="_blank">Github: Timer-clone</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/Clone/clone-react-circular-timer/" data-id="ckuntwy5e000ck5qqszumm9av" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React와 SVG로 Circular 타이머 구현하기",
+        "image": "http://flamingotiger.github.io/image/thumb/clone-watch-timer-thumb.jpg",
+        "keywords": "moment react svg path circular progress bar progress bar circular",
+        "genre": "Clone",
+        "datePublished": "2020-01-08",
+        "dateCreated": "2020-01-08",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/Clone/clone-react-circular-timer/",
+        "description": "시작하기svg와 react, moment를 이용해서 다음 이미지와 같지는 않더라고 흡사한 타이머를 구현해 보도록 하겠습니다.
+
+설치하기123create-react-app timer --typescriptcd timernpm i moment @types/moment styled-components @types/styled-components @fortawes",
+        "wordCount": 4565
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/style/styled-components-responsive/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            styled-components 반응형 및 스타일 리셋 설정하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/backend/node/node-interval-method/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Node 와 Window 의 setInterval 비교</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

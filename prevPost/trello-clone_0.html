@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>Category: Clone | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content>
+    
+    <meta name="description" content="시작하기프로젝트 일정관리 웹어플리케이션인 trello를 클론코딩 하도록 하겠습니다. 이 클론 코딩으로 styled-components, react, redux 그리고 dnd 등을 구현해볼수 있습니다. 프로젝트 설정1create-react-app trello-clone --typescript  프로젝트에 타입스크립트를 이용할 예정입니다. 1npm instal">
+<meta name="keywords" content="react,trello,clone">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Trello 클론 프로젝트 만들기 - 0">
+<meta property="og:url" content="http://flamingotiger.github.io/prevPost/trello-clone_0.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기프로젝트 일정관리 웹어플리케이션인 trello를 클론코딩 하도록 하겠습니다. 이 클론 코딩으로 styled-components, react, redux 그리고 dnd 등을 구현해볼수 있습니다. 프로젝트 설정1create-react-app trello-clone --typescript  프로젝트에 타입스크립트를 이용할 예정입니다. 1npm instal">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/clone-trello_thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Trello 클론 프로젝트 만들기 - 0">
+<meta name="twitter:description" content="시작하기프로젝트 일정관리 웹어플리케이션인 trello를 클론코딩 하도록 하겠습니다. 이 클론 코딩으로 styled-components, react, redux 그리고 dnd 등을 구현해볼수 있습니다. 프로젝트 설정1create-react-app trello-clone --typescript  프로젝트에 타입스크립트를 이용할 예정입니다. 1npm instal">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/clone-trello_thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/prevpost/trello-clone_0.html">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <i class="icon fa fa-folder-open"></i>Category: <em class="page-title-link">Clone</em>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="page-" class="article article-single article-type-page" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Trello 클론 프로젝트 만들기 - 0
+        </h1>
+    
+
+            </header>
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>프로젝트 일정관리 웹어플리케이션인 trello를 클론코딩 하도록 하겠습니다. 이 클론 코딩으로 styled-components, react, redux 그리고 dnd 등을 구현해볼수 있습니다.</p>
+<h2 id="프로젝트-설정"><a href="#프로젝트-설정" class="headerlink" title="프로젝트 설정"></a>프로젝트 설정</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-app trello-clone --typescript</span><br></pre></td></tr></table></figure>
+
+<p>프로젝트에 타입스크립트를 이용할 예정입니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @types/react-redux @types/react-router-dom @types/redux @types/styled-components @types/uuid immer react-redux react-router-dom redux redux-persist styled-components typesafe-actions typescript uuid</span><br></pre></td></tr></table></figure>
+
+<p>이후 상단의 패키지들을 설치합니다.<br>fontawesome 아이콘 svg 파일을 제공해줍니다<br>redux redux-persist 데이터 상태를 관리합니다.<br>react-router-dom 페이지네이션을 제공합니다.<br>uuid 고유아이디를 생성합니다.</p>
+<p>tsconfig.json 파일내부에 <code>&quot;baseUrl&quot;: &quot;src&quot;</code>을 추가해줍니다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    //...</span><br><span class="line">    "baseUrl": "src"</span><br><span class="line">  &#125;,</span><br><span class="line">//...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redux-설정"><a href="#Redux-설정" class="headerlink" title="Redux 설정"></a>Redux 설정</h3><p>상태를 저장해줄 redux 설정을 하겠습니다.</p>
+<p><strong>참고</strong><br>예를들면 src/store/reducers/index.tsx 이라면<br>src폴더 &gt; store폴더 &gt; reduccers &gt; index.tsx파일의 코드를 나타냅니다.<br>src가 중복되서 사용되기 때문에 설명에서는 생략해서 작성하겠습니다.</p>
+<figure class="highlight typescript"><figcaption><span>store/reducers/index.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">"redux"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootReducer = combineReducers(&#123; &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> RootState = ReturnType&lt;<span class="keyword">typeof</span> rootReducer&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducer;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>store/index.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, Store &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'./reducers'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; persistStore, persistReducer &#125; <span class="keyword">from</span> <span class="string">'redux-persist'</span>;</span><br><span class="line"><span class="keyword">import</span> storage <span class="keyword">from</span> <span class="string">'redux-persist/lib/storage'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> persistConfig = &#123;</span><br><span class="line">    key: <span class="string">'root'</span>,</span><br><span class="line">    storage</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> persistedReducer = persistReducer(persistConfig, rootReducer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> isDev = process.env.NODE_ENV === <span class="string">'development'</span>;</span><br><span class="line">    <span class="keyword">const</span> reduxDevTools = isDev &amp;&amp; (<span class="built_in">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; (<span class="built_in">window</span> <span class="keyword">as</span> <span class="built_in">any</span>).__REDUX_DEVTOOLS_EXTENSION__();</span><br><span class="line">    <span class="keyword">const</span> store:Store = createStore(persistedReducer, reduxDevTools);</span><br><span class="line">    <span class="keyword">const</span> persistor = persistStore(store);</span><br><span class="line">    <span class="keyword">return</span> &#123;store, persistor&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>process.env.NODE_ENV</code>는 환경변수로 이전의 <a href="https://flamingotiger.github.io/frontend/react/create-react-app-environment/">환경변수 포스트</a>를 통해서 자세하게 알아볼 수있습니다.<br>persisted 및 reducer설정을 해주도록합니다.</p>
+<figure class="highlight typescript"><figcaption><span>index.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'./index.css'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> serviceWorker <span class="keyword">from</span> <span class="string">'./serviceWorker'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">"react-redux"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; PersistGate &#125; <span class="keyword">from</span> <span class="string">"redux-persist/integration/react"</span>;</span><br><span class="line"><span class="keyword">import</span> Store <span class="keyword">from</span> <span class="string">'store/index'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; persistor, store &#125; = Store();</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;PersistGate loading=&#123;<span class="literal">null</span>&#125; persistor=&#123;persistor&#125;&gt;</span><br><span class="line">            &lt;App /&gt;</span><br><span class="line">        &lt;<span class="regexp">/PersistGate&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Provider&gt;, <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you want your app to work offline and load faster, you can change</span></span><br><span class="line"><span class="comment">// unregister() to register() below. Note this comes with some pitfalls.</span></span><br><span class="line"><span class="comment">// Learn more about service workers: https://bit.ly/CRA-PWA</span></span><br><span class="line">serviceWorker.unregister();</span><br></pre></td></tr></table></figure>
+
+<p>리덕스 설정을 적용시켜줍니다.</p>
+<h3 id="Router-설정"><a href="#Router-설정" class="headerlink" title="Router 설정"></a>Router 설정</h3><p>페이지이동이 가능하게 할 수 있도록 router를 설정하도록 하겠습니다.</p>
+<figure class="highlight typescript"><figcaption><span>index.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">"react-redux"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; PersistGate &#125; <span class="keyword">from</span> <span class="string">"redux-persist/integration/react"</span>;</span><br><span class="line"><span class="keyword">import</span> Store <span class="keyword">from</span> <span class="string">'store/index'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; persistor, store &#125; = Store();</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">        &lt;PersistGate loading=&#123;<span class="literal">null</span>&#125; persistor=&#123;persistor&#125;&gt;</span><br><span class="line">            &lt;BrowserRouter&gt;</span><br><span class="line">                &lt;App /&gt;</span><br><span class="line">            &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>PersistGate&gt;</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>이것으로 설정이 완료되었습니다.</p>
+<h2 id="페이지-생성"><a href="#페이지-생성" class="headerlink" title="페이지 생성"></a>페이지 생성</h2><p>trello 보드를 입력하는 페이지 및 각각의 보드로 들어가서 보이는 리스트 페이지로 페이지를 만들도록 하겠습니다.<br>그리고 각각에 해당하는 컴포넌트를 생성하겠습니다.</p>
+<figure class="highlight typescript"><figcaption><span>pages/BoardPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardPage:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        BoardPage</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default BoardPage;</span></span><br></pre></td></tr></table></figure>
+
+<p>보드 컴포넌트를 생성시킬 페이지입니다.</p>
+<figure class="highlight typescript"><figcaption><span>pages/ListPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListPage:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        ListPage</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default ListPage;</span></span><br></pre></td></tr></table></figure>
+
+<p>리스트 컴포넌트를 생성시킬 페이지입니다.</p>
+<figure class="highlight typescript"><figcaption><span>pages/NotFound.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> NotFound = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;NotFound&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default NotFound;</span></span><br></pre></td></tr></table></figure>
+
+<p>잘못된 url로 이동시 보일 페이지입니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Switch, Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> BoardPage <span class="keyword">from</span> <span class="string">'pages/BoardPage'</span>;</span><br><span class="line"><span class="keyword">import</span> ListPage <span class="keyword">from</span> <span class="string">'pages/ListPage'</span>;</span><br><span class="line"><span class="keyword">import</span> NotFound <span class="keyword">from</span> <span class="string">'pages/NotFound'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/"</span> component=&#123;BoardPage&#125; /&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/board/:id"</span> component=&#123;ListPage&#125; /&gt;</span><br><span class="line">        &lt;Route component=&#123;NotFound&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<p>각각의 페이지 라우터를 설정해주도록 합니다.</p>
+<h2 id="Header-컴포넌트-생성"><a href="#Header-컴포넌트-생성" class="headerlink" title="Header 컴포넌트 생성"></a>Header 컴포넌트 생성</h2><figure class="highlight typescript"><figcaption><span>components/Header.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;header&gt;</span><br><span class="line">        &lt;Link to=<span class="string">"/"</span>&gt;</span><br><span class="line">            &lt;span&gt;TRELLO CLONE&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>Link&gt;</span><br><span class="line">    &lt;<span class="regexp">/header&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default Header;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Switch, Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> BoardPage <span class="keyword">from</span> <span class="string">'pages/BoardPage'</span>;</span><br><span class="line"><span class="keyword">import</span> ListPage <span class="keyword">from</span> <span class="string">'pages/ListPage'</span>;</span><br><span class="line"><span class="keyword">import</span> NotFound <span class="keyword">from</span> <span class="string">'pages/NotFound'</span>;</span><br><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">'components/Header'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Header /&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/"</span> component=&#123;BoardPage&#125; /&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/board/:id"</span> component=&#123;ListPage&#125; /&gt;</span><br><span class="line">        &lt;Route component=&#123;NotFound&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Board-페이지-컴포넌트-생성"><a href="#Board-페이지-컴포넌트-생성" class="headerlink" title="Board 페이지 컴포넌트 생성"></a>Board 페이지 컴포넌트 생성</h2><p>보드 생성과 보드리스트를 보여줄 컴포넌트를 생성합니다.</p>
+<figure class="highlight typescript"><figcaption><span>components/Boards/CreateBoardCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateBoardCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Create new board"</span>/&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default CreateBoardCard;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Boards/BoardCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;&lt;Link to=&#123;<span class="string">`/board/1234`</span>&#125;&gt;보드&lt;<span class="regexp">/Link&gt;&lt;/</span>div&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> BoardCard;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>pages/BoardPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateBoardCard <span class="keyword">from</span> <span class="string">'components/Boards/CreateBoardCard'</span>;</span><br><span class="line"><span class="keyword">import</span> BoardCard <span class="keyword">from</span> <span class="string">'components/Boards/BoardCard'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardPage:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &#123;[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].map(<span class="function">(<span class="params">board: <span class="built_in">number</span></span>) =&gt;</span> &lt;BoardCard key=&#123;board&#125; /&gt;)&#125;</span><br><span class="line">        &lt;CreateBoardCard /&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default BoardPage;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="List-페이지-컴포넌트-생성"><a href="#List-페이지-컴포넌트-생성" class="headerlink" title="List 페이지 컴포넌트 생성"></a>List 페이지 컴포넌트 생성</h2><p>보드를 선택하면 나오는 페이지의 리스트 및 리스트 내부 카드컴포넌트를 생성합니다.</p>
+<figure class="highlight typescript"><figcaption><span>components/Lists/CreateCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;input placeholder=<span class="string">"Add create card"</span> /&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default CreateCard;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/ListCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;li&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>li&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ListCard;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/CreateLists.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateLists: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Create lists"</span> /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> CreateLists;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/Lists.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ListCard <span class="keyword">from</span> <span class="string">'./ListCard'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateCard <span class="keyword">from</span> <span class="string">'./CreateCard'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Lists: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input <span class="keyword">type</span>=<span class="string">"text"</span> /&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">            &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">                &#123;[1,2,3,4].map((card: number, i: number) =&gt; &lt;ListCard key=&#123;number&#125; /</span>&gt;)&#125;</span><br><span class="line">            &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">            &lt;CreateCard /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Lists;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>pages/ListPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> Lists <span class="keyword">from</span> <span class="string">'components/Lists/Lists'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateLists <span class="keyword">from</span> <span class="string">'components/Lists/CreateLists'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListPage:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (&lt;section&gt;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &#123;[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].map(<span class="function">(<span class="params">list: <span class="built_in">number</span></span>) =&gt;</span></span><br><span class="line">                &lt;Lists key=&#123;list&#125; /&gt;)&#125;</span><br><span class="line">            &lt;CreateLists /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>section&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ListPage;</span><br></pre></td></tr></table></figure>
+
+<h2 id="스타일-적용하기"><a href="#스타일-적용하기" class="headerlink" title="스타일 적용하기"></a>스타일 적용하기</h2><p>아이콘 및 스타일을 적용하도록 하겠습니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Switch, Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> BoardPage <span class="keyword">from</span> <span class="string">'pages/BoardPage'</span>;</span><br><span class="line"><span class="keyword">import</span> ListPage <span class="keyword">from</span> <span class="string">'pages/ListPage'</span>;</span><br><span class="line"><span class="keyword">import</span> NotFound <span class="keyword">from</span> <span class="string">'pages/NotFound'</span>;</span><br><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">'components/Header'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AppStyle = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">  display:flex;</span></span><br><span class="line"><span class="string">  flex-direction: column;</span></span><br><span class="line"><span class="string">  height: 100vh;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;AppStyle&gt;</span><br><span class="line">      &lt;Header /&gt;</span><br><span class="line">      &lt;Switch&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/"</span> component=&#123;BoardPage&#125; /&gt;</span><br><span class="line">        &lt;Route exact path=<span class="string">"/board/:id"</span> component=&#123;ListPage&#125; /&gt;</span><br><span class="line">        &lt;Route component=&#123;NotFound&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>AppStyle&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Header-스타일-적용"><a href="#Header-스타일-적용" class="headerlink" title="Header 스타일 적용"></a>Header 스타일 적용</h3><figure class="highlight typescript"><figcaption><span>components/Header.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FontAwesomeIcon &#125; <span class="keyword">from</span> <span class="string">'@fortawesome/react-fontawesome'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; faTrello &#125; <span class="keyword">from</span> <span class="string">'@fortawesome/free-brands-svg-icons'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> HeaderStyle = styled.header<span class="string">`</span></span><br><span class="line"><span class="string">    height: 60px;</span></span><br><span class="line"><span class="string">    width: 100%;</span></span><br><span class="line"><span class="string">    background-color: #026aa7;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> LinkStyle = styled(Link)<span class="string">`</span></span><br><span class="line"><span class="string">    color: rgba(255,255,255,0.7);</span></span><br><span class="line"><span class="string">    font-weight: bold;</span></span><br><span class="line"><span class="string">    text-decoration: none;</span></span><br><span class="line"><span class="string">    font-size: 24px;</span></span><br><span class="line"><span class="string">    &amp;:hover&#123;</span></span><br><span class="line"><span class="string">        color: rgba(255,255,255);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    span&#123;</span></span><br><span class="line"><span class="string">        margin-left:10px;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;HeaderStyle&gt;</span><br><span class="line">        &lt;LinkStyle to=<span class="string">"/"</span>&gt;</span><br><span class="line">            &lt;FontAwesomeIcon icon=&#123;faTrello&#125; size=<span class="string">"lg"</span> /&gt;</span><br><span class="line">            &lt;span&gt;TRELLO CLONE&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>LinkStyle&gt;</span><br><span class="line">    &lt;<span class="regexp">/HeaderStyle&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default Header;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Board-스타일-적용하기"><a href="#Board-스타일-적용하기" class="headerlink" title="Board 스타일 적용하기"></a>Board 스타일 적용하기</h3><figure class="highlight typescript"><figcaption><span>components/Boards/BoardStyle.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">"styled-components"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> BoardStyle = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    width: calc(25% - 20px);</span></span><br><span class="line"><span class="string">    height: 100px;</span></span><br><span class="line"><span class="string">    margin: 10px;</span></span><br><span class="line"><span class="string">    background-color: #026aa7;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">    border-radius: 5px;</span></span><br><span class="line"><span class="string">    cursor: pointer;</span></span><br><span class="line"><span class="string">    color: #fff;</span></span><br><span class="line"><span class="string">    font-weight: 700;</span></span><br><span class="line"><span class="string">    transition: 0.2s;</span></span><br><span class="line"><span class="string">    &amp;:hover&#123;</span></span><br><span class="line"><span class="string">        transform: scale(1.05);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br></pre></td></tr></table></figure>
+
+<p>CreateBoardCard와 BoardCard에 동일한 스타일을 하나의 파일로 만들고 import를 합니다</p>
+<figure class="highlight typescript"><figcaption><span>components/Boards/BoardCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Link &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BoardStyle &#125; <span class="keyword">from</span> <span class="string">'./BoardStyle'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LinkStyle = styled(Link)<span class="string">`</span></span><br><span class="line"><span class="string">    text-decoration: none;</span></span><br><span class="line"><span class="string">    color: rgba(255,255,255,0.9);</span></span><br><span class="line"><span class="string">    width: 100%;</span></span><br><span class="line"><span class="string">    height: 100%;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;BoardStyle&gt;&lt;LinkStyle to=&#123;<span class="string">`/board/1234`</span>&#125;&gt;보드&lt;<span class="regexp">/LinkStyle&gt;&lt;/</span>BoardStyle&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> BoardCard;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Boards/CreateBoardCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; BoardStyle &#125; <span class="keyword">from</span> <span class="string">'./BoardStyle'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateBoardCardStyle = styled(BoardStyle)<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: rgba(9,30,66,.04);</span></span><br><span class="line"><span class="string">    color: #333;</span></span><br><span class="line"><span class="string">    font-weight: normal;</span></span><br><span class="line"><span class="string">    &amp;:hover&#123;</span></span><br><span class="line"><span class="string">        background-color: rgba(9,30,66,.1);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="keyword">const</span> Input = styled.input<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: rgba(0,0,0,0);</span></span><br><span class="line"><span class="string">    border: none;</span></span><br><span class="line"><span class="string">    font-size: 14px;</span></span><br><span class="line"><span class="string">    outline: none;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateBoardCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;CreateBoardCardStyle&gt;</span><br><span class="line">        &lt;Input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Create new board"</span> /&gt;</span><br><span class="line">    &lt;<span class="regexp">/CreateBoardCardStyle&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default CreateBoardCard;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>pages/BoardPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateBoardCard <span class="keyword">from</span> <span class="string">'components/Boards/CreateBoardCard'</span>;</span><br><span class="line"><span class="keyword">import</span> BoardCard <span class="keyword">from</span> <span class="string">'components/Boards/BoardCard'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardWrap = styled.section<span class="string">`</span></span><br><span class="line"><span class="string">    width: 100%;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    flex-wrap: wrap;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardPage:React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;BoardWrap&gt;</span><br><span class="line">        &#123;[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].map(<span class="function">(<span class="params">board: <span class="built_in">number</span></span>) =&gt;</span> &lt;BoardCard key=&#123;board&#125; /&gt;)&#125;</span><br><span class="line">        &lt;CreateBoardCard /&gt;</span><br><span class="line">    &lt;<span class="regexp">/BoardWrap&gt;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default BoardPage;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="List-스타일-적용하기"><a href="#List-스타일-적용하기" class="headerlink" title="List 스타일 적용하기"></a>List 스타일 적용하기</h3><figure class="highlight typescript"><figcaption><span>components/Lists/CreateCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FontAwesomeIcon &#125; <span class="keyword">from</span> <span class="string">"@fortawesome/react-fontawesome"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; faPlus &#125; <span class="keyword">from</span> <span class="string">"@fortawesome/free-solid-svg-icons"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateCardWrapper = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">    padding: 5px;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Icon = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    position: absolute;</span></span><br><span class="line"><span class="string">    right: 10px;</span></span><br><span class="line"><span class="string">    top: 50%;</span></span><br><span class="line"><span class="string">    margin-top: -10px;</span></span><br><span class="line"><span class="string">    width: 20px;</span></span><br><span class="line"><span class="string">    height: 20px;</span></span><br><span class="line"><span class="string">    border-radius: 4px;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">    cursor: pointer;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">    &amp;:hover&#123;</span></span><br><span class="line"><span class="string">        background-color: rgba(0,0,0,0.1);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Input = styled.input<span class="string">`</span></span><br><span class="line"><span class="string">    width: 100%;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">    padding: 10px;</span></span><br><span class="line"><span class="string">    font-size: 14px;</span></span><br><span class="line"><span class="string">    outline: none;</span></span><br><span class="line"><span class="string">    border-radius: 4px;</span></span><br><span class="line"><span class="string">    border: none;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;CreateCardWrapper&gt;</span><br><span class="line">        &lt;Input <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Add create card"</span>/&gt;</span><br><span class="line">        &lt;Icon&gt;</span><br><span class="line">            &lt;FontAwesomeIcon icon=&#123;faPlus&#125; size=<span class="string">"sm"</span> color=<span class="string">"rgba(0,0,0,0.5)"</span>/&gt;</span><br><span class="line">        &lt;<span class="regexp">/Icon&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>CreateCardWrapper&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> CreateCard;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/ListCard.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">"styled-components"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; FontAwesomeIcon &#125; <span class="keyword">from</span> <span class="string">"@fortawesome/react-fontawesome"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; faPen &#125; <span class="keyword">from</span> <span class="string">"@fortawesome/free-solid-svg-icons"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListCardStyle = styled.li<span class="string">`</span></span><br><span class="line"><span class="string">    list-style: none;</span></span><br><span class="line"><span class="string">    flex: 1 1 auto;</span></span><br><span class="line"><span class="string">    margin-bottom: 0;</span></span><br><span class="line"><span class="string">    overflow-y: auto;</span></span><br><span class="line"><span class="string">    overflow-x: hidden;</span></span><br><span class="line"><span class="string">    margin: 0 4px;</span></span><br><span class="line"><span class="string">    padding: 0 4px;</span></span><br><span class="line"><span class="string">    z-index: 1;</span></span><br><span class="line"><span class="string">    min-height: 0;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Icon = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    position: absolute;</span></span><br><span class="line"><span class="string">    right: 10px;</span></span><br><span class="line"><span class="string">    top: 50%;</span></span><br><span class="line"><span class="string">    margin-top: -10px;</span></span><br><span class="line"><span class="string">    width: 20px;</span></span><br><span class="line"><span class="string">    height: 20px;</span></span><br><span class="line"><span class="string">    border-radius: 4px;</span></span><br><span class="line"><span class="string">    display: none;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">    justify-content: center;</span></span><br><span class="line"><span class="string">    &amp;:hover&#123;</span></span><br><span class="line"><span class="string">      background-color: rgba(0, 0, 0, 0.1);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListCardContent = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: #fff;</span></span><br><span class="line"><span class="string">    border-radius: 3px;</span></span><br><span class="line"><span class="string">    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);</span></span><br><span class="line"><span class="string">    cursor: pointer;</span></span><br><span class="line"><span class="string">    display: block;</span></span><br><span class="line"><span class="string">    margin-bottom: 8px;</span></span><br><span class="line"><span class="string">    max-width: 300px;</span></span><br><span class="line"><span class="string">    min-height: 20px;</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">    text-decoration: none;</span></span><br><span class="line"><span class="string">    z-index: 0;</span></span><br><span class="line"><span class="string">    padding: 8px;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &amp;:hover &#123;</span></span><br><span class="line"><span class="string">      background: rgba(0,0,0,0.02);</span></span><br><span class="line"><span class="string">      <span class="subst">$&#123;Icon&#125;</span> &#123;</span></span><br><span class="line"><span class="string">        display: flex;</span></span><br><span class="line"><span class="string">      &#125;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListCardInput = styled.input<span class="string">`</span></span><br><span class="line"><span class="string">  border: none;</span></span><br><span class="line"><span class="string">  background: none;</span></span><br><span class="line"><span class="string">  font-size: 14px;</span></span><br><span class="line"><span class="string">  outline: none;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListCard: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;ListCardStyle&gt;</span><br><span class="line">      &lt;ListCardContent&gt;</span><br><span class="line">        &lt;ListCardInput <span class="keyword">type</span>=<span class="string">"text"</span>/&gt;</span><br><span class="line">        &lt;Icon&gt;</span><br><span class="line">          &lt;FontAwesomeIcon icon=&#123;faPen&#125; size=<span class="string">"sm"</span> color=<span class="string">"rgba(0,0,0,0.5)"</span> /&gt;</span><br><span class="line">        &lt;<span class="regexp">/Icon&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>ListCardContent&gt;</span><br><span class="line">    &lt;<span class="regexp">/ListCardStyle&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default ListCard;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/Lists.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> ListCard <span class="keyword">from</span> <span class="string">'./ListCard'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateCard <span class="keyword">from</span> <span class="string">'./CreateCard'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListsWrapper = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    width: 272px;</span></span><br><span class="line"><span class="string">    margin: 0 4px;</span></span><br><span class="line"><span class="string">    height: 100%;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">    display: inline-block;</span></span><br><span class="line"><span class="string">    vertical-align: top;</span></span><br><span class="line"><span class="string">    white-space: nowrap;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListsContent = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: #ebecf0;</span></span><br><span class="line"><span class="string">    border-radius: 3px;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    flex-direction: column;</span></span><br><span class="line"><span class="string">    max-height: 100%;</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">    white-space: normal;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListsStyle = styled.ul<span class="string">`</span></span><br><span class="line"><span class="string">   list-style: none;</span></span><br><span class="line"><span class="string">   margin: 0;</span></span><br><span class="line"><span class="string">   padding: 0;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListHeader = styled.input<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: rgba(255,255,255,0);</span></span><br><span class="line"><span class="string">    border: 0 none;</span></span><br><span class="line"><span class="string">    user-select: none;</span></span><br><span class="line"><span class="string">    font-size: 14px;</span></span><br><span class="line"><span class="string">    line-height: 18px;</span></span><br><span class="line"><span class="string">    height: 18px;</span></span><br><span class="line"><span class="string">    padding-left: 10px;</span></span><br><span class="line"><span class="string">    font-weight: bold;</span></span><br><span class="line"><span class="string">    outline: none;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListHeaderWrapper = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    height: 40px;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    align-items: center;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Lists: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;ListsWrapper&gt;</span><br><span class="line">        &lt;ListsContent&gt;</span><br><span class="line">            &lt;ListHeaderWrapper&gt;</span><br><span class="line">                &lt;ListHeader <span class="keyword">type</span>=<span class="string">"text"</span> /&gt;</span><br><span class="line">            &lt;<span class="regexp">/ListHeaderWrapper&gt;</span></span><br><span class="line"><span class="regexp">            &lt;ListsStyle&gt;</span></span><br><span class="line"><span class="regexp">                &#123;[1,2,3,4].map((card: number, i: number) =&gt; &lt;ListCard key=&#123;number&#125; /</span>&gt;)&#125;</span><br><span class="line">            &lt;<span class="regexp">/ListsStyle&gt;</span></span><br><span class="line"><span class="regexp">            &lt;CreateCard /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/ListsContent&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>ListsWrapper&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Lists;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>components/Lists/CreateLists.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useParams &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListsWrapper = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    width: 272px;</span></span><br><span class="line"><span class="string">    margin: 0 4px;</span></span><br><span class="line"><span class="string">    height: 100%;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">    display: inline-block;</span></span><br><span class="line"><span class="string">    vertical-align: top;</span></span><br><span class="line"><span class="string">    white-space: nowrap;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListsContent = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: rgba(0,0,0,0.3);</span></span><br><span class="line"><span class="string">    border-radius: 3px;</span></span><br><span class="line"><span class="string">    box-sizing: border-box;</span></span><br><span class="line"><span class="string">    display: flex;</span></span><br><span class="line"><span class="string">    flex-direction: column;</span></span><br><span class="line"><span class="string">    max-height: 100%;</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">    white-space: normal;</span></span><br><span class="line"><span class="string">    &amp;:hover &#123;</span></span><br><span class="line"><span class="string">        background-color: rgba(0,0,0,0.2);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListHeader = styled.input<span class="string">`</span></span><br><span class="line"><span class="string">    background-color: rgba(255,255,255,0);</span></span><br><span class="line"><span class="string">    color: #fff;</span></span><br><span class="line"><span class="string">    border: 0 none;</span></span><br><span class="line"><span class="string">    user-select: none;</span></span><br><span class="line"><span class="string">    font-size: 14px;</span></span><br><span class="line"><span class="string">    line-height: 40px;</span></span><br><span class="line"><span class="string">    height: 40px;</span></span><br><span class="line"><span class="string">    padding-left: 10px;</span></span><br><span class="line"><span class="string">    font-weight: bold;</span></span><br><span class="line"><span class="string">    &amp;::placeholder&#123;</span></span><br><span class="line"><span class="string">        color: #fff;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CreateLists: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;ListsWrapper&gt;</span><br><span class="line">        &lt;ListsContent&gt;</span><br><span class="line">            &lt;ListHeader <span class="keyword">type</span>=<span class="string">"text"</span> placeholder=<span class="string">"Create lists"</span> /&gt;</span><br><span class="line">        &lt;<span class="regexp">/ListsContent&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>ListsWrapper&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> CreateLists;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>pages/ListPage.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"><span class="keyword">import</span> Lists <span class="keyword">from</span> <span class="string">'components/Lists/Lists'</span>;</span><br><span class="line"><span class="keyword">import</span> CreateLists <span class="keyword">from</span> <span class="string">'components/Lists/CreateLists'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; RootState &#125; <span class="keyword">from</span> <span class="string">'store/reducers'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ListsType &#125; <span class="keyword">from</span> <span class="string">'store/reducers/lists'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardStyle = styled.section<span class="string">`</span></span><br><span class="line"><span class="string">    height: 100%;</span></span><br><span class="line"><span class="string">    overflow-y: auto;</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> BoardListWrapper = styled.div<span class="string">`</span></span><br><span class="line"><span class="string">    white-space: nowrap;</span></span><br><span class="line"><span class="string">    user-select: none;</span></span><br><span class="line"><span class="string">    position: relative;</span></span><br><span class="line"><span class="string">    margin-bottom: 8px;</span></span><br><span class="line"><span class="string">    overflow-x: auto;</span></span><br><span class="line"><span class="string">    overflow-y: hidden;</span></span><br><span class="line"><span class="string">    padding-bottom: 8px;</span></span><br><span class="line"><span class="string">    position: absolute;</span></span><br><span class="line"><span class="string">    top: 0;</span></span><br><span class="line"><span class="string">    right: 0;</span></span><br><span class="line"><span class="string">    bottom: 0;</span></span><br><span class="line"><span class="string">    left: 0;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ListPage = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> listsState = useSelector(<span class="function">(<span class="params">state:RootState</span>) =&gt;</span> state.lists);</span><br><span class="line">    <span class="keyword">return</span> (&lt;BoardStyle&gt;</span><br><span class="line">        &lt;BoardListWrapper&gt;</span><br><span class="line">            &#123;listsState.lists.map(<span class="function">(<span class="params">list:ListsType</span>) =&gt;</span> &lt;Lists key=&#123;list.id&#125; list=&#123;list&#125;/&gt;)&#125;</span><br><span class="line">            &lt;CreateLists /&gt;</span><br><span class="line">        &lt;<span class="regexp">/BoardListWrapper&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>BoardStyle&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ListPage;</span><br></pre></td></tr></table></figure>
+
+<p>이것으로 컴포넌트 및 페이지 스타일을 넣어 보았습니다.<br>다음 포스트에서는 각각의 컴포넌트에 기능을 추가합니다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/prevPost/trello-clone_0.html" data-id="ckuntwy1z0001k5qqud1rzxln" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "Trello 클론 프로젝트 만들기 - 0",
+        "image": "http://flamingotiger.github.io/image/thumb/clone-trello_thumb.jpg",
+        "keywords": "  ",
+        
+        "datePublished": "2020-01-04",
+        "dateCreated": "2020-01-04",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/prevPost/trello-clone_0.html",
+        "description": "시작하기프로젝트 일정관리 웹어플리케이션인 trello를 클론코딩 하도록 하겠습니다. 이 클론 코딩으로 styled-components, react, redux 그리고 dnd 등을 구현해볼수 있습니다.
+프로젝트 설정1create-react-app trello-clone --typescript
+
+프로젝트에 타입스크립트를 이용할 예정입니다.
+1npm instal",
+        "wordCount": 5537
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

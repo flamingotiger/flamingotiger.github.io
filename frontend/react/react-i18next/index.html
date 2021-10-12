@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React-i18next/i18n 다국어 적용하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="frontend,react,create-react-app,i18n,i18next,react-i18next">
+    
+    <meta name="description" content="시작하기웹사이트를 제작할때 다국어를 지원해야하는 경우가 있습니다.이때 사용하는 라이브러리로 i18n이 있습니다.의미로는 internationalization (“I18N”) / 국제화 라고합니다.i와 n사이에 18글자가 있어서 i18n 이라는 명칭입니다.  리액트 i18next를 연동해보도록 하겠습니다. 패키지 설치패키지를 설치합니다.npm install">
+<meta name="keywords" content="frontend,react,create-react-app,i18n,i18next,react-i18next">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-i18next&#x2F;i18n 다국어 적용하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/react/react-i18next/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기웹사이트를 제작할때 다국어를 지원해야하는 경우가 있습니다.이때 사용하는 라이브러리로 i18n이 있습니다.의미로는 internationalization (“I18N”) / 국제화 라고합니다.i와 n사이에 18글자가 있어서 i18n 이라는 명칭입니다.  리액트 i18next를 연동해보도록 하겠습니다. 패키지 설치패키지를 설치합니다.npm install">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-i18next&#x2F;i18n 다국어 적용하기">
+<meta name="twitter:description" content="시작하기웹사이트를 제작할때 다국어를 지원해야하는 경우가 있습니다.이때 사용하는 라이브러리로 i18n이 있습니다.의미로는 internationalization (“I18N”) / 국제화 라고합니다.i와 n사이에 18글자가 있어서 i18n 이라는 명칭입니다.  리액트 i18next를 연동해보도록 하겠습니다. 패키지 설치패키지를 설치합니다.npm install">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/react/react-i18next/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/react/">react</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/react/react-i18next" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React-i18next/i18n 다국어 적용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/react/react-i18next/" class="article-date">
+         <time datetime="2019-12-17T08:42:10.000Z" itemprop="datePublished">2019-12-17</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/create-react-app/">create-react-app</a>, <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/i18n/">i18n</a>, <a class="tag-link" href="/tags/i18next/">i18next</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-i18next/">react-i18next</a>
+    </div>
+
+                
+   <span id="/frontend/react/react-i18next/" class="leancloud-visitors" data-flag-title="React-i18next/i18n 다국어 적용하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">508</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>웹사이트를 제작할때 다국어를 지원해야하는 경우가 있습니다.<br>이때 사용하는 라이브러리로 i18n이 있습니다.<br>의미로는 internationalization (“I18N”) / 국제화 라고합니다.<br>i와 n사이에 18글자가 있어서 i18n 이라는 명칭입니다.</p>
+<p><img src="/image/frontend/react/react-i18next_1.png" alt="React i18next 홈페이지"></p>
+<p><a href="https://react.i18next.com/" rel="external nofollow noopener noreferrer" target="_blank">리액트 i18next</a>를 연동해보도록 하겠습니다.</p>
+<h2 id="패키지-설치"><a href="#패키지-설치" class="headerlink" title="패키지 설치"></a>패키지 설치</h2><p>패키지를 설치합니다.<br><code>npm install react-i18next i18next --save</code></p>
+<p>이후 사용자 언어 탐지 및 로딩 변환이 필요한 경우를 위한 패키지를 설치하겠습니다.<br><code>npm install i18next-xhr-backend i18next-browser-languagedetector --save</code></p>
+<h2 id="i18next-초기설정"><a href="#i18next-초기설정" class="headerlink" title="i18next 초기설정"></a>i18next 초기설정</h2><p><code>src</code> 폴더에 새폴더<code>i18n</code>를 만들어줍니다.<br>i18n 폴더 내부에 <code>en.json, ko.json, i18n.ts</code> 세가지 파일을 만들어줍니다.<br>이후 다음과 같이 설정합니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// i18n/en.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;hello&quot;: &quot;Hello World!&quot;,</span><br><span class="line">  &quot;post&quot;: &#123;</span><br><span class="line">    &quot;title&quot;: &quot;title&quot;,</span><br><span class="line">    &quot;name&quot;:&quot;Hong&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// i18n/ko.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;hello&quot;: &quot;헬로 월드!&quot;,</span><br><span class="line">  &quot;post&quot;: &#123;</span><br><span class="line">    &quot;title&quot;: &quot;타이틀&quot;,</span><br><span class="line">    &quot;name&quot;:&quot;홍&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> i18n <span class="keyword">from</span> <span class="string">'i18next'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; initReactI18next &#125; <span class="keyword">from</span> <span class="string">'source/_posts/redux/react-i18next'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Backend <span class="keyword">from</span> <span class="string">'i18next-xhr-backend'</span>;</span><br><span class="line"><span class="keyword">import</span> LanguageDetector <span class="keyword">from</span> <span class="string">'i18next-browser-languagedetector'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> ko <span class="keyword">from</span> <span class="string">'./i18n/ko.json'</span>;</span><br><span class="line"><span class="keyword">import</span> en <span class="keyword">from</span> <span class="string">'./i18n/en.json'</span>;</span><br><span class="line"></span><br><span class="line">i18n</span><br><span class="line">    <span class="comment">// load translation using xhr -&gt; see /public/locales</span></span><br><span class="line">    <span class="comment">// learn more: https://github.com/i18next/i18next-xhr-backend</span></span><br><span class="line">    .use(Backend)</span><br><span class="line">    <span class="comment">// detect user language</span></span><br><span class="line">    <span class="comment">// learn more: https://github.com/i18next/i18next-browser-languageDetector</span></span><br><span class="line">    .use(LanguageDetector)</span><br><span class="line">    <span class="comment">// pass the i18n instance to react-i18next.</span></span><br><span class="line">    .use(initReactI18next)</span><br><span class="line">    <span class="comment">// init i18next</span></span><br><span class="line">    <span class="comment">// for all options read: https://www.i18next.com/overview/configuration-options</span></span><br><span class="line">    .init(&#123;</span><br><span class="line">        fallbackLng: <span class="string">'en'</span>,</span><br><span class="line">        debug: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">        resources: &#123;</span><br><span class="line">            ko: &#123;</span><br><span class="line">                lang: ko</span><br><span class="line">            &#125;,</span><br><span class="line">            en: &#123;</span><br><span class="line">                lang: en</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        ns: [<span class="string">'lang'</span>],</span><br><span class="line"></span><br><span class="line">        interpolation: &#123;</span><br><span class="line">            escapeValue: <span class="literal">false</span>, <span class="comment">// not needed for react as it escapes by default</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> i18n;</span><br></pre></td></tr></table></figure>
+
+<p>index.tsx파일에 i18n.ts를 추가합니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">""</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> <span class="string">'./i18n'</span>;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;App /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="사용하기"><a href="#사용하기" class="headerlink" title="사용하기"></a>사용하기</h2><p>리액트의 서스펜스를 사용하지 않을때는 useTranslation의 두번째인자로 useSuspense:false를 인자로 넣어줍니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 서스펜스를 사용하지 않을때</span></span><br><span class="line"><span class="keyword">const</span> I18nextComponent: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [t, i18n] = useTranslation(<span class="string">'lang'</span>, &#123; useSuspense: <span class="literal">false</span> &#125;);</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;p&gt;&#123;t(<span class="string">'hello'</span>)&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;&#123;t('post.title')&#125;&lt;/</span>p&gt;</span><br><span class="line">        &lt;p&gt;&#123;t(<span class="string">'post.name'</span>)&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 서스펜스를 사용시</span></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">    <span class="keyword">const</span> [t, i18n] = useTranslation(<span class="string">'lang'</span>);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Language-변경방법"><a href="#Language-변경방법" class="headerlink" title="Language 변경방법"></a>Language 변경방법</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> I18nextComponent: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [t, i18n] = useTranslation(<span class="string">'lang'</span>, &#123; useSuspense: <span class="literal">false</span> &#125;);</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> i18n.changeLanguage(<span class="string">'en'</span>)&#125;&gt;영어&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick=&#123;() =&gt; i18n.changeLanguage('ko')&#125;&gt;한국어&lt;/</span>button&gt;</span><br><span class="line">        &lt;p&gt;&#123;t(<span class="string">'hello'</span>)&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;p&gt;&#123;t('post.title')&#125;&lt;/</span>p&gt;</span><br><span class="line">        &lt;p&gt;&#123;t(<span class="string">'post.name'</span>)&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>i18n.changeLanguage()를 이용합니다.<br><code>i18n.ts</code>에서 설정한 옵션의 resources 이름을 넣어줍니다.</p>
+<h2 id="작은-팁"><a href="#작은-팁" class="headerlink" title="작은 팁"></a>작은 팁</h2><p>디버깅모드를 개발자모드에서만 하고 싶다면 다음과 같이 설정합니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">    .init(&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        debug: process.env.NODE_ENV === <span class="string">'development'</span>,</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/react/react-i18next_0.gif" alt="결과물"></p>
+<p>이전 포스트를 참조 하시면 더욱 간결하게 설정할수 있습니다.<br><a href="https://flamingotiger.github.io/react/create-react-app-environment/">환경변수 이용하기</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/react/react-i18next/" data-id="ckuntwyaw0091k5qqdvaq1tnd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React-i18next/i18n 다국어 적용하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-thumb.jpg",
+        "keywords": "frontend react create-react-app i18n i18next react-i18next",
+        "genre": "frontend react",
+        "datePublished": "2019-12-17",
+        "dateCreated": "2019-12-17",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/react/react-i18next/",
+        "description": "시작하기웹사이트를 제작할때 다국어를 지원해야하는 경우가 있습니다.이때 사용하는 라이브러리로 i18n이 있습니다.의미로는 internationalization (“I18N”) / 국제화 라고합니다.i와 n사이에 18글자가 있어서 i18n 이라는 명칭입니다.
+
+리액트 i18next를 연동해보도록 하겠습니다.
+패키지 설치패키지를 설치합니다.npm install ",
+        "wordCount": 933
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/etc/etc/postman/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Postman 포스트맨 사용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/frontend/react/react-fontawesome/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">React에서 Fontawesome 사용하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

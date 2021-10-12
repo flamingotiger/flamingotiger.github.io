@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React에서 IntersectionObserver API로 infiniteScroll 구현하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,IntersectionObserverAPI,infiniteScroll">
+    
+    <meta name="description" content="시작하기IntersectionObserver API 란?기존에는 infiniteScroll을 구현하려면 Element.getBoundingClientRect(), addEventListener에 scroll, resize등을 사용해야만 했습니다. IntersectionObserver API는 대상 요소와 상위 요소 또는 최상위 문서의 뷰포트 와의 교차에서">
+<meta name="keywords" content="react,IntersectionObserverAPI,infiniteScroll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React에서 IntersectionObserver API로 infiniteScroll 구현하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/react/intersection-observer-api/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기IntersectionObserver API 란?기존에는 infiniteScroll을 구현하려면 Element.getBoundingClientRect(), addEventListener에 scroll, resize등을 사용해야만 했습니다. IntersectionObserver API는 대상 요소와 상위 요소 또는 최상위 문서의 뷰포트 와의 교차에서">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React에서 IntersectionObserver API로 infiniteScroll 구현하기">
+<meta name="twitter:description" content="시작하기IntersectionObserver API 란?기존에는 infiniteScroll을 구현하려면 Element.getBoundingClientRect(), addEventListener에 scroll, resize등을 사용해야만 했습니다. IntersectionObserver API는 대상 요소와 상위 요소 또는 최상위 문서의 뷰포트 와의 교차에서">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/react/intersection-observer-api/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/react/">react</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/react/intersection-observer-api" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React에서 IntersectionObserver API로 infiniteScroll 구현하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/react/intersection-observer-api/" class="article-date">
+         <time datetime="2020-04-09T08:34:35.000Z" itemprop="datePublished">2020-04-09</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/IntersectionObserverAPI/">IntersectionObserverAPI</a>, <a class="tag-link" href="/tags/infiniteScroll/">infiniteScroll</a>, <a class="tag-link" href="/tags/react/">react</a>
+    </div>
+
+                
+   <span id="/frontend/react/intersection-observer-api/" class="leancloud-visitors" data-flag-title="React에서 IntersectionObserver API로 infiniteScroll 구현하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">1.1k</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><h2 id="IntersectionObserver-API-란"><a href="#IntersectionObserver-API-란" class="headerlink" title="IntersectionObserver API 란?"></a>IntersectionObserver API 란?</h2><p>기존에는 infiniteScroll을 구현하려면 Element.getBoundingClientRect(), addEventListener에 scroll, resize등을 사용해야만 했습니다.</p>
+<p>IntersectionObserver API는 대상 요소와 상위 요소 또는 최상위 문서의 뷰포트 와의 교차에서 변경 사항을 비동기 적으로 관찰하는 방법을 제공합니다.</p>
+<h2 id="사용법"><a href="#사용법" class="headerlink" title="사용법"></a>사용법</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  root: <span class="built_in">document</span>.querySelector(<span class="string">"#scrollArea"</span>),</span><br><span class="line">  rootMargin: <span class="string">"0px"</span>,</span><br><span class="line">  threshold: <span class="number">1.0</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> observer = <span class="keyword">new</span> IntersectionObserver(callback, options);</span><br></pre></td></tr></table></figure>
+
+<h3 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h3><p>뷰포트와 타겟이 겹쳤을때 실행되는 함수 입니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> callback = <span class="function">(<span class="params">entries, observer</span>) =&gt;</span> &#123;</span><br><span class="line">  entries.forEach(<span class="function">(<span class="params">entry</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Each entry describes an intersection change for one observed</span></span><br><span class="line">    <span class="comment">// target element:</span></span><br><span class="line">    <span class="comment">//   entry.boundingClientRect</span></span><br><span class="line">    <span class="comment">//   entry.intersectionRatio</span></span><br><span class="line">    <span class="comment">//   entry.intersectionRect</span></span><br><span class="line">    <span class="comment">//   entry.isIntersecting</span></span><br><span class="line">    <span class="comment">//   entry.rootBounds</span></span><br><span class="line">    <span class="comment">//   entry.target</span></span><br><span class="line">    <span class="comment">//   entry.time</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>뷰포트와 그 범위를 설정해줄수 있습니다.</p>
+<ul>
+<li><p><strong>root</strong><br>대상의 가시성을 확인하기위한 뷰포트로 사용되는 요소입니다. 대상의 조상이어야합니다. 지정하지 않거나 if 인 경우 기본적으로 브라우저 뷰포트로 설정됩니다 null.</p>
+</li>
+<li><p><strong>rootMargin</strong><br>뿌리 주위의 여백. CSS margin속성 과 유사한 값을 가질 수 있습니다 10px 20px 30px 40px”( 예 : “ (상단, 우측, 하단, 좌측). 값은 백분율 일 수 있습니다.이 값 세트는 교차점을 계산하기 전에 루트 요소의 경계 상자의 양쪽을 늘리거나 줄 이도록합니다. 모두 0입니다.</p>
+</li>
+<li><p><strong>threshold</strong><br>관찰자의 콜백을 실행해야하는 대상 가시성 비율을 나타내는 단일 숫자 또는 숫자 배열입니다. 가시성이 50 %를 초과하는 시점 만 감지하려는 경우 0.5 값을 사용할 수 있습니다. 가시성이 다른 25 %를 초과 할 때마다 콜백을 실행하려면 배열 [0, 0.25, 0.5, 0.75, 1]을 지정합니다. 기본값은 0입니다 (하나의 픽셀 만 표시되면 콜백이 실행됨을 의미). 1.0 값은 모든 픽셀이 표시 될 때까지 임계 값이 전달 된 것으로 간주되지 않음을 의미합니다.</p>
+</li>
+</ul>
+<h2 id="React에서-구현하기"><a href="#React에서-구현하기" class="headerlink" title="React에서 구현하기"></a>React에서 구현하기</h2><p>기본 jsx, css를 작성해줍니다.</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [datas, setData] = useState([</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"기린"</span>, <span class="attr">id</span>: <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"강아지"</span>, <span class="attr">id</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"토끼"</span>, <span class="attr">id</span>: <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"호랑이"</span>, <span class="attr">id</span>: <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"사자"</span>, <span class="attr">id</span>: <span class="number">4</span> &#125;,</span><br><span class="line">  ]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"wrapper"</span>&gt;</span><br><span class="line">      &lt;section className=<span class="string">"card-grid"</span> id=<span class="string">"target-root"</span>&gt;</span><br><span class="line">        &#123;datas.map(<span class="function">(<span class="params">animal, index</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> (</span><br><span class="line">            &lt;div key=&#123;index&#125; className=<span class="string">"card"</span>&gt;</span><br><span class="line">              &lt;p&gt;아이디: &#123;animal.id&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">              &lt;p&gt;이름:&#123;animal.name&#125;&lt;/</span>p&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>section&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><figcaption><span>App.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100vh</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card-grid</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">350px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">overflow</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.card</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">justify-content</span>: center;</span><br><span class="line">  <span class="attribute">flex-direction</span>: column;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid black;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">40px</span> <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.last</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: purple;</span><br><span class="line">  <span class="attribute">color</span>: white;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>css를 추가합니다.</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./App.css"</span>;</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>이제 본격적으로 구현해보도록 하겠습니다.<br>인피니티 스크롤은 보이는 부분이 마지막 카드에 도달했을때 새롭게 불러오는 방식입니다.<br>ref를 두가지로 정해줍니다. 1. 뷰포트, 2. 교차할 마지막 카드</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useRef, useState &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [datas, setData] = useState([</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"기린"</span>, <span class="attr">id</span>: <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"강아지"</span>, <span class="attr">id</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"토끼"</span>, <span class="attr">id</span>: <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"호랑이"</span>, <span class="attr">id</span>: <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"사자"</span>, <span class="attr">id</span>: <span class="number">4</span> &#125;,</span><br><span class="line">  ]);</span><br><span class="line">  <span class="keyword">const</span> viewport = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> target = useRef(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"wrapper"</span>&gt;</span><br><span class="line">      &lt;section className=<span class="string">"card-grid"</span> id=<span class="string">"target-root"</span> ref=&#123;viewport&#125;&gt;</span><br><span class="line">        &#123;datas.map(<span class="function">(<span class="params">animal, index</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> lastEl = index === datas.length - <span class="number">1</span>;</span><br><span class="line">          <span class="keyword">return</span> (</span><br><span class="line">            &lt;div</span><br><span class="line">              key=&#123;index&#125;</span><br><span class="line">              className=&#123;<span class="string">`card <span class="subst">$&#123;lastEl &amp;&amp; <span class="string">"last"</span>&#125;</span>`</span>&#125;</span><br><span class="line">              ref=&#123;lastEl ? target : <span class="literal">null</span>&#125;</span><br><span class="line">            &gt;</span><br><span class="line">              &lt;p&gt;아이디: &#123;animal.id&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">              &lt;p&gt;이름:&#123;animal.name&#125;&lt;/</span>p&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>section&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p>기본 구조는 완료되었습니다.<br>이제 intersection observer api를 사용해보도록 하겠습니다.</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> loadItems = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  setData(<span class="function">(<span class="params">prevState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> animals = [</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"고양이"</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"코끼리"</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"원숭이"</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"고라니"</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"기린"</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">"표범"</span> &#125;,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> id = prevState[prevState.length - <span class="number">1</span>].id;</span><br><span class="line">    <span class="keyword">const</span> animalId = animals.map(<span class="function">(<span class="params">animal, index</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...animal, <span class="attr">id</span>: id + index + <span class="number">1</span> &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> [...prevState, ...animalId];</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>마지막 카드와 뷰포트가 겹치게 되었을때 불러올 다음 동물 데이터 함수 입니다.</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> options = &#123;</span><br><span class="line">    root: viewport.current, <span class="comment">// viewport</span></span><br><span class="line">    threshold: <span class="number">0</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> handleIntersection = <span class="function">(<span class="params">entries, observer</span>) =&gt;</span> &#123;</span><br><span class="line">    entries.forEach(<span class="function">(<span class="params">entry</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!entry.isIntersecting) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      loadItems(); <span class="comment">// 데이터를 불러옵니다.</span></span><br><span class="line">      observer.unobserve(entry.target); <span class="comment">// 기존 타겟을 unobserve 하고</span></span><br><span class="line">      observer.observe(target.current); <span class="comment">// 데이터 변경된 새로운 카드 타겟을 observe 합니다.</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> io = <span class="keyword">new</span> IntersectionObserver(handleIntersection, options);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (target.current) &#123;</span><br><span class="line">    io.observe(target.current); <span class="comment">// target</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> io &amp;&amp; io.disconnect();</span><br><span class="line">&#125;, [target, viewport]);</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>intersection observer api로 infinifyScroll을 구현해보았습니다.</p>
+<p>최종코드</p>
+<figure class="highlight javascript"><figcaption><span>App.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useRef, useEffect, useState &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"./App.css"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [datas, setData] = useState([</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"기린"</span>, <span class="attr">id</span>: <span class="number">0</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"강아지"</span>, <span class="attr">id</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"토끼"</span>, <span class="attr">id</span>: <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"호랑이"</span>, <span class="attr">id</span>: <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">"사자"</span>, <span class="attr">id</span>: <span class="number">4</span> &#125;,</span><br><span class="line">  ]);</span><br><span class="line">  <span class="keyword">const</span> viewport = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> target = useRef(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> loadItems = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setData(<span class="function">(<span class="params">prevState</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> animals = [</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"고양이"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"코끼리"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"원숭이"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"고라니"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"기린"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">"표범"</span> &#125;,</span><br><span class="line">      ];</span><br><span class="line">      <span class="keyword">const</span> id = prevState[prevState.length - <span class="number">1</span>].id;</span><br><span class="line">      <span class="keyword">const</span> animalId = animals.map(<span class="function">(<span class="params">animal, index</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...animal, <span class="attr">id</span>: id + index + <span class="number">1</span> &#125;;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span> [...prevState, ...animalId];</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> options = &#123;</span><br><span class="line">      root: viewport.current,</span><br><span class="line">      threshold: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> handleIntersection = <span class="function">(<span class="params">entries, observer</span>) =&gt;</span> &#123;</span><br><span class="line">      entries.forEach(<span class="function">(<span class="params">entry</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!entry.isIntersecting) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        loadItems();</span><br><span class="line">        observer.unobserve(entry.target);</span><br><span class="line">        observer.observe(target.current);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> io = <span class="keyword">new</span> IntersectionObserver(handleIntersection, options);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (target.current) &#123;</span><br><span class="line">      io.observe(target.current);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> io &amp;&amp; io.disconnect();</span><br><span class="line">  &#125;, [viewport, target]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"wrapper"</span>&gt;</span><br><span class="line">      &lt;section className=<span class="string">"card-grid"</span> id=<span class="string">"target-root"</span> ref=&#123;viewport&#125;&gt;</span><br><span class="line">        &#123;datas.map(<span class="function">(<span class="params">animal, index</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> lastEl = index === datas.length - <span class="number">1</span>;</span><br><span class="line">          <span class="keyword">return</span> (</span><br><span class="line">            &lt;div</span><br><span class="line">              key=&#123;index&#125;</span><br><span class="line">              className=&#123;<span class="string">`card <span class="subst">$&#123;lastEl &amp;&amp; <span class="string">"last"</span>&#125;</span>`</span>&#125;</span><br><span class="line">              ref=&#123;lastEl ? target : <span class="literal">null</span>&#125;</span><br><span class="line">            &gt;</span><br><span class="line">              &lt;p&gt;아이디: &#123;animal.id&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">              &lt;p&gt;이름:&#123;animal.name&#125;&lt;/</span>p&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          );</span></span><br><span class="line"><span class="regexp">        &#125;)&#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>section&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/react/intersection-observer-api.gif" alt="최종 스크롤"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/react/intersection-observer-api/" data-id="ckuntwya0008ck5qqaebugzq6" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React에서 IntersectionObserver API로 infiniteScroll 구현하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-thumb.jpg",
+        "keywords": "react IntersectionObserverAPI infiniteScroll",
+        "genre": "frontend react",
+        "datePublished": "2020-04-09",
+        "dateCreated": "2020-04-09",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/react/intersection-observer-api/",
+        "description": "시작하기IntersectionObserver API 란?기존에는 infiniteScroll을 구현하려면 Element.getBoundingClientRect(), addEventListener에 scroll, resize등을 사용해야만 했습니다.
+IntersectionObserver API는 대상 요소와 상위 요소 또는 최상위 문서의 뷰포트 와의 교차에서 ",
+        "wordCount": 2556
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/react/react-ref/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            React Ref사용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/frontend/html5/canvas-start/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Canvas 기본 설정 및 사용해보기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/style/styled-components-typescript/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/styled-components-thumb.jpg)" alt="Styled-components Typescript 적용하기 (+Media query)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/style/">style</a></p>
+                            <p class="item-title"><a href="/style/styled-components-typescript/" class="title">Styled-components Typescript 적용하기 (+Media query)</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:37:34.000Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/favicon/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/favicon_thumb.jpg)" alt="Favicon 웹사이트에 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/react-add-font/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/DevEnv/rollup-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/npm-thumb.jpg)" alt="Rollup을 사용해서 npm 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/DevEnv/">DevEnv</a></p>
+                            <p class="item-title"><a href="/frontend/DevEnv/rollup-setup/" class="title">Rollup을 사용해서 npm 배포하기</a></p>
+                            <p class="item-date"><time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
