@@ -21,7 +21,7 @@
 <meta property="og:description" content="node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript  초기 설정npm 기본 설정값을 생성합니다. 1npm init -y  npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다. 1npm i @types/express @">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://flamingotiger.github.io/image/thumb/heroku-thumb.jpg">
-<meta property="og:updated_time" content="2021-10-13T01:42:03.541Z">
+<meta property="og:updated_time" content="2021-10-14T08:22:31.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="heroku node 서버 배포하기(typescript)">
 <meta name="twitter:description" content="node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript  초기 설정npm 기본 설정값을 생성합니다. 1npm init -y  npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다. 1npm i @types/express @">
@@ -193,7 +193,7 @@ ga('send', 'pageview');
    <span id="/backend/devOps/heroku-typescript-nodejs/" class="leancloud-visitors" data-flag-title="heroku node 서버 배포하기(typescript)">
    <i class="fa fa-eye"></i>
    <span class="post-meta-item-text">Views: </span>
-   <i class="leancloud-visitors-count">374</i>
+   <i class="leancloud-visitors-count">427</i>
    </span>
 
 
@@ -243,6 +243,8 @@ ga('send', 'pageview');
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku main</span><br></pre></td></tr></table></figure>
 
 <h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>nodejs를 통해서 heroku 배포를 해보았습니다.<br>heroku가 무료로 제공하기에 소규모의 개인사이트를 만들떈 적합했습니다.<br>배포하는 과정은 aws보다 비교적 쉬웠습니다.</p>
+<p>배포를 하면 기본적으로 https로 배포가 됩니다. 그래서 바로 프론트엔드 서버에서 api 호출이 가능합니다.<br>만약 도메인을 구매하고, 연결을 하고 싶다면 신용카드를 등록해야합니다. 신용카드를 등록하고 나서 배포를 하면 http로 연결이 되기때문에 https로 보안을 하고 싶다면, 유료버전으로 업데이트를 해야합니다. heroku 머리 잘썼네요.</p>
+<p>요약해서 도메인을 사용하고 싶다면 신용카드 등록과 유료버전 heroku를 사용해야한다는 것입니다.</p>
 <h2 id="heroku-명령어-요약"><a href="#heroku-명령어-요약" class="headerlink" title="heroku 명령어 요약"></a>heroku 명령어 요약</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 헤로쿠 생성</span></span><br><span class="line">heroku create</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">heroku create [앱이름]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 사이트에서는 master로 되어있지만 기본적으로 main으로 바뀜</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 배포할 브런치를 push 및 배포</span></span><br><span class="line">git push heroku main</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 터미널에 해당되는 프로젝트 브라우저 열기</span></span><br><span class="line">heroku open</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 현재 리모트 상태</span></span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 앱이름에 해당하는 사이트로 remote 변환</span></span><br><span class="line">heroku git:remote -a [앱이름]</span><br></pre></td></tr></table></figure>
 
 
@@ -328,7 +330,7 @@ ga('send', 'pageview');
         "genre": "backend devOps",
         "datePublished": "2021-10-12",
         "dateCreated": "2021-10-12",
-        "dateModified": "2021-10-13",
+        "dateModified": "2021-10-14",
         "url": "http://flamingotiger.github.io/backend/devOps/heroku-typescript-nodejs/",
         "description": "node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript
 
@@ -337,7 +339,7 @@ ga('send', 'pageview');
 
 npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다.
 1npm i @types/express @",
-        "wordCount": 580
+        "wordCount": 626
     }
 </script>
 
