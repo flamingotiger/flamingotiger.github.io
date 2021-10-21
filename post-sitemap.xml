@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/frontend/react/nextjs-absolute-path/</loc>
+        <lastmod>2021-10-21T01:52:44.438Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/backend/node/npm-check-updates/</loc>
         <lastmod>2021-10-18T07:43:03.343Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -32,23 +40,15 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/style/react-bootstrap/</loc>
-        <lastmod>2021-04-30T03:36:18.282Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/style/styled-components-lint/</loc>
-        <lastmod>2021-04-30T03:36:18.282Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://flamingotiger.github.io/style/styled-components/</loc>
+        <lastmod>2021-04-30T03:36:18.282Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/style/react-bootstrap/</loc>
         <lastmod>2021-04-30T03:36:18.282Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -72,6 +72,14 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/style/styled-components-lint/</loc>
+        <lastmod>2021-04-30T03:36:18.282Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/style/tailwindcss-use/</loc>
         <lastmod>2021-04-30T03:36:18.282Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -80,23 +88,15 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/style/css-will-change/</loc>
+        <lastmod>2021-04-30T03:36:18.281Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/javascript/deepcopy-shallowcopy/</loc>
-        <lastmod>2021-04-30T03:36:18.281Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/javascript/momentjs/</loc>
-        <lastmod>2021-04-30T03:36:18.281Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/javascript/throttle-debounce/</loc>
         <lastmod>2021-04-30T03:36:18.281Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -112,7 +112,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/style/css-will-change/</loc>
+        <loc>http://flamingotiger.github.io/javascript/momentjs/</loc>
         <lastmod>2021-04-30T03:36:18.281Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -128,6 +128,14 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/javascript/throttle-debounce/</loc>
+        <lastmod>2021-04-30T03:36:18.281Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/frontend/svg/svg-path/</loc>
         <lastmod>2021-04-30T03:36:18.281Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -136,23 +144,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/recoil/react-recoil-js/</loc>
-        <lastmod>2021-04-30T03:36:18.280Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/svg/svg-intro/</loc>
-        <lastmod>2021-04-30T03:36:18.280Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/redux/typesafe-actions/</loc>
+        <loc>http://flamingotiger.github.io/frontend/react/react-timer/</loc>
         <lastmod>2021-04-30T03:36:18.280Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -168,7 +160,23 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/react/react-timer/</loc>
+        <loc>http://flamingotiger.github.io/frontend/redux/typesafe-actions/</loc>
+        <lastmod>2021-04-30T03:36:18.280Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/frontend/svg/svg-intro/</loc>
+        <lastmod>2021-04-30T03:36:18.280Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/frontend/recoil/react-recoil-js/</loc>
         <lastmod>2021-04-30T03:36:18.280Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -185,14 +193,6 @@
 
     <url>
         <loc>http://flamingotiger.github.io/frontend/react/react-fontawesome/</loc>
-        <lastmod>2021-04-30T03:36:18.279Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/react/react-helmet/</loc>
         <lastmod>2021-04-30T03:36:18.279Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -240,15 +240,15 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/react/gatsby-typescript/</loc>
-        <lastmod>2021-04-30T03:36:18.278Z</lastmod>
+        <loc>http://flamingotiger.github.io/frontend/react/react-helmet/</loc>
+        <lastmod>2021-04-30T03:36:18.279Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/react/intersection-observer-api/</loc>
+        <loc>http://flamingotiger.github.io/frontend/react/gatsby-typescript/</loc>
         <lastmod>2021-04-30T03:36:18.278Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -264,7 +264,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/react/nextjs-absolute-path/</loc>
+        <loc>http://flamingotiger.github.io/frontend/react/nextjs-i18next/</loc>
         <lastmod>2021-04-30T03:36:18.278Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -272,7 +272,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/react/nextjs-i18next/</loc>
+        <loc>http://flamingotiger.github.io/frontend/react/intersection-observer-api/</loc>
         <lastmod>2021-04-30T03:36:18.278Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -360,23 +360,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/Testing/jest-next-testing/</loc>
-        <lastmod>2021-04-30T03:36:18.276Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://flamingotiger.github.io/frontend/axios/axios-get-progress/</loc>
-        <lastmod>2021-04-30T03:36:18.276Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/flutter/flutter-bottom-nav/</loc>
         <lastmod>2021-04-30T03:36:18.276Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -400,7 +384,23 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/frontend/Testing/jest-next-testing/</loc>
+        <lastmod>2021-04-30T03:36:18.276Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/frontend/d3/d3-use-html/</loc>
+        <lastmod>2021-04-30T03:36:18.276Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/frontend/flutter/flutter-bottom-nav/</loc>
         <lastmod>2021-04-30T03:36:18.276Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -417,6 +417,14 @@
 
     <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-rename/</loc>
+        <lastmod>2021-04-30T03:36:18.275Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-reset/</loc>
         <lastmod>2021-04-30T03:36:18.275Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -448,22 +456,6 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-reset/</loc>
-        <lastmod>2021-04-30T03:36:18.275Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-absolute-path/</loc>
-        <lastmod>2021-04-30T03:36:18.274Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-adb-error/</loc>
         <lastmod>2021-04-30T03:36:18.274Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -480,14 +472,6 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-firebase/</loc>
-        <lastmod>2021-04-30T03:36:18.274Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-firebase-google-login/</loc>
         <lastmod>2021-04-30T03:36:18.274Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -496,7 +480,23 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-absolute-path/</loc>
+        <lastmod>2021-04-30T03:36:18.274Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-react-navigation/</loc>
+        <lastmod>2021-04-30T03:36:18.274Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-firebase/</loc>
         <lastmod>2021-04-30T03:36:18.274Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -600,7 +600,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/etc/etc/git-ignore/</loc>
+        <loc>http://flamingotiger.github.io/etc/etc/favicon/</loc>
         <lastmod>2021-04-30T03:36:18.271Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -608,7 +608,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/etc/etc/favicon/</loc>
+        <loc>http://flamingotiger.github.io/etc/etc/git-ignore/</loc>
         <lastmod>2021-04-30T03:36:18.271Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -624,7 +624,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/etc/etc/jsonplaceholder/</loc>
+        <loc>http://flamingotiger.github.io/etc/etc/postman/</loc>
         <lastmod>2021-04-30T03:36:18.271Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -632,7 +632,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/etc/etc/postman/</loc>
+        <loc>http://flamingotiger.github.io/etc/etc/jsonplaceholder/</loc>
         <lastmod>2021-04-30T03:36:18.271Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -760,7 +760,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/DevTIL/CS/tcp-udp/</loc>
+        <loc>http://flamingotiger.github.io/DevTIL/Algorithm/algorithm-insertion-sort/</loc>
         <lastmod>2021-04-30T03:36:18.268Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -776,7 +776,7 @@
     </url>
 
     <url>
-        <loc>http://flamingotiger.github.io/DevTIL/Algorithm/algorithm-insertion-sort/</loc>
+        <loc>http://flamingotiger.github.io/DevTIL/CS/tcp-udp/</loc>
         <lastmod>2021-04-30T03:36:18.268Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

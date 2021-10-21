@@ -21,7 +21,7 @@
 <meta property="og:description" content="시작하기상대경로를 사용할 시 패키지 구조가 깊어질 경우 import시에 많이 번거로워지게 됩니다.작은 규모의 어플리케이션이라면 상관없지만 규모가 커질수록 꼬이기 쉬워집니다. 상대경로 1import Acomponent from ‘../../../../component/Acomponent’;  절대경로 1import Acomponent from ‘src/com">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-thumb.jpg">
-<meta property="og:updated_time" content="2021-04-30T03:36:18.278Z">
+<meta property="og:updated_time" content="2021-10-21T01:52:44.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nextjs typescript 절대경로 설정하기">
 <meta name="twitter:description" content="시작하기상대경로를 사용할 시 패키지 구조가 깊어질 경우 import시에 많이 번거로워지게 됩니다.작은 규모의 어플리케이션이라면 상관없지만 규모가 커질수록 꼬이기 쉬워집니다. 상대경로 1import Acomponent from ‘../../../../component/Acomponent’;  절대경로 1import Acomponent from ‘src/com">
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <div class="article-date">
       <i class="fa fa-calendar"></i>
       <a href="/frontend/react/nextjs-absolute-path/" class="article-date">
-         <time datetime="2020-05-08T08:04:51.000Z" itemprop="datePublished">2020-05-08</time>
+         <time datetime="2021-10-20T08:04:51.000Z" itemprop="datePublished">2021-10-20</time>
       </a>
     </div>
 
@@ -193,7 +193,7 @@ ga('send', 'pageview');
    <span id="/frontend/react/nextjs-absolute-path/" class="leancloud-visitors" data-flag-title="Nextjs typescript 절대경로 설정하기">
    <i class="fa fa-eye"></i>
    <span class="post-meta-item-text">Views: </span>
-   <i class="leancloud-visitors-count">113</i>
+   <i class="leancloud-visitors-count">342</i>
    </span>
 
 
@@ -220,6 +220,26 @@ ga('send', 'pageview');
 <p>이제 import사용시 src로 시작할수 있게 되었습니다.<br>example)</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Test <span class="keyword">from</span> <span class="string">"src/components/Test"</span>;</span><br></pre></td></tr></table></figure>
 
+<p>여기까지만 해도 충분히 간편하게 경로를 설정할 수 있습니다.</p>
+<h2 id="경로를-폴더별로-구분하기"><a href="#경로를-폴더별로-구분하기" class="headerlink" title="경로를 폴더별로 구분하기"></a>경로를 폴더별로 구분하기</h2><p>다음 방법을 이용하면 폴더별로 더욱 쉽게 경로를 관리할 수 있습니다.<br><code>src/component/~~~</code>와 같이 절대경로로 작성되어도 길어보이는 것은 같습니다.<br>이것을 더욱 짧고 간결하게 하기위해서 설정을 몇가지 해보겠습니다.<br>nextjs에서는 설정하기 위해서는 몇가지 파일을 수정해주어야 합니다.</p>
+<ul>
+<li><code>@components</code>: 컴포넌트</li>
+<li><code>@hooks</code>: 전역으로 사용하는 훅스</li>
+<li><code>@services</code>: api 서비스</li>
+<li><code>@utils</code>: 자주사용하는 함수 및 상수들</li>
+</ul>
+<h3 id="next-config-js"><a href="#next-config-js" class="headerlink" title="next.config.js"></a>next.config.js</h3><p>next.config.js 파일을 수정해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>next.config.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> nextConfig = <span class="function"><span class="params">phase</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">webpack(config, &#123; webpack &#125;) &#123;</span><br><span class="line">			config.resolve = &#123;</span><br><span class="line">				alias: &#123;</span><br><span class="line">					<span class="string">'@services'</span>: path.resolve(__dirname, <span class="string">'src/services'</span>),</span><br><span class="line">					<span class="string">'@utils'</span>: path.resolve(__dirname, <span class="string">'src/utils'</span>),</span><br><span class="line">					<span class="string">'@hooks'</span>: path.resolve(__dirname, <span class="string">'src/hooks'</span>),</span><br><span class="line">					<span class="string">'@components'</span>: path.resolve(__dirname, <span class="string">'src/components'</span>)</span><br><span class="line">				&#125;,</span><br><span class="line">				...config.resolve</span><br><span class="line">			&#125;;</span><br><span class="line">			<span class="keyword">return</span> config;</span><br><span class="line">		&#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">phase</span> =&gt;</span> nextConfig(phase);</span><br></pre></td></tr></table></figure>
+
+<h3 id="babelrc"><a href="#babelrc" class="headerlink" title=".babelrc"></a>.babelrc</h3><p>babel-plugin-module-resolver 패키지를 설치하고 .babelrc 파일을 수정해줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i babel-plugin-module-resolver</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>.babelrc</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>: [</span><br><span class="line">    <span class="string">"next/babel"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    [</span><br><span class="line">      <span class="string">"module-resolver"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"root"</span>: [</span><br><span class="line">          <span class="string">"./src"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"alias"</span>: &#123;</span><br><span class="line">          <span class="string">"@services"</span>: <span class="string">"./src/services"</span>,</span><br><span class="line">          <span class="string">"@utils"</span>: <span class="string">"./src/utils"</span>,</span><br><span class="line">          <span class="string">"@hooks"</span>: <span class="string">"./src/hooks"</span>,</span><br><span class="line">          <span class="string">"@components"</span>: <span class="string">"./src/components"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="tsconfig"><a href="#tsconfig" class="headerlink" title="tsconfig"></a>tsconfig</h3><p>tsconfig 파일도 수정해 줍니다. 여기서 설정해주지 않으면 컴파일과정에서 에러가 발생합니다. 그리고 자동 입력 기능을 사용할 수 있습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &lt;!-- ... --&gt;</span><br><span class="line">    &quot;paths&quot;: &#123;</span><br><span class="line">      &quot;@services/*&quot;: [&quot;src/services/*&quot;],</span><br><span class="line">      &quot;@utils/*&quot;: [&quot;src/utils/*&quot;],</span><br><span class="line">      &quot;@hooks/*&quot;: [&quot;src/hooks/*&quot;],</span><br><span class="line">      &quot;@components/*&quot;: [&quot;src/components/*&quot;],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/react/nextjs-absolute-path_0.png" alt="자동 입력"></p>
 
         </div>
         <footer class="article-footer">
@@ -227,7 +247,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://flamingotiger.github.io/frontend/react/nextjs-absolute-path/" data-id="ckuwbshpb008w29qqu1fiqggy" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://flamingotiger.github.io/frontend/react/nextjs-absolute-path/" data-id="ckv0ah50m007xajqqvswdmzz8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -301,9 +321,9 @@ ga('send', 'pageview');
         "image": "http://flamingotiger.github.io/image/thumb/react-thumb.jpg",
         "keywords": "react typescript next",
         "genre": "frontend react",
-        "datePublished": "2020-05-08",
-        "dateCreated": "2020-05-08",
-        "dateModified": "2021-04-30",
+        "datePublished": "2021-10-20",
+        "dateCreated": "2021-10-20",
+        "dateModified": "2021-10-21",
         "url": "http://flamingotiger.github.io/frontend/react/nextjs-absolute-path/",
         "description": "시작하기상대경로를 사용할 시 패키지 구조가 깊어질 경우 import시에 많이 번거로워지게 됩니다.작은 규모의 어플리케이션이라면 상관없지만 규모가 커질수록 꼬이기 쉬워집니다.
 상대경로
@@ -311,7 +331,7 @@ ga('send', 'pageview');
 
 절대경로
 1import Acomponent from ‘src/com",
-        "wordCount": 212
+        "wordCount": 681
     }
 </script>
 
@@ -386,20 +406,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/etc/etc/git-shortcut/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            Git 명령어 단축해보기
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/frontend/react/react-kakao-map/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/backend/node/npm-check-updates/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">React Next js에서 카카오맵 사용하기</p>
+        <p class="article-nav-title">package.json에 종속되어있는 패키지 최신화하기</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -417,6 +427,26 @@ ga('send', 'pageview');
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/nextjs-absolute-path/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="Nextjs typescript 절대경로 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/nextjs-absolute-path/" class="title">Nextjs typescript 절대경로 설정하기</a></p>
+                            <p class="item-date"><time datetime="2021-10-20T08:04:51.000Z" itemprop="datePublished">2021-10-20</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -495,26 +525,6 @@ ga('send', 'pageview');
                             <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
                             <p class="item-title"><a href="/etc/etc/favicon/" class="title">Favicon 웹사이트에 적용하기</a></p>
                             <p class="item-date"><time datetime="2021-04-30T03:36:18.271Z" itemprop="datePublished">2021-04-30</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/frontend/react/react-add-font/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="리액트 프로젝트에 폰트추가" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
-                            <p class="item-title"><a href="/frontend/react/react-add-font/" class="title">리액트 프로젝트에 폰트추가</a></p>
-                            <p class="item-date"><time datetime="2021-04-07T07:29:43.000Z" itemprop="datePublished">2021-04-07</time></p>
                         </div>
                     </li>
                 
