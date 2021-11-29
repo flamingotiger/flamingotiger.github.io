@@ -9,8 +9,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>프론트엔드 개발 혹은 공부하면서 기록하는 블로그입니다. TypeScript, React를 주로 선호합니다.</description>
-    <pubDate>Thu, 21 Oct 2021 01:52:44 GMT</pubDate>
+    <pubDate>Mon, 29 Nov 2021 03:55:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>사용중인 포트 프로세스 찾아서 종료시키기</title>
+      <link>http://flamingotiger.github.io/etc/etc/kill-port/</link>
+      <guid>http://flamingotiger.github.io/etc/etc/kill-port/</guid>
+      <pubDate>Mon, 29 Nov 2021 03:51:31 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h1 id=&quot;문제&quot;&gt;&lt;a href=&quot;#문제&quot; class=&quot;headerlink&quot; title=&quot;문제&quot;&gt;&lt;/a&gt;문제&lt;/h1&gt;&lt;p&gt;프로젝트에서 서버를 &lt;code&gt;npm run dev&lt;/code&gt; &lt;code&gt;npm run start&lt;/code&gt;를 통해서 실행
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h1 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h1><p>프로젝트에서 서버를 <code>npm run dev</code> <code>npm run start</code>를 통해서 실행했을때, 사용하지 않아도 실행되어있는 경우가 있다.<br>일반적으로 8080과 3000을 많이 사용하는데, 실행이 안된다면, 포트 프로세스를 종료시키는 방법을 사용하면 된다.</p><h1 id="해결책"><a href="#해결책" class="headerlink" title="해결책"></a>해결책</h1><p>8080포트가 접속중인지 확인해 본다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i tcp:8080</span><br></pre></td></tr></table></figure><p>다음 명령어소 8080포트를 종료시킨다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill $(lsof -t -i:8080)</span><br></pre></td></tr></table></figure><p>다른 포트를 확인 및 종료시키고 싶다면 8080부분을 다른 포트로 변경해서 사용하면된다.</p>]]></content:encoded>
+      
+      <comments>http://flamingotiger.github.io/etc/etc/kill-port/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Nextjs typescript 절대경로 설정하기</title>
@@ -392,26 +412,6 @@
       <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>AWS EC2 인스턴스에서 터미널을 열고 하기에는 번거롭거나 끊기는 경우가 종종 발생합니다.<br>그래서 로컬의 터미널에서 aws ec2를 연결해서 사용해보겠습니다.</p><h2 id="인스턴스-확인"><a href="#인스턴스-확인" class="headerlink" title="인스턴스 확인"></a>인스턴스 확인</h2><p>ec2애서 연결하고자하는 인스턴스의 퍼블릭 IPv4 DNS주소를 복사합니다.</p><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-0.png" alt="인스턴스 확인"></p><h2 id="ec2-연결하기"><a href="#ec2-연결하기" class="headerlink" title="ec2 연결하기"></a>ec2 연결하기</h2><p>ec2를 연결하기 위해서는 pem키가 필요합니다.</p><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-1.png" alt="접속하기"></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/Downloads/AWS_EC2_KeyPair_0.pem ec2-user@ec2-54-180-147-141.ap-northeast-2.compute.amazonaws.com</span><br></pre></td></tr></table></figure><p><code>ssh -i [Pem키 경로] [사용자이름@이전에 복사한 DNS]</code>를 입력합니다.<br>입력하면 다음과 같은 에러가 나옵니다. 이 에러는 bad permission으로 권한이 없다는 얘기입니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 사용자이름</span></span><br><span class="line">Amazon Linux AMI: ec2-user</span><br><span class="line">Centos AMI: centos</span><br><span class="line">Fedora AMI: ec2-user</span><br><span class="line">RHEL AMI: ec2-user / root</span><br><span class="line">SUSE: ec2-user / root</span><br><span class="line">Ubuntu AMI: ubuntu / root</span><br></pre></td></tr></table></figure><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-2.png" alt="접속 에러"></p><p>그러면 권한을 주도록 합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 ~/Downloads/AWS_EC2_KeyPair_0.pem</span><br></pre></td></tr></table></figure><p><code>chmod 400 [Pem키 경로]</code></p><p>이후 다시 접속 요청을 해봅니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/Downloads/AWS_EC2_KeyPair_0.pem ec2-user@ec2-54-180-147-141.ap-northeast-2.compute.amazonaws.com</span><br></pre></td></tr></table></figure><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-3.png" alt="연결완료"></p><p>연결이 완료되는 것을 확인할 수 있습니다.</p>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/backend/devOps/aws-ec2-connect-ssh/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>AWS EC2에서 ssh키 생성과 git설치하기</title>
-      <link>http://flamingotiger.github.io/backend/devOps/aws-ec2-install-git/</link>
-      <guid>http://flamingotiger.github.io/backend/devOps/aws-ec2-install-git/</guid>
-      <pubDate>Fri, 23 Oct 2020 07:02:26 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;AWS EC2 인스턴스에서 ssh키를 생성하고 git을 설치해 보겠습니다.&lt;br&gt;ec2에서 인스턴스로 들어가 인
-        
-      
-      </description>
-      
-      
-      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>AWS EC2 인스턴스에서 ssh키를 생성하고 git을 설치해 보겠습니다.<br>ec2에서 인스턴스로 들어가 인스턴스에 연결이라는 버튼을 클릭한 후 다시 연결을 누르면 <figure class="highlight plain"><figcaption><span>터미널 창```이 열립니다.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 설치하기</span><br><span class="line"></span><br><span class="line">### ssh키 생성</span><br><span class="line">```shell</span><br><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure></p><p>터미널에서 커맨드를 입력한이후 비밀번호 설정을 하지 않고 생성을 하기위해서 엔터를 입력합니다.<br>그러면 SSH키가 생성이 됩니다.</p><p>이후 키를 확인해서 깃헙에 권한을 주어야합니다.<br>키를 확인하는 방법은 ssh키를 생성했던 위치에서 </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure><p>커맨드를 입력해줍니다.<br>그러면 <figure class="highlight plain"><figcaption><span>~~~~```라는 긴 텍스트 문장을 확인할 수 있습니다. 복사를 해줍니다.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">이후 깃허브 페이지로 이동합니다.</span><br><span class="line">![SSH and GPG keys](/image/backend/devOps/aws-ec2-install-git-0.png)</span><br><span class="line"></span><br><span class="line">깃허브 오른쪽상단 마이페이지로 들어가 SSH and GPG keys탭을 선택합니다.</span><br><span class="line"></span><br><span class="line">![SSH keys](/image/backend/devOps/aws-ec2-install-git-1.png)</span><br><span class="line">New SSH keys버튼을 클릭해 자기가 원하는 이름과 이전에 복사했었던 ssh key를 붙여넣습니다.</span><br><span class="line"></span><br><span class="line">## git 설치하기</span><br><span class="line">ec2에 git을 사용하려면 git을 설치해야합니다.</span><br><span class="line">Yum을 이용하면 쉽게 git 설치가 가능합니다.</span><br><span class="line"></span><br><span class="line">`yum`이란?</span><br><span class="line">rpm기반 시스템용 패키지 관리 도구입니다. 윈도우 OS로 예를 들면 exe 파일로 설치/삭제 등을 하는 프로그램입니다.</span><br><span class="line"></span><br><span class="line">간단한 명령어 입니다.</span><br><span class="line">```shell</span><br><span class="line">yum install 설치</span><br><span class="line">yum update 업데이트</span><br><span class="line">yum remove 삭제</span><br><span class="line">yum replolist 저장소 확인</span><br><span class="line">yum list 패키지 목록 보기</span><br><span class="line">yum list installed 설치된 패키지 목록 보기</span><br></pre></td></tr></table></figure></p><p>git 설치</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo yum update -y</span><br><span class="line"></span><br><span class="line">sudo yum install git -y</span><br><span class="line"></span><br><span class="line">git version</span><br></pre></td></tr></table></figure><p>커맨드를 입력하면 git이 설치되는 것을 확인할 수 있습니다.</p>]]></content:encoded>
-      
-      <comments>http://flamingotiger.github.io/backend/devOps/aws-ec2-install-git/#disqus_thread</comments>
     </item>
     
   </channel>
