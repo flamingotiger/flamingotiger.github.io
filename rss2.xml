@@ -9,8 +9,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>프론트엔드 개발 혹은 공부하면서 기록하는 블로그입니다. TypeScript, React를 주로 선호합니다.</description>
-    <pubDate>Mon, 29 Nov 2021 03:55:58 GMT</pubDate>
+    <pubDate>Fri, 10 Dec 2021 07:49:48 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>M1 mac에서 React native 초기 설치시 에러 해결하기</title>
+      <link>http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/</link>
+      <guid>http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/</guid>
+      <pubDate>Fri, 10 Dec 2021 07:39:18 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.&lt;br&gt;&lt;a href=&quot;https://f
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.<br><a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-setup/">초기 설정</a><br>초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다.</p><p>m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다.</p><h2 id="ios-에러"><a href="#ios-에러" class="headerlink" title="ios 에러"></a>ios 에러</h2><p>처음에 설치를 하고 <code>npx react-native init MyApp --template react-native-template-typescript</code>명령어를 실행했는데 ios부분에서 에러가 난다면 몇가지 시도를 해볼 수 있습니다.</p><h3 id="rosetta"><a href="#rosetta" class="headerlink" title="rosetta"></a>rosetta</h3><p>로제타를 자주 사용할 것이기 때문에 로제타 터미널을 복제해서 생성합니다.<br><img src="/image/frontend/ReactNative/react-native-install-error-0.png" alt="유틸리티"><br><img src="/image/frontend/ReactNative/react-native-install-error-1.png" alt="정보보기"><br><img src="/image/frontend/ReactNative/react-native-install-error-2.png" alt="설정"></p><h3 id="cocoapods-설치"><a href="#cocoapods-설치" class="headerlink" title="cocoapods 설치"></a>cocoapods 설치</h3><p>코코아팟은 npm과 같이 의존성 관리하는 패키지 입니다.<br>FFI는 Foreign Function Interface의 줄임말로, Ruby-FFI는 다른 언어의 동적 링크 네이티브 라이브러리를 읽어와서 루비 코드로 실행할 수 있게 해주는 라이브러리입니다. 이 라이브러리를 설치하면 빅서 혹은 m1에서 나오는 에러가 해결되는 경우도 있습니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods</span><br><span class="line">sudo gem install ffi</span><br></pre></td></tr></table></figure><h3 id="기존-레거시-삭제"><a href="#기존-레거시-삭제" class="headerlink" title="기존 레거시 삭제"></a>기존 레거시 삭제</h3><p>기존 레거시는 삭제 시키고 다시 설치<br>레거시 react-native-cli에서는 해당 템플릿을 사용할 수 없고 새로운 CLI에서만 사용할 수 있다고 한다.<br>기존의 cli를 제거하고 npx를 이용하거나 npx를 이용하고 싶지 않다면 새로운 cli를 전역으로 설치해야 한다. </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g react-native-cli</span><br><span class="line">npm i -g @react-native-community/cli</span><br><span class="line">npx react-native init MyApp --template react-native-template-typescript</span><br></pre></td></tr></table></figure><p>이후에 실행시켜봅니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run ios</span><br></pre></td></tr></table></figure><h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><p>설치와 실행이 잘 되는 것을 확인 할 수 있습니다.<br><img src="/image/frontend/ReactNative/react-native-install-error-3.png" alt="결과"></p>]]></content:encoded>
+      
+      <comments>http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>사용중인 포트 프로세스 찾아서 종료시키기</title>
@@ -392,26 +412,6 @@
       <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>Amazon Linux 2 EC2에서 nginx 웹서버를 설치하도록 합니다.<br>amazon-linux-extras에는 nginx1 밖에 없으므로 nginx1을 먼저 설치해주도록합니다.</p><h2 id="nginx1-설치"><a href="#nginx1-설치" class="headerlink" title="nginx1 설치"></a>nginx1 설치</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo amazon-linux-extras enable nginx1</span><br></pre></td></tr></table></figure><p>nginx1을 설치를 하면 마지막부분에 다음과 같은 커맨드가 나옵니다.</p><p><img src="/image/backend/devOps/aws-nginx-install-0.png" alt="커맨드"></p><p>다음과 같이 설치를 진행합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum clean metadata &amp;&amp; sudo yum install nginx -y</span><br></pre></td></tr></table></figure><p>다음 커맨드로 설치가 되었는지 확인할 수 있습니다.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed nginx</span><br></pre></td></tr></table></figure>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/backend/devOps/aws-nginx-install/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>AWS EC2 터미널 연결하기</title>
-      <link>http://flamingotiger.github.io/backend/devOps/aws-ec2-connect-ssh/</link>
-      <guid>http://flamingotiger.github.io/backend/devOps/aws-ec2-connect-ssh/</guid>
-      <pubDate>Mon, 26 Oct 2020 05:15:59 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;AWS EC2 인스턴스에서 터미널을 열고 하기에는 번거롭거나 끊기는 경우가 종종 발생합니다.&lt;br&gt;그래서 로컬의
-        
-      
-      </description>
-      
-      
-      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>AWS EC2 인스턴스에서 터미널을 열고 하기에는 번거롭거나 끊기는 경우가 종종 발생합니다.<br>그래서 로컬의 터미널에서 aws ec2를 연결해서 사용해보겠습니다.</p><h2 id="인스턴스-확인"><a href="#인스턴스-확인" class="headerlink" title="인스턴스 확인"></a>인스턴스 확인</h2><p>ec2애서 연결하고자하는 인스턴스의 퍼블릭 IPv4 DNS주소를 복사합니다.</p><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-0.png" alt="인스턴스 확인"></p><h2 id="ec2-연결하기"><a href="#ec2-연결하기" class="headerlink" title="ec2 연결하기"></a>ec2 연결하기</h2><p>ec2를 연결하기 위해서는 pem키가 필요합니다.</p><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-1.png" alt="접속하기"></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/Downloads/AWS_EC2_KeyPair_0.pem ec2-user@ec2-54-180-147-141.ap-northeast-2.compute.amazonaws.com</span><br></pre></td></tr></table></figure><p><code>ssh -i [Pem키 경로] [사용자이름@이전에 복사한 DNS]</code>를 입력합니다.<br>입력하면 다음과 같은 에러가 나옵니다. 이 에러는 bad permission으로 권한이 없다는 얘기입니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 사용자이름</span></span><br><span class="line">Amazon Linux AMI: ec2-user</span><br><span class="line">Centos AMI: centos</span><br><span class="line">Fedora AMI: ec2-user</span><br><span class="line">RHEL AMI: ec2-user / root</span><br><span class="line">SUSE: ec2-user / root</span><br><span class="line">Ubuntu AMI: ubuntu / root</span><br></pre></td></tr></table></figure><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-2.png" alt="접속 에러"></p><p>그러면 권한을 주도록 합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 ~/Downloads/AWS_EC2_KeyPair_0.pem</span><br></pre></td></tr></table></figure><p><code>chmod 400 [Pem키 경로]</code></p><p>이후 다시 접속 요청을 해봅니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i ~/Downloads/AWS_EC2_KeyPair_0.pem ec2-user@ec2-54-180-147-141.ap-northeast-2.compute.amazonaws.com</span><br></pre></td></tr></table></figure><p><img src="/image/backend/devOps/aws-ec2-connect-ssh-3.png" alt="연결완료"></p><p>연결이 완료되는 것을 확인할 수 있습니다.</p>]]></content:encoded>
-      
-      <comments>http://flamingotiger.github.io/backend/devOps/aws-ec2-connect-ssh/#disqus_thread</comments>
     </item>
     
   </channel>

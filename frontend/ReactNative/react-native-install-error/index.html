@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>M1 mac에서 React native 초기 설치시 에러 해결하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,rosetta">
+    
+    <meta name="description" content="시작하기리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.초기 설정초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다. m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다. ios 에러처음에 설치를 하고 npx react-native init MyApp --template react-na">
+<meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,rosetta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="M1 mac에서 React native 초기 설치시 에러 해결하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.초기 설정초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다. m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다. ios 에러처음에 설치를 하고 npx react-native init MyApp --template react-na">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+<meta property="og:updated_time" content="2021-12-10T07:49:48.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="M1 mac에서 React native 초기 설치시 에러 해결하기">
+<meta name="twitter:description" content="시작하기리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.초기 설정초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다. m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다. ios 에러처음에 설치를 하고 npx react-native init MyApp --template react-na">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-install-error/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-install-error" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        M1 mac에서 React native 초기 설치시 에러 해결하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-install-error/" class="article-date">
+         <time datetime="2021-12-10T07:39:18.000Z" itemprop="datePublished">2021-12-10</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/rosetta/">rosetta</a>, <a class="tag-link" href="/tags/리액트-네이티브/">리액트 네이티브</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-install-error/" class="leancloud-visitors" data-flag-title="M1 mac에서 React native 초기 설치시 에러 해결하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">198</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.<br><a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-setup/">초기 설정</a><br>초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다.</p>
+<p>m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다.</p>
+<h2 id="ios-에러"><a href="#ios-에러" class="headerlink" title="ios 에러"></a>ios 에러</h2><p>처음에 설치를 하고 <code>npx react-native init MyApp --template react-native-template-typescript</code>명령어를 실행했는데 ios부분에서 에러가 난다면 몇가지 시도를 해볼 수 있습니다.</p>
+<h3 id="rosetta"><a href="#rosetta" class="headerlink" title="rosetta"></a>rosetta</h3><p>로제타를 자주 사용할 것이기 때문에 로제타 터미널을 복제해서 생성합니다.<br><img src="/image/frontend/ReactNative/react-native-install-error-0.png" alt="유틸리티"><br><img src="/image/frontend/ReactNative/react-native-install-error-1.png" alt="정보보기"><br><img src="/image/frontend/ReactNative/react-native-install-error-2.png" alt="설정"></p>
+<h3 id="cocoapods-설치"><a href="#cocoapods-설치" class="headerlink" title="cocoapods 설치"></a>cocoapods 설치</h3><p>코코아팟은 npm과 같이 의존성 관리하는 패키지 입니다.<br>FFI는 Foreign Function Interface의 줄임말로, Ruby-FFI는 다른 언어의 동적 링크 네이티브 라이브러리를 읽어와서 루비 코드로 실행할 수 있게 해주는 라이브러리입니다. 이 라이브러리를 설치하면 빅서 혹은 m1에서 나오는 에러가 해결되는 경우도 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods</span><br><span class="line">sudo gem install ffi</span><br></pre></td></tr></table></figure>
+
+<h3 id="기존-레거시-삭제"><a href="#기존-레거시-삭제" class="headerlink" title="기존 레거시 삭제"></a>기존 레거시 삭제</h3><p>기존 레거시는 삭제 시키고 다시 설치<br>레거시 react-native-cli에서는 해당 템플릿을 사용할 수 없고 새로운 CLI에서만 사용할 수 있다고 한다.<br>기존의 cli를 제거하고 npx를 이용하거나 npx를 이용하고 싶지 않다면 새로운 cli를 전역으로 설치해야 한다. </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g react-native-cli</span><br><span class="line">npm i -g @react-native-community/cli</span><br><span class="line">npx react-native init MyApp --template react-native-template-typescript</span><br></pre></td></tr></table></figure>
+
+<p>이후에 실행시켜봅니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run ios</span><br></pre></td></tr></table></figure>
+
+<h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><p>설치와 실행이 잘 되는 것을 확인 할 수 있습니다.<br><img src="/image/frontend/ReactNative/react-native-install-error-3.png" alt="결과"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/" data-id="ckx03a1oa0071bxqqz6c6qeu4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "M1 mac에서 React native 초기 설치시 에러 해결하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
+        "keywords": "react frontend native react native 리액트 네이티브 rosetta",
+        "genre": "frontend ReactNative",
+        "datePublished": "2021-12-10",
+        "dateCreated": "2021-12-10",
+        "dateModified": "2021-12-10",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-install-error/",
+        "description": "시작하기리액트 네이티브 초기 설정하는 방법은 다음 링크에서 확인할 수 있습니다.초기 설정초기 설정 방법 대로 했는데 ios에서 에러가 날 경우 해결 방법입니다.
+m1 맥미니, Big sur, node v14.17.0버전에서 테스트를 했습니다.
+ios 에러처음에 설치를 하고 npx react-native init MyApp --template react-na",
+        "wordCount": 209
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/etc/etc/kill-port/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">사용중인 포트 프로세스 찾아서 종료시키기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-install-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="M1 mac에서 React native 초기 설치시 에러 해결하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-install-error/" class="title">M1 mac에서 React native 초기 설치시 에러 해결하기</a></p>
+                            <p class="item-date"><time datetime="2021-12-10T07:39:18.000Z" itemprop="datePublished">2021-12-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/etc/kill-port/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/zsh_thumb.jpg)" alt="사용중인 포트 프로세스 찾아서 종료시키기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
+                            <p class="item-title"><a href="/etc/etc/kill-port/" class="title">사용중인 포트 프로세스 찾아서 종료시키기</a></p>
+                            <p class="item-date"><time datetime="2021-11-29T03:51:31.000Z" itemprop="datePublished">2021-11-29</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/react/nextjs-absolute-path/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="Nextjs typescript 절대경로 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
+                            <p class="item-title"><a href="/frontend/react/nextjs-absolute-path/" class="title">Nextjs typescript 절대경로 설정하기</a></p>
+                            <p class="item-date"><time datetime="2021-10-20T08:04:51.000Z" itemprop="datePublished">2021-10-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/node/npm-check-updates/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/nodejs_thumb.jpg)" alt="package.json에 종속되어있는 패키지 최신화하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/node/">node</a></p>
+                            <p class="item-title"><a href="/backend/node/npm-check-updates/" class="title">package.json에 종속되어있는 패키지 최신화하기</a></p>
+                            <p class="item-date"><time datetime="2021-10-18T07:09:20.000Z" itemprop="datePublished">2021-10-18</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/backend/devOps/heroku-typescript-nodejs/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/heroku-thumb.jpg)" alt="heroku node 서버 배포하기(typescript)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/backend/devOps/">devOps</a></p>
+                            <p class="item-title"><a href="/backend/devOps/heroku-typescript-nodejs/" class="title">heroku node 서버 배포하기(typescript)</a></p>
+                            <p class="item-date"><time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2021 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
