@@ -9,8 +9,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>프론트엔드 개발 혹은 공부하면서 기록하는 블로그입니다. TypeScript, React를 주로 선호합니다.</description>
-    <pubDate>Fri, 10 Dec 2021 07:49:48 GMT</pubDate>
+    <pubDate>Tue, 14 Dec 2021 05:49:03 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>mac m1에서 react native 빌드 에러 The linked library &#39;libPods-ProjectName.a&#39; is missing one or morearchitectures required by this target x86_64</title>
+      <link>http://flamingotiger.github.io/frontend/ReactNative/react-native-m1-first-build-error/</link>
+      <guid>http://flamingotiger.github.io/frontend/ReactNative/react-native-m1-first-build-error/</guid>
+      <pubDate>Tue, 14 Dec 2021 05:42:58 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;mac m1에서 프로젝트를 생성한 이후 ios에서 빌드를 했을 때 &lt;code&gt;Apple Silicon M1 - 
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>mac m1에서 프로젝트를 생성한 이후 ios에서 빌드를 했을 때 <code>Apple Silicon M1 - The linked library &#39;libPods-ProjectName.a&#39; is missing one or more architectures required by this target: x86_64</code>와 같은 에러가 나와서 빌드가 안되는 경우가 있습니다.<br>해결방법은 정말 간단합니다.</p><h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>xcode를 연이후에 프로젝트에서 build setting을 선택합니다.<br>이후 <code>Excluded architactures</code>에서 debug release에 <code>arm64</code>를 추가해줍니다. 추가하는 방법은 다음과 같습니다.</p><p><img src="/image/frontend/ReactNative/react-native-m1-first-build-error-0.png" alt="step1"><br><img src="/image/frontend/ReactNative/react-native-m1-first-build-error-1.png" alt="step2"><br><img src="/image/frontend/ReactNative/react-native-m1-first-build-error-2.png" alt="step3"></p><p>이후 빌드를 해보면 잘 작동하는 것을 확인할 수 있습니다.</p><h3 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h3><p><a href="https://stackoverflow.com/questions/65364886/react-native-on-apple-silicon-m1-the-linked-library-libpods-projectname-a-is" rel="external nofollow noopener noreferrer" target="_blank">스택오버플로우</a></p>]]></content:encoded>
+      
+      <comments>http://flamingotiger.github.io/frontend/ReactNative/react-native-m1-first-build-error/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>M1 mac에서 React native 초기 설치시 에러 해결하기</title>
@@ -392,26 +412,6 @@
       <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>ec2에서 nginx를 사용하는 방법을 알아 보겠습니다.</p><h2 id="선행-설치"><a href="#선행-설치" class="headerlink" title="선행 설치"></a>선행 설치</h2><p><a href="https://flamingotiger.github.io/backend/devOps/aws-nginx-install/">이전 nginx 포스트</a>에서 nginx를 설치를 먼저 해야합니다.</p><p><a href="https://flamingotiger.github.io/backend/devOps/aws-ec2-install-git/">깃헙 설치하기 포스트</a></p><p><a href="https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html" rel="external nofollow noopener noreferrer" target="_blank">aws node 설치하기 공식 사이트</a></p><h2 id="EC2-포트설정하기"><a href="#EC2-포트설정하기" class="headerlink" title="EC2 포트설정하기"></a>EC2 포트설정하기</h2><p>aws에서 네트워크 및 보안에 인스턴스에 해당하는 보안 그룹을 선택합니다.<br>그리고 인바운드 규칙 편집 버튼을 선택합니다.<br><code>네트워크 및 보안 &gt; 인스턴스 &gt; 인바운스 규칙편집</code></p><p>http와 사용자 지정포트를 입력해줍니다. 추후 https를 사용할 것이기에 https도 추가해줍니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-0.png" alt="포트설정"></p><h2 id="EC2-깃-프로젝트-설치하기"><a href="#EC2-깃-프로젝트-설치하기" class="headerlink" title="EC2 깃 프로젝트 설치하기"></a>EC2 깃 프로젝트 설치하기</h2><p>인스턴스 터미널에서 다음 커맨드로 프로젝트를 준비합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone 프로젝트</span><br><span class="line"></span><br><span class="line">cd 프로젝트</span><br><span class="line">npm i</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure><p>그러면 준비가 완료 되었습니다.</p><h2 id="nginx-연동하기"><a href="#nginx-연동하기" class="headerlink" title="nginx 연동하기"></a>nginx 연동하기</h2><p>ec2에 nginx가 설치되어 있는상태에서</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx status</span><br></pre></td></tr></table></figure><p>커맨드를 입력하면 다음과 같이 서버가 실행이 되어있어야합니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-1.png" alt="커맨드"></p><p>퍼블릭IP를 URL에 입력하면 다음과 같은 화면이 나옵니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-2.png" alt="서버실행"></p><p>nginx 기본 포트는 80으로 설정되어있습니다.<br>이 포트에서 설정을 변경시켜줍니다.</p><h2 id="nginx-설정-변경"><a href="#nginx-설정-변경" class="headerlink" title="nginx 설정 변경"></a>nginx 설정 변경</h2><p><strong>기본팁</strong><br>설정을 변경하기 위해서는 기본적으로 vi편집기의 간단한 명령어를 알아야합니다.<br>당황하지말고 따라하면됩니다.</p><p>처음에는 기본적으로 <code>읽기모드</code>로 되어있습니다.<br><code>i</code>를 클릭하면 <code>입력모드</code>로 글자를 입력할 수 있습니다.<br>다시 읽기모드로 가기위해서는 <code>esc</code>를 누르면 됩니다.</p><p>읽기모드에서 편집을 하고 나서 저장후 닫고 싶으면 <code>:wq</code>를 입력하고, 저장하지 않고 닫고 싶다면 <code>:q</code>를 입력하고 <code>enter</code>를 누르면 됩니다.</p><p>글을 지울때 입력모드에서 del이나 backspace로 지울수 있는데 한줄 단위로 지우고 싶다면<br>편집모드에서 <code>dd</code>를 누르면 한줄이 삭제 됩니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure><p>sudo로 하는 이유는 nginx.conf파일이 읽기전용 파일이기때문에 관리자 권한으로 강제로 덮어쓰기를 하기 위해서 입니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">      proxy_pass http://127.0.0.1:8080/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>conf파일의 server부분에 location을 추가합니다.</p><p><img src="/image/backend/devOps/aws-ec2-nginx-3.png" alt="conf파일 수정"></p><p>conf파일이 변경되었기 때문에 nginx를 다시 재시동합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure><p>nginx를 재시동하고나서 프로젝트를 실행합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 프로젝트명</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure><p>퍼블릭 IP, DNS로 접속하면 따로 포트를 입력없이 연결되는것을 확인할 수 있습니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-4.png" alt="최종 연결"></p>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/backend/devOps/aws-ec2-nginx/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>AWS애서 nginx 설치하기 (Amazon Linux 2 EC2)</title>
-      <link>http://flamingotiger.github.io/backend/devOps/aws-nginx-install/</link>
-      <guid>http://flamingotiger.github.io/backend/devOps/aws-nginx-install/</guid>
-      <pubDate>Mon, 26 Oct 2020 05:35:12 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;Amazon Linux 2 EC2에서 nginx 웹서버를 설치하도록 합니다.&lt;br&gt;amazon-linux-ext
-        
-      
-      </description>
-      
-      
-      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>Amazon Linux 2 EC2에서 nginx 웹서버를 설치하도록 합니다.<br>amazon-linux-extras에는 nginx1 밖에 없으므로 nginx1을 먼저 설치해주도록합니다.</p><h2 id="nginx1-설치"><a href="#nginx1-설치" class="headerlink" title="nginx1 설치"></a>nginx1 설치</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo amazon-linux-extras enable nginx1</span><br></pre></td></tr></table></figure><p>nginx1을 설치를 하면 마지막부분에 다음과 같은 커맨드가 나옵니다.</p><p><img src="/image/backend/devOps/aws-nginx-install-0.png" alt="커맨드"></p><p>다음과 같이 설치를 진행합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum clean metadata &amp;&amp; sudo yum install nginx -y</span><br></pre></td></tr></table></figure><p>다음 커맨드로 설치가 되었는지 확인할 수 있습니다.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list installed nginx</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      <comments>http://flamingotiger.github.io/backend/devOps/aws-nginx-install/#disqus_thread</comments>
     </item>
     
   </channel>
