@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React native QRcode scanner 사용하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,qrcode,QR,scanner,스캐너,카메라,camera">
+    
+    <meta name="description" content="시작하기react-native 앱에서 QR코드를 스캔할 수 있는 스캐너를 라이브러리를 이용하여 구현해보도록 하겠습니다.사용한 버전은 다음과 같습니다. Xcode: 12.5 1234&amp;#123;  &quot;react&quot;: &quot;17.0.2&quot;,  &quot;react-native&quot;: &quot;0.66.4&quot;&amp;#125;  라이브러리 정하기수많은 라이브러리 중 결론부터 말하자면 react-nat">
+<meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,qrcode,QR,scanner,스캐너,카메라,camera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React native QRcode scanner 사용하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-qrcode-scanner/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기react-native 앱에서 QR코드를 스캔할 수 있는 스캐너를 라이브러리를 이용하여 구현해보도록 하겠습니다.사용한 버전은 다음과 같습니다. Xcode: 12.5 1234&amp;#123;  &quot;react&quot;: &quot;17.0.2&quot;,  &quot;react-native&quot;: &quot;0.66.4&quot;&amp;#125;  라이브러리 정하기수많은 라이브러리 중 결론부터 말하자면 react-nat">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+<meta property="og:updated_time" content="2022-01-13T07:16:11.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React native QRcode scanner 사용하기">
+<meta name="twitter:description" content="시작하기react-native 앱에서 QR코드를 스캔할 수 있는 스캐너를 라이브러리를 이용하여 구현해보도록 하겠습니다.사용한 버전은 다음과 같습니다. Xcode: 12.5 1234&amp;#123;  &quot;react&quot;: &quot;17.0.2&quot;,  &quot;react-native&quot;: &quot;0.66.4&quot;&amp;#125;  라이브러리 정하기수많은 라이브러리 중 결론부터 말하자면 react-nat">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-qrcode-scanner/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-qrcode-scanner" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React native QRcode scanner 사용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-qrcode-scanner/" class="article-date">
+         <time datetime="2022-01-13T06:57:42.000Z" itemprop="datePublished">2022-01-13</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/QR/">QR</a>, <a class="tag-link" href="/tags/camera/">camera</a>, <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/qrcode/">qrcode</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/scanner/">scanner</a>, <a class="tag-link" href="/tags/리액트-네이티브/">리액트 네이티브</a>, <a class="tag-link" href="/tags/스캐너/">스캐너</a>, <a class="tag-link" href="/tags/카메라/">카메라</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-qrcode-scanner/" class="leancloud-visitors" data-flag-title="React native QRcode scanner 사용하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">487</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>react-native 앱에서 QR코드를 스캔할 수 있는 스캐너를 라이브러리를 이용하여 구현해보도록 하겠습니다.<br>사용한 버전은 다음과 같습니다.</p>
+<p>Xcode: 12.5</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"react"</span>: <span class="string">"17.0.2"</span>,</span><br><span class="line">  <span class="attr">"react-native"</span>: <span class="string">"0.66.4"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="라이브러리-정하기"><a href="#라이브러리-정하기" class="headerlink" title="라이브러리 정하기"></a>라이브러리 정하기</h2><p>수많은 라이브러리 중 결론부터 말하자면 react-native-camera-kit라이브러리를 사용할 것입니다.<br>이 라이브러리를 정한 이유는 아래에 나와있습니다.</p>
+<p>QR코드 스캐너 라이브러리</p>
+<ul>
+<li>react-native-qrcode-scanner ❌ (react-native-camera)<br>카메라 라이브러리필요</li>
+</ul>
+<p>QR코드를 스캔하기 위해서 우선 스마트폰의 카메라 설치해야합니다.</p>
+<p>카메라 라이브러리로는</p>
+<ul>
+<li>react-native-camera ❌</li>
+<li>react-native-vision-camera ❌</li>
+<li>react-native-camera-kit ✅<br>이렇게 세가지가 많이 사용되는 것으로 보입니다.</li>
+</ul>
+<p>현시점에서 react-native-camera는 deprecated가 되어 더이상 업데이트가 없어서 사용하지 않습니다.<br>그러므로 react-native-camera와 react-native-recode-scanner는 사용할 수 없습니다.</p>
+<p>react-native-camera 깃헙에서 react-native-vision-camera 라이브러리가 더 기능이 추가되고 성능이 향상되었다고 설명하며 링크가 연결되어 있습니다.<br>다만, 지금은 react-native 처음 초기 설정이후 라이브러리 설치후 빌드에서 에러가 나오는 현상이 유지되고 있기 때문에 사용하기는 어렵다고 판단이 됩니다.<br>(관련링크 <a href="https://github.com/mrousavy/react-native-vision-camera/issues/716" rel="external nofollow noopener noreferrer" target="_blank">이슈</a>)<br>그래서 사용하기도 간편하고 쉬운 <code>react-native-camera-kit</code>라이브러리를 사용할 예정입니다.</p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><p><a href="https://github.com/teslamotors/react-native-camera-kit" rel="external nofollow noopener noreferrer" target="_blank">react-native-camera-kit 깃헙 링크</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-native-camera-kit --save &amp;&amp; cd ios &amp;&amp; pod install &amp;&amp; cd ..</span><br></pre></td></tr></table></figure>
+
+<p>위에 명령어를 사용해서 라이브러리를 설치하고 ios파일에서 pod패키지를 설치하고 다시 루트로 돌아옵니다.</p>
+<h2 id="카메라-권한-허용해주기"><a href="#카메라-권한-허용해주기" class="headerlink" title="카메라 권한 허용해주기"></a>카메라 권한 허용해주기</h2><p>카메라를 이용하기 위해서는 권한을 허용해주어야 사용할 수 있습니다.</p>
+<h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><p>루트 경로에서 android/src/main/AndroidManifest.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CAMERA"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h3><p>루트 경로에서 ios/PROJECT_NAME/Info.list<br>다음 값을 추가해줍니다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSCameraUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>For taking photos<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSPhotoLibraryUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>For saving photos<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="사용하기"><a href="#사용하기" class="headerlink" title="사용하기"></a>사용하기</h3><p>스캐너 컴포넌트를 생성합니다.</p>
+<figure class="highlight typescript"><figcaption><span>QRCodeScanner.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  Alert,</span><br><span class="line">  Button,</span><br><span class="line">  Dimensions,</span><br><span class="line">  StyleSheet,</span><br><span class="line">  Vibration,</span><br><span class="line">  View,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">"react-native"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Camera, CameraType &#125; <span class="keyword">from</span> <span class="string">"react-native-camera-kit"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> QRCodeScanner = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [scaned, setScaned] = useState&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">true</span>);</span><br><span class="line">  <span class="keyword">const</span> ref = useRef(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 종료후 재시작을 했을때 초기화</span></span><br><span class="line">    setScaned(<span class="literal">true</span>);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> onBarCodeRead = <span class="function">(<span class="params">event: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!scaned) <span class="keyword">return</span>;</span><br><span class="line">    setScaned(<span class="literal">false</span>);</span><br><span class="line">    Vibration.vibrate();</span><br><span class="line">    Alert.alert(<span class="string">"QR Code"</span>, event.nativeEvent.codeStringValue, [</span><br><span class="line">      &#123; text: <span class="string">"OK"</span>, onPress: <span class="function"><span class="params">()</span> =&gt;</span> setScaned(<span class="literal">true</span>) &#125;,</span><br><span class="line">    ]);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">      &lt;Camera</span><br><span class="line">        style=&#123;styles.scanner&#125;</span><br><span class="line">        ref=&#123;ref&#125;</span><br><span class="line">        cameraType=&#123;CameraType.Back&#125; <span class="comment">// Front/Back(default)</span></span><br><span class="line">        zoomMode</span><br><span class="line">        focusMode</span><br><span class="line">        <span class="comment">// Barcode Scanner Props</span></span><br><span class="line">        scanBarcode</span><br><span class="line">        showFrame=&#123;<span class="literal">false</span>&#125;</span><br><span class="line">        laserColor=<span class="string">"rgba(0, 0, 0, 0)"</span></span><br><span class="line">        frameColor=<span class="string">"rgba(0, 0, 0, 0)"</span></span><br><span class="line">        surfaceColor=<span class="string">"rgba(0, 0, 0, 0)"</span></span><br><span class="line">        onReadCode=&#123;onBarCodeRead&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">  container: &#123;</span></span><br><span class="line"><span class="regexp">    flex: 1,</span></span><br><span class="line"><span class="regexp">    width: Dimensions.get("window").width,</span></span><br><span class="line"><span class="regexp">    height: Dimensions.get("window").height,</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  scanner: &#123; flex: 1 &#125;,</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">export default QRCodeScanner;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;View&gt;</span><br><span class="line">      &lt;QRCodeScanner /&gt;</span><br><span class="line">    &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-native-qrcode-scanner-0.gif" alt="실행화면"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-qrcode-scanner/" data-id="ckycmri76007nkgqq928cik0f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbum"
+        },
+        "headline": "React native QRcode scanner 사용하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
+        "keywords": "react frontend native react native 리액트 네이티브 qrcode QR scanner 스캐너 카메라 camera",
+        "genre": "frontend ReactNative",
+        "datePublished": "2022-01-13",
+        "dateCreated": "2022-01-13",
+        "dateModified": "2022-01-13",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-qrcode-scanner/",
+        "description": "시작하기react-native 앱에서 QR코드를 스캔할 수 있는 스캐너를 라이브러리를 이용하여 구현해보도록 하겠습니다.사용한 버전은 다음과 같습니다.
+Xcode: 12.5
+1234&#123;  "react": "17.0.2",  "react-native": "0.66.4"&#125;
+
+라이브러리 정하기수많은 라이브러리 중 결론부터 말하자면 react-nat",
+        "wordCount": 767
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/frontend/ReactNative/react-native-ios-build-version-error/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-qrcode-scanner/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="React native QRcode scanner 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-qrcode-scanner/" class="title">React native QRcode scanner 사용하기</a></p>
+                            <p class="item-date"><time datetime="2022-01-13T06:57:42.000Z" itemprop="datePublished">2022-01-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-build-version-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-build-version-error/" class="title">iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기</a></p>
+                            <p class="item-date"><time datetime="2022-01-13T06:02:18.000Z" itemprop="datePublished">2022-01-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-build/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="React native 아이폰에 빌드해서 테스트하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-build/" class="title">React native 아이폰에 빌드해서 테스트하기</a></p>
+                            <p class="item-date"><time datetime="2022-01-13T05:51:16.000Z" itemprop="datePublished">2022-01-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-m1-first-build-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="mac m1에서 react native 빌드 에러 The linked library &#39;libPods-ProjectName.a&#39; is missing one or morearchitectures required by this target x86_64" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-m1-first-build-error/" class="title">mac m1에서 react native 빌드 에러 The linked library &#39;libPods-ProjectName.a&#39; is missing one or morearchitectures required by this target x86_64</a></p>
+                            <p class="item-date"><time datetime="2021-12-14T05:42:58.000Z" itemprop="datePublished">2021-12-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-install-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="M1 mac에서 React native 초기 설치시 에러 해결하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-install-error/" class="title">M1 mac에서 React native 초기 설치시 에러 해결하기</a></p>
+                            <p class="item-date"><time datetime="2021-12-10T07:39:18.000Z" itemprop="datePublished">2021-12-10</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2022 Hong Hakbum</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
