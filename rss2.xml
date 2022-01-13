@@ -9,8 +9,28 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>프론트엔드 개발 혹은 공부하면서 기록하는 블로그입니다. TypeScript, React를 주로 선호합니다.</description>
-    <pubDate>Thu, 13 Jan 2022 05:56:23 GMT</pubDate>
+    <pubDate>Thu, 13 Jan 2022 06:17:02 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기</title>
+      <link>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build-version-error/</link>
+      <guid>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build-version-error/</guid>
+      <pubDate>Thu, 13 Jan 2022 06:02:18 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;아이폰에서 시뮬레이션하기 위해서 빌드하기 버튼을 클릭했는데, &lt;code&gt;xcode doesn&amp;#39;t supp
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>아이폰에서 시뮬레이션하기 위해서 빌드하기 버튼을 클릭했는데, <code>xcode doesn&#39;t support project&#39;s IOS 15.1(19B74)</code>라는 에러가 발생했습니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-version-error-0.png" alt="오류 메세지"></p><p>이것은 xcode가 아이폰의 소프트웨어 버전인 15.1을 호환하지 않는다는 이야기 입니다.<br>그렇다면 xcode를 설치해야겠죠?<br>아이폰의 최신버전 15.0 이상에서 빌드를 하기 위해서는 Xcode 13 버전이 필요합니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-version-error-3.png" alt="version"><br><img src="/image/frontend/ReactNative/react-native-ios-build-version-error-4.png" alt="version"></p><p><img src="/image/frontend/ReactNative/react-native-ios-build-version-error-1.png" alt="app store"></p><p>xcode를 업데이트 하려면 mac버전도 업데이트 해야합니다. (현재 Big Sur)<br>Mac bigsur버전이라면 xcode13버전을 설치할 수 없기 때문에 mac을 monterey버전으로 업데이트 해주어야 합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-version-error-2.png" alt="mac version update"></p><p>xcode13버전은 Appstore에서 설치 및 업데이트 할 수 있습니다.</p><h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><ol><li>Mac이 monterey버전으로 업데이트 해야한다.</li><li>xcode가 13버전 이상으로 업데이트 되어야한다.</li></ol><p>현재 아이폰의 버전이 14버전이면 xcode를 13버전으로 업데이트 하지 않아도 에러가 나오지 않습니다.</p>]]></content:encoded>
+      
+      <comments>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build-version-error/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>React native 아이폰에 빌드해서 테스트하기</title>
@@ -28,7 +48,7 @@
       </description>
       
       
-      <content:encoded><![CDATA[<h1 id="환경설정"><a href="#환경설정" class="headerlink" title="환경설정"></a>환경설정</h1><p>시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다.</p><h2 id="애플-계정등록"><a href="#애플-계정등록" class="headerlink" title="애플 계정등록"></a>애플 계정등록</h2><p>이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-0.png" alt="preferences"></p><p><img src="/image/frontend/ReactNative/react-native-ios-build-1.png" alt="accounts 탭"></p><p>accounts에 들어가서 애플 계정을 추가해줍니다.</p><p>이후 프로젝트가 열려있는 Xcode에 들어가서 targets &gt; 내프로그램명 &gt; Signing &amp; Capabilities 탭을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-2.png" alt="Signing &amp; Capabilities 탭"></p><p>그리고 signing부분의 team에서 아까 추가한 애플계정을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-3.png" alt="team"></p><h1 id="빌드하기"><a href="#빌드하기" class="headerlink" title="빌드하기"></a>빌드하기</h1><p>아이폰이 맥에 연결된 상태에서 시뮬레이터로 설정된것을 내 아이폰으로 설정하고 왼쪽 상단에 플레이 버튼을 누릅니다.<br>에러가 나지 않는다면 정상적으로 아이폰에 설치됩니다.</p><p>아이폰에서 신뢰할 수 없는 개발자라는 팝업이 나올시, 다음 경로에서 신뢰 버튼을 클릭해주어야 합니다.</p><p><code>설정 &gt; 일반 &gt; VPN 및 기기관리 &gt; 개발자이메일 &gt; 해당하는 프로젝트 &gt; 신뢰</code><br><img src="/image/frontend/ReactNative/react-native-ios-build-4.png" alt="vpn 및 기기 관리"></p><p>이후 앱을 실행하면 잘 작동하게 됩니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-5.png" alt="어플 작동 화면"></p>]]></content:encoded>
+      <content:encoded><![CDATA[<h1 id="환경설정"><a href="#환경설정" class="headerlink" title="환경설정"></a>환경설정</h1><p>시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다.</p><h2 id="애플-계정등록"><a href="#애플-계정등록" class="headerlink" title="애플 계정등록"></a>애플 계정등록</h2><p>이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-0.png" alt="preferences"></p><p><img src="/image/frontend/ReactNative/react-native-ios-build-1.png" alt="accounts 탭"></p><p>accounts에 들어가서 애플 계정을 추가해줍니다.</p><p>이후 프로젝트가 열려있는 Xcode에 들어가서 targets &gt; 내프로그램명 &gt; Signing &amp; Capabilities 탭을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-2.png" alt="Signing &amp; Capabilities 탭"></p><p>그리고 signing부분의 team에서 아까 추가한 애플계정을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-3.png" alt="team"></p><h1 id="빌드하기"><a href="#빌드하기" class="headerlink" title="빌드하기"></a>빌드하기</h1><p>아이폰이 맥에 연결된 상태에서 시뮬레이터로 설정된것을 내 아이폰으로 설정하고 왼쪽 상단에 플레이 버튼을 누릅니다.<br>에러가 나지 않는다면 정상적으로 아이폰에 설치됩니다.</p><p>xcode doesn’t support 에러가 나오면서 빌드가 안되면,<a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build-version-error/">xcode doesn’t support 에러시 해결</a>을 참고 해주세요.</p><p>아이폰에서 신뢰할 수 없는 개발자라는 팝업이 나오면, 다음 경로에서 신뢰 버튼을 클릭해주어야 합니다.</p><p><code>설정 &gt; 일반 &gt; VPN 및 기기관리 &gt; 개발자이메일 &gt; 해당하는 프로젝트 &gt; 신뢰</code><br><img src="/image/frontend/ReactNative/react-native-ios-build-4.png" alt="vpn 및 기기 관리"></p><p>이후 앱을 실행하면 잘 작동하게 됩니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-5.png" alt="어플 작동 화면"></p>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/#disqus_thread</comments>
     </item>
@@ -391,27 +411,6 @@
       <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>https를 사용하기 위해서는 인증을 해야합니다. 여러 인증하는 방법중에 nginx와 certbot을 이용한 인증 방법을 하도록 하겠습니다.</p><h2 id="확인하기"><a href="#확인하기" class="headerlink" title="확인하기"></a>확인하기</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist</span><br></pre></td></tr></table></figure><p>커맨드를 입력했을시 EPEL (Extra Packages for Enterprise Linux)이 없다면 certbot을 설치할 패키지를 가지고 있는 저장소가 없다는 뜻입니다.</p><p>최신 저장소를 추가하기 위해서는 epel-release 패키지가 필요합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa epel-release</span><br></pre></td></tr></table></figure><p>커맨드를 입력했을때 아무것도 나오지 않는다면 설치가 안된 것입니다.<br>그렇다면 설치를 해야합니다.</p><h2 id="설치-준비하기"><a href="#설치-준비하기" class="headerlink" title="설치 준비하기"></a>설치 준비하기</h2><p>EPEL7 저장소 패키지 다운로드를 해보겠습니다. 이는 Certbot에 필요한 종속성을 제공하는 데 필요합니다.</p><p>ssh로 ec2에 연결합니다. 연결방법을 모르신다면 <a href="https://flamingotiger.github.io/backend/devOps/aws-ec2-connect-ssh/">이전 ssh연결 포스트</a>를 참고해주세요.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/ec2-user</span><br></pre></td></tr></table></figure><p>홈 디렉토리로 이동후 EPEL을 설치합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -r --no-parent -A 'epel-release-*.rpm' http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/</span><br></pre></td></tr></table></figure><p>wget은 웹에서 자동적으로 파일을 받아오는데 사용되는 유틸리티입니다. HTTP, HTTPS, FTP 프로토콜을 지원합니다.</p><p><code>옵션</code><br><code>-r, --recursive</code><br>재귀적인(recursive) 다운로드를 한다.</p><p><code>-np, --no-parent</code><br>주어진 디렉토리의 상부 디렉토리는 다운받지 않는다.</p><p><code>-A acclist, --accept acclist</code><br>받거나 파일 확장자를 지정한다</p><p>다음으로 패키지를 설치합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-*.rpm</span><br></pre></td></tr></table></figure><p>다음으로 EPEL을 활성화 합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager --enable epel*</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum repolist</span><br></pre></td></tr></table></figure><p>커맨드를 입력하면 없었던 EPEL이 추가된 것을 확인할 수 있습니다.</p><p><img src="/image/backend/devOps/aws-linux2-certbot-nginx-0.png" alt="EPEL 추가"></p><h2 id="Certbox-설치-및-실행하기"><a href="#Certbox-설치-및-실행하기" class="headerlink" title="Certbox 설치 및 실행하기"></a>Certbox 설치 및 실행하기</h2><p>Certbox을 설치합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y certbot</span><br><span class="line">sudo yum install certbot-nginx</span><br></pre></td></tr></table></figure><p>설치가 완료되었다면</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx stop</span><br><span class="line">sudo certbot --nginx</span><br></pre></td></tr></table></figure><p>certbot nginx를 실행합니다.</p><p><img src="/image/backend/devOps/aws-linux2-certbot-nginx-1.png" alt="아이피 선택"><br>아이피를 선택합니다.</p><p><img src="/image/backend/devOps/aws-linux2-certbot-nginx-2.png" alt="덮어쓸지"><br>그리고 나면 이 기존 인증서를 다시 설치하려고 할지 아니면 덮어쓸지 정합니다.</p><p>이 커맨드 실행이 끝나면 자동으로 etc/nginx/nginx.conf 파일을 수정합니다.</p><p>이후 nginx 서버를 다시 켜줍니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure><p>등록한 도메인으로 들어가면 다음과 같이 https로 접속이 되는것을 확인할 수 있습니다.<br><img src="/image/backend/devOps/aws-linux2-certbot-nginx-3.png" alt="nginx 웹사이트"></p><p><img src="/image/backend/devOps/aws-linux2-certbot-nginx-4.png" alt="최종"></p>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/backend/devOps/aws-linux2-certbot-nginx/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>AWS route53를 이용해서 vercel 도메인 연결하기</title>
-      <link>http://flamingotiger.github.io/backend/devOps/aws-route53-domain-connect/</link>
-      <guid>http://flamingotiger.github.io/backend/devOps/aws-route53-domain-connect/</guid>
-      <pubDate>Tue, 27 Oct 2020 01:56:43 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;도메인을 구입한 상태여야 합니다.&lt;/p&gt;
-&lt;h2 id=&quot;vercel-설정&quot;&gt;&lt;a href=&quot;#vercel-설정&quot;
-        
-      
-      </description>
-      
-      
-      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>도메인을 구입한 상태여야 합니다.</p><h2 id="vercel-설정"><a href="#vercel-설정" class="headerlink" title="vercel 설정"></a>vercel 설정</h2><p>vercel로 접속해 해당 프로젝트에 edit을 버튼을 클릭합니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-0.png" alt="vercel 접속"></p><p><img src="/image/backend/devOps/aws-route53-domain-connect-1.png" alt="도메인 탭"></p><p>도메인 탭으로 들어와서 구입한 도메인을 입력합니다.<br>에러가 나오면서 다음과 같은 값이 나옵니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-2.png" alt="에러"></p><p>value라는 값을 복사해줍니다. Route53에서 사용할 값입니다.<br>에러를 해결하기 위해서는 aws에서 설정해주어야합니다.</p><h2 id="Route53-설정"><a href="#Route53-설정" class="headerlink" title="Route53 설정"></a>Route53 설정</h2><p>aws Route53에 접속합니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-3.png" alt="Route53"></p><p>대쉬보드 왼쪽 상단에 DNS관리에 호스팅을 선택해서 들어갑니다.</p><p>호스팅 영역에 구입한 도메인을 선택합니다.<br>없다면 생성해줍니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-4.png" alt="Route53 호스팅 영역"></p><p>도메인을 선택하면 상세 페이지로 들어오게 됩니다.<br><img src="/image/backend/devOps/aws-route53-domain-connect-5.png" alt="도메인"></p><p>레코드 생성버튼을 클릭합니다.<br><img src="/image/backend/devOps/aws-route53-domain-connect-6.png" alt="레코드 생성"></p><p>생성부분에 IP는 이전의 vercel에서 복사했던 value 부분을 넣어주면 됩니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-7.png" alt="vercel 적용"><br>그리고 vercel의 도메인을 확인하면 적용되어있는 것을 확인할 수 있습니다. </p>]]></content:encoded>
-      
-      <comments>http://flamingotiger.github.io/backend/devOps/aws-route53-domain-connect/#disqus_thread</comments>
     </item>
     
   </channel>

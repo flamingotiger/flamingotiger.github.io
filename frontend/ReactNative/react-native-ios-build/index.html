@@ -10,10 +10,10 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,Xcode,빌드,아이폰">
+        <meta name="keywords" content="frontend,react,native,react native,리액트 네이티브,Xcode,빌드,아이폰">
     
     <meta name="description" content="환경설정시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다. 애플 계정등록이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.  accounts에 들어가서 애플 계정을 추가해줍니다. 이후 프로젝트가 열려있는 Xcode에 들어가서 targets &amp;gt; 내">
-<meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,Xcode,빌드,아이폰">
+<meta name="keywords" content="frontend,react,native,react native,리액트 네이티브,Xcode,빌드,아이폰">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React native 아이폰에 빌드해서 테스트하기">
 <meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/index.html">
@@ -21,7 +21,7 @@
 <meta property="og:description" content="환경설정시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다. 애플 계정등록이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.  accounts에 들어가서 애플 계정을 추가해줍니다. 이후 프로젝트가 열려있는 Xcode에 들어가서 targets &amp;gt; 내">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
-<meta property="og:updated_time" content="2022-01-13T05:56:23.707Z">
+<meta property="og:updated_time" content="2022-01-13T06:03:58.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React native 아이폰에 빌드해서 테스트하기">
 <meta name="twitter:description" content="환경설정시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다. 애플 계정등록이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.  accounts에 들어가서 애플 계정을 추가해줍니다. 이후 프로젝트가 열려있는 Xcode에 들어가서 targets &amp;gt; 내">
@@ -193,7 +193,7 @@ ga('send', 'pageview');
    <span id="/frontend/ReactNative/react-native-ios-build/" class="leancloud-visitors" data-flag-title="React native 아이폰에 빌드해서 테스트하기">
    <i class="fa fa-eye"></i>
    <span class="post-meta-item-text">Views: </span>
-   <i class="leancloud-visitors-count">111</i>
+   <i class="leancloud-visitors-count">127</i>
    </span>
 
 
@@ -212,7 +212,8 @@ ga('send', 'pageview');
 <p>그리고 signing부분의 team에서 아까 추가한 애플계정을 선택합니다.</p>
 <p><img src="/image/frontend/ReactNative/react-native-ios-build-3.png" alt="team"></p>
 <h1 id="빌드하기"><a href="#빌드하기" class="headerlink" title="빌드하기"></a>빌드하기</h1><p>아이폰이 맥에 연결된 상태에서 시뮬레이터로 설정된것을 내 아이폰으로 설정하고 왼쪽 상단에 플레이 버튼을 누릅니다.<br>에러가 나지 않는다면 정상적으로 아이폰에 설치됩니다.</p>
-<p>아이폰에서 신뢰할 수 없는 개발자라는 팝업이 나올시, 다음 경로에서 신뢰 버튼을 클릭해주어야 합니다.</p>
+<p>xcode doesn’t support 에러가 나오면서 빌드가 안되면,<a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build-version-error/">xcode doesn’t support 에러시 해결</a>을 참고 해주세요.</p>
+<p>아이폰에서 신뢰할 수 없는 개발자라는 팝업이 나오면, 다음 경로에서 신뢰 버튼을 클릭해주어야 합니다.</p>
 <p><code>설정 &gt; 일반 &gt; VPN 및 기기관리 &gt; 개발자이메일 &gt; 해당하는 프로젝트 &gt; 신뢰</code><br><img src="/image/frontend/ReactNative/react-native-ios-build-4.png" alt="vpn 및 기기 관리"></p>
 <p>이후 앱을 실행하면 잘 작동하게 됩니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-5.png" alt="어플 작동 화면"></p>
 
@@ -222,7 +223,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/" data-id="ckyck7dk8007bnnqqjaf12yvq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/" data-id="ckyckxs8w007egvqq7ibzvwwm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -294,7 +295,7 @@ ga('send', 'pageview');
         },
         "headline": "React native 아이폰에 빌드해서 테스트하기",
         "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
-        "keywords": "react frontend native react native 리액트 네이티브 Xcode 빌드 아이폰",
+        "keywords": "frontend react native react native 리액트 네이티브 Xcode 빌드 아이폰",
         "genre": "frontend ReactNative",
         "datePublished": "2022-01-13",
         "dateCreated": "2022-01-13",
@@ -305,7 +306,7 @@ ga('send', 'pageview');
 
 accounts에 들어가서 애플 계정을 추가해줍니다.
 이후 프로젝트가 열려있는 Xcode에 들어가서 targets &gt; 내",
-        "wordCount": 132
+        "wordCount": 145
     }
 </script>
 
@@ -380,6 +381,16 @@ accounts에 들어가서 애플 계정을 추가해줍니다.
         
 <nav id="article-nav">
     
+        <a href="/frontend/ReactNative/react-native-ios-build-version-error/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
     
         <a href="/frontend/ReactNative/react-native-m1-first-build-error/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
@@ -401,6 +412,26 @@ accounts에 들어가서 애플 계정을 추가해줍니다.
         <h3 class="widget-title">recents</h3>
         <div class="widget">
             <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-build-version-error/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-build-version-error/" class="title">iOS 빌드시 xcode doesn&#39;t support project&#39;s IOS 에러 해결하기</a></p>
+                            <p class="item-date"><time datetime="2022-01-13T06:02:18.000Z" itemprop="datePublished">2022-01-13</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -479,26 +510,6 @@ accounts에 들어가서 애플 계정을 추가해줍니다.
                             <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/etc/">etc</a></p>
                             <p class="item-title"><a href="/etc/etc/kill-port/" class="title">사용중인 포트 프로세스 찾아서 종료시키기</a></p>
                             <p class="item-date"><time datetime="2021-11-29T03:51:31.000Z" itemprop="datePublished">2021-11-29</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/frontend/react/nextjs-absolute-path/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/image/thumb/react-thumb.jpg)" alt="Nextjs typescript 절대경로 설정하기" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/react/">react</a></p>
-                            <p class="item-title"><a href="/frontend/react/nextjs-absolute-path/" class="title">Nextjs typescript 절대경로 설정하기</a></p>
-                            <p class="item-date"><time datetime="2021-10-20T08:04:51.000Z" itemprop="datePublished">2021-10-20</time></p>
                         </div>
                     </li>
                 
