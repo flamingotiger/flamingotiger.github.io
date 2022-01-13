@@ -9,8 +9,29 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>프론트엔드 개발 혹은 공부하면서 기록하는 블로그입니다. TypeScript, React를 주로 선호합니다.</description>
-    <pubDate>Tue, 14 Dec 2021 05:49:03 GMT</pubDate>
+    <pubDate>Thu, 13 Jan 2022 05:56:23 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>React native 아이폰에 빌드해서 테스트하기</title>
+      <link>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/</link>
+      <guid>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/</guid>
+      <pubDate>Thu, 13 Jan 2022 05:51:16 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;h1 id=&quot;환경설정&quot;&gt;&lt;a href=&quot;#환경설정&quot; class=&quot;headerlink&quot; title=&quot;환경설정&quot;&gt;&lt;/a&gt;환경설정&lt;/h1&gt;&lt;p&gt;시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다.&lt;/p&gt;
+&lt;h2 id=&quot;애플
+        
+      
+      </description>
+      
+      
+      <content:encoded><![CDATA[<h1 id="환경설정"><a href="#환경설정" class="headerlink" title="환경설정"></a>환경설정</h1><p>시뮬레이터가 아니라 카메라나 실제로 아이폰에 옮겨서 테스트를 해보기 위한 방법입니다.</p><h2 id="애플-계정등록"><a href="#애플-계정등록" class="headerlink" title="애플 계정등록"></a>애플 계정등록</h2><p>이전에는 애플 개발자 계정으로만 가능했었는데, 현재는 일반 애플 사용자 계정으로 로그인을 해서 빌드 할 수 있게 되었습니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-0.png" alt="preferences"></p><p><img src="/image/frontend/ReactNative/react-native-ios-build-1.png" alt="accounts 탭"></p><p>accounts에 들어가서 애플 계정을 추가해줍니다.</p><p>이후 프로젝트가 열려있는 Xcode에 들어가서 targets &gt; 내프로그램명 &gt; Signing &amp; Capabilities 탭을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-2.png" alt="Signing &amp; Capabilities 탭"></p><p>그리고 signing부분의 team에서 아까 추가한 애플계정을 선택합니다.</p><p><img src="/image/frontend/ReactNative/react-native-ios-build-3.png" alt="team"></p><h1 id="빌드하기"><a href="#빌드하기" class="headerlink" title="빌드하기"></a>빌드하기</h1><p>아이폰이 맥에 연결된 상태에서 시뮬레이터로 설정된것을 내 아이폰으로 설정하고 왼쪽 상단에 플레이 버튼을 누릅니다.<br>에러가 나지 않는다면 정상적으로 아이폰에 설치됩니다.</p><p>아이폰에서 신뢰할 수 없는 개발자라는 팝업이 나올시, 다음 경로에서 신뢰 버튼을 클릭해주어야 합니다.</p><p><code>설정 &gt; 일반 &gt; VPN 및 기기관리 &gt; 개발자이메일 &gt; 해당하는 프로젝트 &gt; 신뢰</code><br><img src="/image/frontend/ReactNative/react-native-ios-build-4.png" alt="vpn 및 기기 관리"></p><p>이후 앱을 실행하면 잘 작동하게 됩니다.<br><img src="/image/frontend/ReactNative/react-native-ios-build-5.png" alt="어플 작동 화면"></p>]]></content:encoded>
+      
+      <comments>http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-build/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>mac m1에서 react native 빌드 에러 The linked library &#39;libPods-ProjectName.a&#39; is missing one or morearchitectures required by this target x86_64</title>
@@ -391,27 +412,6 @@
       <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>도메인을 구입한 상태여야 합니다.</p><h2 id="vercel-설정"><a href="#vercel-설정" class="headerlink" title="vercel 설정"></a>vercel 설정</h2><p>vercel로 접속해 해당 프로젝트에 edit을 버튼을 클릭합니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-0.png" alt="vercel 접속"></p><p><img src="/image/backend/devOps/aws-route53-domain-connect-1.png" alt="도메인 탭"></p><p>도메인 탭으로 들어와서 구입한 도메인을 입력합니다.<br>에러가 나오면서 다음과 같은 값이 나옵니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-2.png" alt="에러"></p><p>value라는 값을 복사해줍니다. Route53에서 사용할 값입니다.<br>에러를 해결하기 위해서는 aws에서 설정해주어야합니다.</p><h2 id="Route53-설정"><a href="#Route53-설정" class="headerlink" title="Route53 설정"></a>Route53 설정</h2><p>aws Route53에 접속합니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-3.png" alt="Route53"></p><p>대쉬보드 왼쪽 상단에 DNS관리에 호스팅을 선택해서 들어갑니다.</p><p>호스팅 영역에 구입한 도메인을 선택합니다.<br>없다면 생성해줍니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-4.png" alt="Route53 호스팅 영역"></p><p>도메인을 선택하면 상세 페이지로 들어오게 됩니다.<br><img src="/image/backend/devOps/aws-route53-domain-connect-5.png" alt="도메인"></p><p>레코드 생성버튼을 클릭합니다.<br><img src="/image/backend/devOps/aws-route53-domain-connect-6.png" alt="레코드 생성"></p><p>생성부분에 IP는 이전의 vercel에서 복사했던 value 부분을 넣어주면 됩니다.</p><p><img src="/image/backend/devOps/aws-route53-domain-connect-7.png" alt="vercel 적용"><br>그리고 vercel의 도메인을 확인하면 적용되어있는 것을 확인할 수 있습니다. </p>]]></content:encoded>
       
       <comments>http://flamingotiger.github.io/backend/devOps/aws-route53-domain-connect/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>AWS EC2 nginx 사용하기</title>
-      <link>http://flamingotiger.github.io/backend/devOps/aws-ec2-nginx/</link>
-      <guid>http://flamingotiger.github.io/backend/devOps/aws-ec2-nginx/</guid>
-      <pubDate>Mon, 26 Oct 2020 07:50:47 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;h1 id=&quot;시작하기&quot;&gt;&lt;a href=&quot;#시작하기&quot; class=&quot;headerlink&quot; title=&quot;시작하기&quot;&gt;&lt;/a&gt;시작하기&lt;/h1&gt;&lt;p&gt;ec2에서 nginx를 사용하는 방법을 알아 보겠습니다.&lt;/p&gt;
-&lt;h2 id=&quot;선행-설치&quot;&gt;&lt;a href=&quot;#선
-        
-      
-      </description>
-      
-      
-      <content:encoded><![CDATA[<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>ec2에서 nginx를 사용하는 방법을 알아 보겠습니다.</p><h2 id="선행-설치"><a href="#선행-설치" class="headerlink" title="선행 설치"></a>선행 설치</h2><p><a href="https://flamingotiger.github.io/backend/devOps/aws-nginx-install/">이전 nginx 포스트</a>에서 nginx를 설치를 먼저 해야합니다.</p><p><a href="https://flamingotiger.github.io/backend/devOps/aws-ec2-install-git/">깃헙 설치하기 포스트</a></p><p><a href="https://docs.aws.amazon.com/ko_kr/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html" rel="external nofollow noopener noreferrer" target="_blank">aws node 설치하기 공식 사이트</a></p><h2 id="EC2-포트설정하기"><a href="#EC2-포트설정하기" class="headerlink" title="EC2 포트설정하기"></a>EC2 포트설정하기</h2><p>aws에서 네트워크 및 보안에 인스턴스에 해당하는 보안 그룹을 선택합니다.<br>그리고 인바운드 규칙 편집 버튼을 선택합니다.<br><code>네트워크 및 보안 &gt; 인스턴스 &gt; 인바운스 규칙편집</code></p><p>http와 사용자 지정포트를 입력해줍니다. 추후 https를 사용할 것이기에 https도 추가해줍니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-0.png" alt="포트설정"></p><h2 id="EC2-깃-프로젝트-설치하기"><a href="#EC2-깃-프로젝트-설치하기" class="headerlink" title="EC2 깃 프로젝트 설치하기"></a>EC2 깃 프로젝트 설치하기</h2><p>인스턴스 터미널에서 다음 커맨드로 프로젝트를 준비합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone 프로젝트</span><br><span class="line"></span><br><span class="line">cd 프로젝트</span><br><span class="line">npm i</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure><p>그러면 준비가 완료 되었습니다.</p><h2 id="nginx-연동하기"><a href="#nginx-연동하기" class="headerlink" title="nginx 연동하기"></a>nginx 연동하기</h2><p>ec2에 nginx가 설치되어 있는상태에서</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx status</span><br></pre></td></tr></table></figure><p>커맨드를 입력하면 다음과 같이 서버가 실행이 되어있어야합니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-1.png" alt="커맨드"></p><p>퍼블릭IP를 URL에 입력하면 다음과 같은 화면이 나옵니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-2.png" alt="서버실행"></p><p>nginx 기본 포트는 80으로 설정되어있습니다.<br>이 포트에서 설정을 변경시켜줍니다.</p><h2 id="nginx-설정-변경"><a href="#nginx-설정-변경" class="headerlink" title="nginx 설정 변경"></a>nginx 설정 변경</h2><p><strong>기본팁</strong><br>설정을 변경하기 위해서는 기본적으로 vi편집기의 간단한 명령어를 알아야합니다.<br>당황하지말고 따라하면됩니다.</p><p>처음에는 기본적으로 <code>읽기모드</code>로 되어있습니다.<br><code>i</code>를 클릭하면 <code>입력모드</code>로 글자를 입력할 수 있습니다.<br>다시 읽기모드로 가기위해서는 <code>esc</code>를 누르면 됩니다.</p><p>읽기모드에서 편집을 하고 나서 저장후 닫고 싶으면 <code>:wq</code>를 입력하고, 저장하지 않고 닫고 싶다면 <code>:q</code>를 입력하고 <code>enter</code>를 누르면 됩니다.</p><p>글을 지울때 입력모드에서 del이나 backspace로 지울수 있는데 한줄 단위로 지우고 싶다면<br>편집모드에서 <code>dd</code>를 누르면 한줄이 삭제 됩니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure><p>sudo로 하는 이유는 nginx.conf파일이 읽기전용 파일이기때문에 관리자 권한으로 강제로 덮어쓰기를 하기 위해서 입니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">      proxy_pass http://127.0.0.1:8080/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>conf파일의 server부분에 location을 추가합니다.</p><p><img src="/image/backend/devOps/aws-ec2-nginx-3.png" alt="conf파일 수정"></p><p>conf파일이 변경되었기 때문에 nginx를 다시 재시동합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginx restart</span><br></pre></td></tr></table></figure><p>nginx를 재시동하고나서 프로젝트를 실행합니다.</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd 프로젝트명</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure><p>퍼블릭 IP, DNS로 접속하면 따로 포트를 입력없이 연결되는것을 확인할 수 있습니다.<br><img src="/image/backend/devOps/aws-ec2-nginx-4.png" alt="최종 연결"></p>]]></content:encoded>
-      
-      <comments>http://flamingotiger.github.io/backend/devOps/aws-ec2-nginx/#disqus_thread</comments>
     </item>
     
   </channel>
