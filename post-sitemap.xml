@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-setup/</loc>
+        <lastmod>2022-02-03T07:03:02.809Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-pod-install-error/</loc>
         <lastmod>2022-01-26T03:59:08.882Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -505,14 +513,6 @@
 
     <url>
         <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-reset/</loc>
-        <lastmod>2021-04-30T03:36:18.275Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://flamingotiger.github.io/frontend/ReactNative/react-native-setup/</loc>
         <lastmod>2021-04-30T03:36:18.275Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
