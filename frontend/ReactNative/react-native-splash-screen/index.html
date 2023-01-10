@@ -10,21 +10,21 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,splash screen">
+        <meta name="keywords" content="frontend,react,native,react native,리액트 네이티브,splash screen">
     
-    <meta name="description" content="시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주기 때문에 추가로 link를 할 필요는 없습니다. 1npm i re">
-<meta name="keywords" content="react,frontend,native,react native,리액트 네이티브,splash screen">
+    <meta name="description" content="업데이트2023.01.10 업데이트(안드로이드 부분 디테일 추가) 시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주">
+<meta name="keywords" content="frontend,react,native,react native,리액트 네이티브,splash screen">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React native splash screen 적용하기">
 <meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-splash-screen/index.html">
 <meta property="og:site_name" content="플타 앞발자의 삽질로그">
-<meta property="og:description" content="시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주기 때문에 추가로 link를 할 필요는 없습니다. 1npm i re">
+<meta property="og:description" content="업데이트2023.01.10 업데이트(안드로이드 부분 디테일 추가) 시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
-<meta property="og:updated_time" content="2021-04-30T03:36:18.275Z">
+<meta property="og:updated_time" content="2023-01-10T08:56:35.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React native splash screen 적용하기">
-<meta name="twitter:description" content="시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주기 때문에 추가로 link를 할 필요는 없습니다. 1npm i re">
+<meta name="twitter:description" content="업데이트2023.01.10 업데이트(안드로이드 부분 디테일 추가) 시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다. 설치하기react-native v0.60 이상에서는 자동으로 링크해주">
 <meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
     
     <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-splash-screen/">
@@ -193,7 +193,7 @@ ga('send', 'pageview');
    <span id="/frontend/ReactNative/react-native-splash-screen/" class="leancloud-visitors" data-flag-title="React native splash screen 적용하기">
    <i class="fa fa-eye"></i>
    <span class="post-meta-item-text">Views: </span>
-   <i class="leancloud-visitors-count">465</i>
+   <i class="leancloud-visitors-count">747</i>
    </span>
 
 
@@ -203,21 +203,43 @@ ga('send', 'pageview');
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.<br><code>react native splash screen</code>패키지를 이용해서 splash screen를 구현해보겠습니다.</p>
+            <h1 id="업데이트"><a href="#업데이트" class="headerlink" title="업데이트"></a>업데이트</h1><p>2023.01.10 업데이트(안드로이드 부분 디테일 추가)</p>
+<h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.<br><code>react native splash screen</code>패키지를 이용해서 splash screen를 구현해보겠습니다.</p>
 <h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><p>react-native v0.60 이상에서는 자동으로 링크해주기 때문에 추가로 link를 할 필요는 없습니다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i react-native-splash-screen</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ios</span><br><span class="line">pod install</span><br><span class="line">cd ..</span><br></pre></td></tr></table></figure>
 
 <p>npm패키지를 설치하고 ios에 패키지를 설치해줍니다.</p>
-<h2 id="설정하기"><a href="#설정하기" class="headerlink" title="설정하기"></a>설정하기</h2><h3 id="안드로이드에서-설정"><a href="#안드로이드에서-설정" class="headerlink" title="안드로이드에서 설정"></a>안드로이드에서 설정</h3><p>React native프로젝트의 android폴더를 android studio로 열어줍니다.<br>MainActivity.java파일을 수정하겠습니다.</p>
-<figure class="highlight java"><figcaption><span>app/java/com.[프로젝트이름]/MainActivity.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> android.os.Bundle; <span class="comment">// 추가!!</span></span><br><span class="line"><span class="keyword">import</span> com.facebook.react.ReactActivity;</span><br><span class="line"><span class="keyword">import</span> org.devio.rn.splashscreen.SplashScreen; <span class="comment">// 추가!!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ReactActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        SplashScreen.show(<span class="keyword">this</span>);  <span class="comment">// 추가!!</span></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="설정하기"><a href="#설정하기" class="headerlink" title="설정하기"></a>설정하기</h2><p>안드로이드와 ios 둘다 설정하는 방법에 대해서 다뤄보겠습니다.</p>
+<h3 id="안드로이드에서-설정"><a href="#안드로이드에서-설정" class="headerlink" title="안드로이드에서 설정"></a>안드로이드에서 설정</h3><p>안드로이드로 개발을 할 때 주의 사항은 android studio가 설치 되어있는지, 가상 에뮬레이터를 한번이상 켜본적 있어야합니다.<br>가상 에뮬레이터에서 에러가 났을때 에뮬을 재시작해보거나 앱을 삭제후 다시 설치해보는 방법을 해주면 됩니다.</p>
+<h4 id="MainActivity-java-설정"><a href="#MainActivity-java-설정" class="headerlink" title="MainActivity.java 설정"></a>MainActivity.java 설정</h4><p>github사이트에 가면 MainApplication부분도 수정하라고 되어있는데, react native 최신버전에는 따로 수정을 하지 않아도 됩니다. 구버전일 경우에는 라이브러리 github으로 들어가 메뉴얼에 맞게 MainApplication을 수정해주시면 됩니다.</p>
+<p>React native프로젝트의 android폴더를 android studio로 열어줍니다.<br>MainActivity.java파일을 수정하겠습니다.</p>
+<figure class="highlight java"><figcaption><span>app/src/main/java/com/[프로젝트이름]/MainActivity.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">import</span> android.os.Bundle; <span class="comment">// SplashScreen 추가</span></span><br><span class="line"><span class="keyword">import</span> com.facebook.react.ReactActivity;</span><br><span class="line"><span class="keyword">import</span> com.facebook.react.ReactActivityDelegate;</span><br><span class="line"><span class="keyword">import</span> com.facebook.react.ReactRootView;</span><br><span class="line"><span class="keyword">import</span> org.devio.rn.splashscreen.SplashScreen; <span class="comment">// SplashScreen 추가</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">ReactActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        SplashScreen.show(<span class="keyword">this</span>);  <span class="comment">// SplashScreen 추가</span></span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>그리고 안드로이드에서 사용할 Splash 스크린을 생성해야 합니다.<br>res내부에 layout/launch_screen.xml을 생성하고 아래와 같이 소스를 추가합니다.</p>
+<h3 id="settings-gradle-수정"><a href="#settings-gradle-수정" class="headerlink" title="settings.gradle 수정"></a>settings.gradle 수정</h3><p><code>/android/settings.gradle</code> 파일에 다음코드를 추가합니다.</p>
+<figure class="highlight java"><figcaption><span>/android/settings.gradle</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... </span></span><br><span class="line"></span><br><span class="line">include <span class="string">':react-native-splash-screen'</span></span><br><span class="line">project(<span class="string">':react-native-splash-screen'</span>).projectDir = <span class="keyword">new</span> File(rootProject.projectDir, <span class="string">'../node_modules/react-native-splash-screen/android'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (settings.hasProperty(<span class="string">"newArchEnabled"</span>) &amp;&amp; settings.newArchEnabled == <span class="string">"true"</span>) &#123;</span><br><span class="line"> <span class="comment">// ... </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="build-gradle-수정"><a href="#build-gradle-수정" class="headerlink" title="build.gradle 수정"></a>build.gradle 수정</h3><p><code>android/app/build.gradle</code> 파일에 다음 코드를 추가해줍니다.</p>
+<figure class="highlight java"><figcaption><span>android/app/build.gradle</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="function">implementation <span class="title">project</span><span class="params">(<span class="string">':react-native-splash-screen'</span>)</span> <span class="comment">// 추가</span></span></span><br><span class="line"><span class="function">  <span class="comment">// ...</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="colors-xml-추가"><a href="#colors-xml-추가" class="headerlink" title="colors.xml 추가"></a>colors.xml 추가</h3><p><code>android/app/src/main/res/values</code>경로에 colors.xml파일을 생성하고 기본 색상값을 넣어줍니다.</p>
+<figure class="highlight xml"><figcaption><span>android/app/src/main/res/values/colors.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"primary_dark"</span>&gt;</span>#35302D<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="launch-screen-설정"><a href="#launch-screen-설정" class="headerlink" title="launch_screen 설정"></a>launch_screen 설정</h3><p>그리고 안드로이드에서 사용할 Splash 스크린을 생성해야 합니다.<br>res내부에 layout/launch_screen.xml을 생성하고 아래와 같이 소스를 추가합니다.</p>
 <p><img src="/image/frontend/ReactNative/react-native-splash-screen-0.png" alt="layout"></p>
 <figure class="highlight xml"><figcaption><span>res/layout/launch_screen.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RelativeLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span> <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span> <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span> <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span> <span class="attr">android:src</span>=<span class="string">"@drawable/launch_screen"</span> <span class="attr">android:scaleType</span>=<span class="string">"centerCrop"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">RelativeLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>위에 코드를 그대로 사용하셔도 되지만 Splash 이미지 파일명이 다른 경우 android:background=”@drawable/launch_screen”의 launch_screen부분을 생성하신 이미지 파일명으로 고쳐서 사용하시면 됩니다.<br>자세한 내용은 <a href="https://github.com/crazycodeboy/react-native-splash-screen#getting-started" rel="external nofollow noopener noreferrer" target="_blank">react-native-splash-screen 깃헙</a>을 참고해주시면 됩니다.</p>
+<p>위에 코드를 그대로 사용하셔도 되지만 Splash 이미지 파일명이 다른 경우 android:background=”@drawable/launch_screen”의 launch_screen부분을 생성하신 이미지 파일명으로 고쳐서 사용하시면 됩니다.</p>
+<p><code>android/app/src/main/res</code>경로에서 <code>drawable-xhdpi</code>폴더와 <code>drawable-xxhdpi</code>폴더를 생성해줍니다.<br>내부에 들어갈 <code>launch_screen.png</code> 파일 사이즈의 크기는 다음과 같습니다.</p>
+<ul>
+<li>drawable-xhdpi: 750 × 1334</li>
+<li>drawable-xxhdpi: 1242 × 2208</li>
+</ul>
+<p>파일명을 <code>launch_screen.png</code>으로 짓고 스크린 이미지를 저장 후 폴더에 넣습니다.</p>
+<p><a href="https://romannurik.github.io/AndroidAssetStudio/index.html" rel="external nofollow noopener noreferrer" target="_blank">재너레이터</a>를 사용해서 안드로이드 아이콘을 만들어줍니다.<br>그리고 라운딩된 아이콘과 일반 아이콘 두가지 파일을 각 사이즈에 해당하는 mipmap폴더에 덮어쓰기해줍니다.</p>
+<p>다음과 같은 구조로 되어있어야합니다.<br><img src="/image/frontend/ReactNative/react-native-splash-screen-12.png" alt="파일 구조"></p>
+<p>이후 실행하면 작동되는 것을 확인할 수 있습니다.</p>
 <h3 id="ios에서-설정"><a href="#ios에서-설정" class="headerlink" title="ios에서 설정"></a>ios에서 설정</h3><p>React native프로젝트의 ios폴더를 xcode로 열어줍니다.</p>
 <p><img src="/image/frontend/ReactNative/react-native-splash-screen-4.png" alt="images"><br><img src="/image/frontend/ReactNative/react-native-splash-screen-5.png" alt="launch screen"></p>
 <p>images.xcassets폴더에서 +버튼을 클릭하면, images를 생성할 수 있습니다.</p>
@@ -238,6 +260,7 @@ ga('send', 'pageview');
 <h3 id="React-native"><a href="#React-native" class="headerlink" title="React native"></a>React native</h3><p>react native에서는 간단하게 적용할 수 있습니다.</p>
 <figure class="highlight javascript"><figcaption><span>App.jsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">import</span> SplashScreen <span class="keyword">from</span> <span class="string">"react-native-splash-screen"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    SplashScreen.hide();</span><br><span class="line">  &#125;, []);</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//...</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="완료"><a href="#완료" class="headerlink" title="완료"></a>완료</h2><p>위에 내용으로 해결이 안되는 부분이 있다면 <a href="https://github.com/crazycodeboy/react-native-splash-screen#getting-started" rel="external nofollow noopener noreferrer" target="_blank">react-native-splash-screen 깃헙</a>을 참고해주시면 됩니다.</p>
 <h2 id="앱-아이콘-추가하기"><a href="#앱-아이콘-추가하기" class="headerlink" title="앱 아이콘 추가하기"></a>앱 아이콘 추가하기</h2><p>ios 앱아이콘을 추가하고자 할때 <a href="https://appicon.co/" rel="external nofollow noopener noreferrer" target="_blank">App icon generator</a> 사이트에서 보유한 로고를 넣으면 자동 변환한 파일을 다운받을 수 있습니다.<br>그리고 xcode에서 사이즈에 맞는 이미지 하나씩 넣어주면 적용됩니다.<br>splash나 앱 로고가 적용이 안될시 삭제후 다시 실행해보시면 적용되는것을 확인 할 수 있습니다.</p>
 <p><img src="/image/frontend/ReactNative/react-native-splash-screen-3.png" alt="로고추가"></p>
 
@@ -247,7 +270,7 @@ ga('send', 'pageview');
 
 
 
-    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-splash-screen/" data-id="clcog6flc005bjjqqnltk75af" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-splash-screen/" data-id="clcq070da00ao88qqi8jfkamo" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -319,16 +342,16 @@ ga('send', 'pageview');
         },
         "headline": "React native splash screen 적용하기",
         "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
-        "keywords": "react frontend native react native 리액트 네이티브 splash screen",
+        "keywords": "frontend react native react native 리액트 네이티브 splash screen",
         "genre": "frontend ReactNative",
         "datePublished": "2020-07-02",
         "dateCreated": "2020-07-02",
-        "dateModified": "2021-04-30",
+        "dateModified": "2023-01-10",
         "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-splash-screen/",
-        "description": "시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다.
-설치하기react-native v0.60 이상에서는 자동으로 링크해주기 때문에 추가로 link를 할 필요는 없습니다.
-1npm i re",
-        "wordCount": 622
+        "description": "업데이트2023.01.10 업데이트(안드로이드 부분 디테일 추가)
+시작하기애플리케이션을 처음실행하면 홈화면이 등장하기전에 로고가 나오는 페이지를 splash screen이라 합니다.react native splash screen패키지를 이용해서 splash screen를 구현해보겠습니다.
+설치하기react-native v0.60 이상에서는 자동으로 링크해주",
+        "wordCount": 916
     }
 </script>
 
@@ -438,6 +461,26 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-admob/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/admob-thumb.jpg)" alt="react native에서 구글 애드몹(admob) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-admob/" class="title">react native에서 구글 애드몹(admob) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-10T05:09:56.000Z" itemprop="datePublished">2023-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/etc/arduino/one-button/" class="thumbnail">
     
     
@@ -512,26 +555,6 @@ ga('send', 'pageview');
                             <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/rfid/">rfid</a></p>
                             <p class="item-title"><a href="/etc/rfid/rfid-hyper-terminal-test-mac-os/" class="title">RFID 하이퍼 터미널 테스트(mac OS)</a></p>
                             <p class="item-date"><time datetime="2022-06-10T08:08:30.000Z" itemprop="datePublished">2022-06-10</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/frontend/ReactNative/react-native-android-cannot-run-program-node/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="M1칩 mac에서 React native android 실행시 &#39;Caused by java.io.IOException Cannot run program &#34;node&#34;&#39;에러" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
-                            <p class="item-title"><a href="/frontend/ReactNative/react-native-android-cannot-run-program-node/" class="title">M1칩 mac에서 React native android 실행시 &#39;Caused by java.io.IOException Cannot run program &#34;node&#34;&#39;에러</a></p>
-                            <p class="item-date"><time datetime="2022-02-04T02:44:11.000Z" itemprop="datePublished">2022-02-04</time></p>
                         </div>
                     </li>
                 
