@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>react native(리액트 네이티브) 안드로이드 배포하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,deploy,native,react native,리액트 네이티브,android,안드로이드,배포">
+    
+    <meta name="description" content="시작하기구글 개발자 등록이 완료되어있고 react native 프로젝트가 있다는 가정하에 배포 방법을 알아보도록 하겠습니다.  keytool로 개인서명키 만들기 Gradle properties 변수들 작성 Gradle 설정파일 수정 release AAB(Android App Bundle) 빌드 AAB 파일 업로드 개인정보처리방침  1. keytool로 개인">
+<meta name="keywords" content="react,frontend,deploy,native,react native,리액트 네이티브,android,안드로이드,배포">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react native(리액트 네이티브) 안드로이드 배포하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-android-deploy/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기구글 개발자 등록이 완료되어있고 react native 프로젝트가 있다는 가정하에 배포 방법을 알아보도록 하겠습니다.  keytool로 개인서명키 만들기 Gradle properties 변수들 작성 Gradle 설정파일 수정 release AAB(Android App Bundle) 빌드 AAB 파일 업로드 개인정보처리방침  1. keytool로 개인">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+<meta property="og:updated_time" content="2023-01-11T03:03:53.827Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react native(리액트 네이티브) 안드로이드 배포하기">
+<meta name="twitter:description" content="시작하기구글 개발자 등록이 완료되어있고 react native 프로젝트가 있다는 가정하에 배포 방법을 알아보도록 하겠습니다.  keytool로 개인서명키 만들기 Gradle properties 변수들 작성 Gradle 설정파일 수정 release AAB(Android App Bundle) 빌드 AAB 파일 업로드 개인정보처리방침  1. keytool로 개인">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-android-deploy/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-android-deploy" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        react native(리액트 네이티브) 안드로이드 배포하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-android-deploy/" class="article-date">
+         <time datetime="2023-01-11T01:11:56.000Z" itemprop="datePublished">2023-01-11</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/deploy/">deploy</a>, <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/리액트-네이티브/">리액트 네이티브</a>, <a class="tag-link" href="/tags/배포/">배포</a>, <a class="tag-link" href="/tags/안드로이드/">안드로이드</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-android-deploy/" class="leancloud-visitors" data-flag-title="react native(리액트 네이티브) 안드로이드 배포하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">404</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>구글 개발자 등록이 완료되어있고 react native 프로젝트가 있다는 가정하에 배포 방법을 알아보도록 하겠습니다.</p>
+<ol>
+<li>keytool로 개인서명키 만들기</li>
+<li>Gradle properties 변수들 작성</li>
+<li>Gradle 설정파일 수정</li>
+<li>release AAB(Android App Bundle) 빌드</li>
+<li>AAB 파일 업로드</li>
+<li>개인정보처리방침</li>
+</ol>
+<h2 id="1-keytool로-개인서명키-만들기"><a href="#1-keytool로-개인서명키-만들기" class="headerlink" title="1. keytool로 개인서명키 만들기"></a>1. keytool로 개인서명키 만들기</h2><p>keytool 를 사용하여 개인 서명 키를 생성할 수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -v -keystore my-upload-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>keystore 옵션의 my-upload-key.keystore 값은 파일이름입니다.</li>
+<li>alias 옵션의 my-key-alias 값은 별명입니다.</li>
+<li>validity 옵션의 10000 값은 유요기간입니다.</li>
+</ul>
+<p>위의 명령어를 실행하면 조직 이름 비밀번호등을 입력하라고 나옵니다.<br>하나씩 입력해줍니다.<br>마지막에 [아니오]선택지만 나와있는데 이때는 y를 입력하고 엔터를 누르면 생성이 됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-0.png" alt="keystore 생성"></p>
+<p>개인서명키를 분실했을경우 <a href="https://support.google.com/googleplay/android-developer/answer/9842756?visit_id=638089976488618381-2115785518&rd=1#reset" rel="external nofollow noopener noreferrer" target="_blank">사이트</a>를 참고해주세요</p>
+<h2 id="2-Gradle-properties-변수들-작성"><a href="#2-Gradle-properties-변수들-작성" class="headerlink" title="2. Gradle properties 변수들 작성"></a>2. Gradle properties 변수들 작성</h2><p><code>android/gradle.properties</code> 파일 하단에 다음 값을 추가합니다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MYAPP_UPLOAD_STORE_FILE=my-upload-key.keystore</span><br><span class="line">MYAPP_UPLOAD_KEY_ALIAS=my-key-alias</span><br><span class="line">MYAPP_UPLOAD_STORE_PASSWORD=*****</span><br><span class="line">MYAPP_UPLOAD_KEY_PASSWORD=*****</span><br></pre></td></tr></table></figure>
+
+<p>아까전에 생성한 파일의 이름 별명 비밀번호를 각자에 생성한 파일에 맞게 입력해야합니다.</p>
+<h2 id="3-Gradle-설정파일-수정"><a href="#3-Gradle-설정파일-수정" class="headerlink" title="3. Gradle 설정파일 수정"></a>3. Gradle 설정파일 수정</h2><p><code>android/app/build.gradle</code> 파일에 다음 코드를 추가합니다.</p>
+<figure class="highlight java"><figcaption><span>android/app/build.gradle</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    defaultConfig &#123; ... &#125;</span><br><span class="line">    signingConfigs &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            <span class="keyword">if</span> (project.hasProperty(<span class="string">'MYAPP_UPLOAD_STORE_FILE'</span>)) &#123;</span><br><span class="line">                <span class="function">storeFile <span class="title">file</span><span class="params">(MYAPP_UPLOAD_STORE_FILE)</span></span></span><br><span class="line"><span class="function">                storePassword MYAPP_UPLOAD_STORE_PASSWORD</span></span><br><span class="line"><span class="function">                keyAlias MYAPP_UPLOAD_KEY_ALIAS</span></span><br><span class="line"><span class="function">                keyPassword MYAPP_UPLOAD_KEY_PASSWORD</span></span><br><span class="line"><span class="function">            &#125;</span></span><br><span class="line"><span class="function">        &#125;</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function">    buildTypes </span>&#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            ...</span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-release-AAB-Android-App-Bundle-빌드"><a href="#4-release-AAB-Android-App-Bundle-빌드" class="headerlink" title="4. release AAB(Android App Bundle) 빌드"></a>4. release AAB(Android App Bundle) 빌드</h2><p>bundleRelease은 앱을 실행하는데 필요한 모든 JavaScript를 AAB(AndroidApp Bundle)로 묶습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd android</span><br><span class="line">./gradlew bundleRelease</span><br></pre></td></tr></table></figure>
+
+<p>빌드가 성공하면 <code>android/app/build/outputs/bundle/release/app-release.aab</code>에서 파일을 찾을수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open android/app/build/outputs/bundle/release</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-1.png" alt="release 파일"></p>
+<p>진행하면서 어려운점이나 막히는 부분이 있다면 <a href="https://reactnative.dev/docs/signed-apk-android" rel="external nofollow noopener noreferrer" target="_blank">공식 홈페이지</a>를 참고 하면 됩니다.</p>
+<h2 id="5-구글-플레이스토어에-배포하기"><a href="#5-구글-플레이스토어에-배포하기" class="headerlink" title="5. 구글 플레이스토어에 배포하기"></a>5. 구글 플레이스토어에 배포하기</h2><p>구글 플레이스토어 콘솔에 접속해서 로그인하고 앱을 생성합니다.<br>이후 앱에 관한 정보 제공 및 스토어 등록정보를 작성해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-2.png" alt="앱에 관한 정보 제공 및 스토어 등록정보 설정"></p>
+<h3 id="개인정보처리방침"><a href="#개인정보처리방침" class="headerlink" title="개인정보처리방침"></a>개인정보처리방침</h3><p>개인정보처리방침을 등록해야합니다.<br>개인정보 처리방침을 손쉽게 작성할 수 있는 <a href="https://privacy.go.kr/" rel="external nofollow noopener noreferrer" target="_blank">정부 공식 사이트</a>에 접속합니다.</p>
+<p>개인정보처리방침 만들기를 클릭하고, 생성을 진행합니다.<br><img src="/image/frontend/ReactNative/react-native-android-deploy-4.png" alt="개인정보처리방침 만들기"></p>
+<p>생성이 완료되면 파일을 다운받거나 텍스트로 받을 수 있는데, 사이트를 쉽게 적용하기 위해서 notion을 사용해보도록 하겠습니다.</p>
+<h3 id="notion-사이트-공유"><a href="#notion-사이트-공유" class="headerlink" title="notion 사이트 공유"></a>notion 사이트 공유</h3><p>노션을 접속한 이후, 개인정보 처리방침 페이지를 만들고 개인정보처리방침 텍스트를 복사해서 붙여넣습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-5.png" alt="개인정보처리방침 글"></p>
+<p>그리고 우측위에 share버튼이 있는데 클릭하면 다음과 같은 창이 나옵니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-6.png" alt="share 창"></p>
+<p>share to web을 토글하면 web link가 나오는데 이 링크는 바로 어떤 웹 브라우저에서도 바로 접속할 수 있게됩니다.</p>
+<p>링크를 복사해서 구글 플레이스토어 콘솔 개인정보처리방침에 등록합니다.<br><img src="/image/frontend/ReactNative/react-native-android-deploy-7.png" alt="개인정보처리방침 등록"></p>
+<h3 id="배포하기"><a href="#배포하기" class="headerlink" title="배포하기"></a>배포하기</h3><p>다음으로 파일을 배포하도록 하겠습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-3.png" alt="프로덕션 버전 만들기"></p>
+<p>App bundle 부분에 파일을 업로드 합니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-8.png" alt="파일업로드"></p>
+<p>이후 우측 하단에 활성화된 버전검토 버튼을 클릭합니다.<br>이후 나오는 에러나 경고등을 처리해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-9.png" alt="버전 검토후 에러"></p>
+<p>정보수집여부 개인정보처리방침등의 문제를 해결하고 나면 프로덕션 트랙으로 출시 시작버튼이 활성화 됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-10.png" alt="출시시작 버튼"></p>
+<p>출시가 완료되었습니다.<br>구글측에서 앱을 검토한 이후 실제 구글 플레이스토어에서 확인 할 수 있습니다.<br>프로젝트 생성부터 배포까지 고생많으셨습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-android-deploy-11.png" alt="출시완료"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-android-deploy/" data-id="clcr2vtt9006tktqq6vghp85f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "react native(리액트 네이티브) 안드로이드 배포하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
+        "keywords": "react frontend deploy native react native 리액트 네이티브 android 안드로이드 배포",
+        "genre": "frontend ReactNative",
+        "datePublished": "2023-01-11",
+        "dateCreated": "2023-01-11",
+        "dateModified": "2023-01-11",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-android-deploy/",
+        "description": "시작하기구글 개발자 등록이 완료되어있고 react native 프로젝트가 있다는 가정하에 배포 방법을 알아보도록 하겠습니다.
+
+keytool로 개인서명키 만들기
+Gradle properties 변수들 작성
+Gradle 설정파일 수정
+release AAB(Android App Bundle) 빌드
+AAB 파일 업로드
+개인정보처리방침
+
+1. keytool로 개인",
+        "wordCount": 657
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/frontend/ReactNative/react-native-admob/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">react native에서 구글 애드몹(admob) 적용하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-android-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) 안드로이드 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-android-deploy/" class="title">react native(리액트 네이티브) 안드로이드 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-11T01:11:56.000Z" itemprop="datePublished">2023-01-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-admob/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/admob-thumb.jpg)" alt="react native에서 구글 애드몹(admob) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-admob/" class="title">react native에서 구글 애드몹(admob) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-10T05:09:56.000Z" itemprop="datePublished">2023-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/arduino/one-button/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/arduino-thumb.jpg)" alt="아두이노 푸쉬버튼 OneButton library 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/arduino/">arduino</a></p>
+                            <p class="item-title"><a href="/etc/arduino/one-button/" class="title">아두이노 푸쉬버튼 OneButton library 사용하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-09T02:02:23.000Z" itemprop="datePublished">2023-01-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-realm-react/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/realm-thumb.jpg)" alt="React native @realm/react 패키지 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-realm-react/" class="title">React native @realm/react 패키지 적용하기</a></p>
+                            <p class="item-date"><time datetime="2022-12-22T01:18:43.000Z" itemprop="datePublished">2022-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/arduino/hm10-module/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/arduino-thumb.jpg)" alt="아두이노 블루투스 모듈 사용법 (arduino hm10 module)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/arduino/">arduino</a></p>
+                            <p class="item-title"><a href="/etc/arduino/hm10-module/" class="title">아두이노 블루투스 모듈 사용법 (arduino hm10 module)</a></p>
+                            <p class="item-date"><time datetime="2022-10-31T01:53:56.000Z" itemprop="datePublished">2022-10-31</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
