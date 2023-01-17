@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>react native(리액트 네이티브) ios 배포하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,deploy,native,react native,리액트 네이티브,배포,apple,ios">
+    
+    <meta name="description" content="시작하기ios 배포를 하기 위해서는 ios 개발자 계정이 필요합니다.애플 개발자계정은 apple developer에서 등록할 수 있습니다.개발자 멤버쉽을 구매해야하는데 1년에 129,000원정도 합니다. 1년마다 만료가 되기때문에 1년이 되기전에 갱신을 해주어야 합니다.아이폰, 아이패드 등의 애플기기가 있어야만 등록이 가능합니다. 멤버쉽을 구매하고 며칠을">
+<meta name="keywords" content="react,frontend,deploy,native,react native,리액트 네이티브,배포,apple,ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react native(리액트 네이티브) ios 배포하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-deploy/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기ios 배포를 하기 위해서는 ios 개발자 계정이 필요합니다.애플 개발자계정은 apple developer에서 등록할 수 있습니다.개발자 멤버쉽을 구매해야하는데 1년에 129,000원정도 합니다. 1년마다 만료가 되기때문에 1년이 되기전에 갱신을 해주어야 합니다.아이폰, 아이패드 등의 애플기기가 있어야만 등록이 가능합니다. 멤버쉽을 구매하고 며칠을">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+<meta property="og:updated_time" content="2023-01-17T09:51:11.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react native(리액트 네이티브) ios 배포하기">
+<meta name="twitter:description" content="시작하기ios 배포를 하기 위해서는 ios 개발자 계정이 필요합니다.애플 개발자계정은 apple developer에서 등록할 수 있습니다.개발자 멤버쉽을 구매해야하는데 1년에 129,000원정도 합니다. 1년마다 만료가 되기때문에 1년이 되기전에 갱신을 해주어야 합니다.아이폰, 아이패드 등의 애플기기가 있어야만 등록이 가능합니다. 멤버쉽을 구매하고 며칠을">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-ios-deploy/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/axios/">axios</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/crossplatform/">crossplatform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/recoil/">recoil</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/redux/">redux</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-ios-deploy" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        react native(리액트 네이티브) ios 배포하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-ios-deploy/" class="article-date">
+         <time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/apple/">apple</a>, <a class="tag-link" href="/tags/deploy/">deploy</a>, <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/ios/">ios</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/리액트-네이티브/">리액트 네이티브</a>, <a class="tag-link" href="/tags/배포/">배포</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-ios-deploy/" class="leancloud-visitors" data-flag-title="react native(리액트 네이티브) ios 배포하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">518</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>ios 배포를 하기 위해서는 ios 개발자 계정이 필요합니다.<br>애플 개발자계정은 <a href="https://developer.apple.com/kr/" rel="external nofollow noopener noreferrer" target="_blank">apple developer</a>에서 등록할 수 있습니다.<br>개발자 멤버쉽을 구매해야하는데 1년에 129,000원정도 합니다. 1년마다 만료가 되기때문에 1년이 되기전에 갱신을 해주어야 합니다.<br>아이폰, 아이패드 등의 애플기기가 있어야만 등록이 가능합니다. 멤버쉽을 구매하고 며칠을 기다려야 승인이 나옵니다. 저는 승인이 될때까지 6일정도 걸렸습니다.<br>반면에 안드로이드는 한번 구매하면 평생 무료입니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-0.png" alt="애플 개발자 로그인"></p>
+<p>애플 개발자 계정 생성 부분은 생략하겠습니다.</p>
+<ol>
+<li>xcode 프로젝트 배포 설정</li>
+<li>Certificates, Identifiers &amp; Profiles</li>
+<li>App Store Connect 앱 추가</li>
+<li>xcode로 업로드</li>
+<li>TestFlight로 확인</li>
+<li>개인정보처리방침</li>
+<li>App Store Connect에서 앱 배포</li>
+<li>심사제출</li>
+</ol>
+<h2 id="1-xcode-프로젝트-배포-설정"><a href="#1-xcode-프로젝트-배포-설정" class="headerlink" title="1. xcode 프로젝트 배포 설정"></a>1. xcode 프로젝트 배포 설정</h2><p><code>ios/[파일명].xcworkspace</code> 파일을 열고 xcode general 탭에서 빌드 버전을 명시해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-1.png" alt="xcode 빌드 버전 작성"></p>
+<p><a href="https://www.appicon.co/" rel="external nofollow noopener noreferrer" target="_blank">appicon</a>사이트에서 아이콘을 넣으면 자동으로 사이즈에 맞춰서 만들어줍니다. 만들어진 아이콘을 다운로드 받습니다.</p>
+<p>xcode로 돌아와서 <code>images/AppIcon</code>으로 들어가면 아이콘을 넣을 수 있는 공간이 나옵니다.<br>아까 받은 사이즈별 앱아이콘을 드래그해서넣어줍니다.<br><img src="/image/frontend/ReactNative/react-native-ios-deploy-2.png" alt="favicon"></p>
+<h2 id="2-Certificates-Identifiers-amp-Profiles"><a href="#2-Certificates-Identifiers-amp-Profiles" class="headerlink" title="2. Certificates, Identifiers &amp; Profiles"></a>2. Certificates, Identifiers &amp; Profiles</h2><p>애플의 <a href="https://developer.apple.com/account/resources/identifiers/list" rel="external nofollow noopener noreferrer" target="_blank">Certificates</a> 사이트로 들어가서 서명을 추가해줍니다. 이후 <code>development.cer</code>파일은 저장해서 잃어버리지 않도록 합니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-3.png" alt="Certificates"></p>
+<h2 id="3-App-Store-Connect-앱-추가"><a href="#3-App-Store-Connect-앱-추가" class="headerlink" title="3. App Store Connect 앱 추가"></a>3. App Store Connect 앱 추가</h2><p><a href="https://appstoreconnect.apple.com/apps" rel="external nofollow noopener noreferrer" target="_blank">App Store Connect</a> 사이트로 들어가면 앱을 추가 할 수 있는 페이지가 나옵니다. 추가해주도록 하겠습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-4.png" alt="App Store Connect"></p>
+<p>추가 버튼을 클릭하면 다음 폼이 나옵니다. 작성해주도록 합니다. 마지막 부분의 SKU는 제품의 고유번호라고 생각하면 쉽습니다. 자유롭게 작성해주면 됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-5.png" alt="신규 앱추가"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-6.png" alt="생성 완료"></p>
+<h2 id="4-xcode로-업로드"><a href="#4-xcode로-업로드" class="headerlink" title="4. xcode로 업로드"></a>4. xcode로 업로드</h2><p>생성이후 하단으로 스크롤을 내려보면 빌드 섹션이 보이는데, 거기서 업로드 도구 보기를 클릭하면 업로드하는 방법을 알수 있습니다.<br><img src="/image/frontend/ReactNative/react-native-ios-deploy-7.png" alt="업로드 도구 보기"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-8.png" alt="업로드 방법"><br>업로드 하는 방법으로는 세가지가 있는데, 저희는 이중에서 첫번째 xcode로 업로드를 해보려고 합니다.</p>
+<p>xcode로 돌아옵니다.<br>xcode의 <code>Product &gt; Archive</code>를 선택해줍니다.<br><img src="/image/frontend/ReactNative/react-native-ios-deploy-9.png" alt="archive"></p>
+<p>빌드를 기다리고 나면, 다음과 같은 창이 나옵니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-10.png" alt="Distribute App"></p>
+<p>Distribute App버튼을 눌러줍니다.<br>다음 이미지부터 이미지 처럼 선택을 해주고 다음으로 넘어가 주시면 됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-11.png" alt="app store connect"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-12.png" alt="upload"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-13.png" alt="next"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-14.png" alt="automatically manage signing"></p>
+<p>정보를 잘 확인해줍니다. 이후 업데이트를 누르면 업데이트가 진행됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-15.png" alt="detail"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-16.png" alt="upload"></p>
+<p>업로드가 완료되면 TestFlight로 확인해봅니다.</p>
+<h2 id="5-TestFlight로-확인"><a href="#5-TestFlight로-확인" class="headerlink" title="5. TestFlight로 확인"></a>5. TestFlight로 확인</h2><p>TestFlight에서 확인 했는데 다음과 같은 경고가 나오면 파란색 관리 버튼을 눌러줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-17.png" alt="수출 규정 관련 문서가 누락됨"></p>
+<p>암호화를 사용하지 않을 경우 체크 부분에서 암호화 없는 선택메뉴를 선택해주면됩니디.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-18.png" alt="제출 준비 완료"></p>
+<p>앞으로도 암호화를 사용하지 않을 예정이면 info.plist에서 다음 코드를 입력해줍니다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">key</span>&gt;</span>ITSAppUsesNonExemptEncryption<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- ... --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-19.png" alt="info"></p>
+<h2 id="6-개인정보처리방침"><a href="#6-개인정보처리방침" class="headerlink" title="6. 개인정보처리방침"></a>6. 개인정보처리방침</h2><p>app store connect 사이트에서 앱에 수집하는 개인정보 탭을 선택하면 다음 화면이 나옵니다.<br><img src="/image/frontend/ReactNative/react-native-ios-deploy-21.png" alt="개인정보 수집"></p>
+<p>데이터 유형의 데이터 수집 여부도 확인해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-22.png" alt="데이터 수집 하지 않음"></p>
+<p>개인정보처리방침은 안드로이드나 ios나 필수로 url을 넣어주어야합니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-27.png" alt="개인정보처리방첨 입력"></p>
+<p>개인정보처리방침 생성방법은 <a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-android-deploy/#%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EB%B0%A9%EC%B9%A8">안드로이드 배포하기</a>에서 개인정보처리방침 부분을 참고해주세요</p>
+<h2 id="7-App-Store-Connect에서-앱-배포"><a href="#7-App-Store-Connect에서-앱-배포" class="headerlink" title="7. App Store Connect에서 앱 배포"></a>7. App Store Connect에서 앱 배포</h2><h3 id="미리보기-추가"><a href="#미리보기-추가" class="headerlink" title="미리보기 추가"></a>미리보기 추가</h3><p>빌드를 선택해서 추가해줍니다.<br><img src="/image/frontend/ReactNative/react-native-ios-deploy-20.png" alt="빌드추가"></p>
+<p>다음으로 앱의 미리보기 및 스크린샷을 입력해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-23.png" alt="스크린샷 추가하기"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-24.png" alt="스크린샷 사이즈"></p>
+<p>이미지 필수 사이즈</p>
+<ul>
+<li>6.5형 아이폰의 <code>1284*2778</code></li>
+<li>5.5형 아이폰의 <code>1242*2208</code></li>
+</ul>
+<p>스크린샷 사양에 관해서는 <a href="https://help.apple.com/app-store-connect/#/devd274dd925" rel="external nofollow noopener noreferrer" target="_blank">애플의 스크린샷 사양 페이지</a>에서 더 자세히 나와있습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-25.png" alt="스크린샷 등록"></p>
+<p>이렇게 두가지 미리보기를 만들어서 파일을 첨부합니다.</p>
+<h3 id="가격-설정"><a href="#가격-설정" class="headerlink" title="가격 설정"></a>가격 설정</h3><p>이 어플리케이션의 가격을 얼마로 할지 설정해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-28.png" alt="가격 설정"></p>
+<h3 id="콘텐츠-권한-및-연령-등급-설정"><a href="#콘텐츠-권한-및-연령-등급-설정" class="headerlink" title="콘텐츠 권한 및 연령 등급 설정"></a>콘텐츠 권한 및 연령 등급 설정</h3><p><code>앱 정보 &gt; 일반정보</code>에서 콘텐츠 권한 및 연령 등급을 작성해줍니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-29.png" alt="콘텐츠 권한 및 연령 등급"></p>
+<h2 id="8-심사제출"><a href="#8-심사제출" class="headerlink" title="8. 심사제출"></a>8. 심사제출</h2><p>이미지 및 설명 등을 다 작성해주었다면 저장을 해줍니다. 그러면 심사에 추가라는 버튼이 활성화 됩니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-26.png" alt="심사에 추가"></p>
+<p>심사제출 버튼을 클릭하면 작성해야하는데 못한것이 있거나 잘못입력한 부분들을 유효성검사를 통해서 알려줍니다.<br>못한 부분들을 마져 다하고 채워넣고 나면 심사 제출을 할 수 있습니다.</p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-30.png" alt="심사 제출"></p>
+<p><img src="/image/frontend/ReactNative/react-native-ios-deploy-31.png" alt="심사 제출 완료"></p>
+<p>이것으로 어플리케이션을 안드로이드와 ios 둘다 배포를 해보았습니다.<br>심사 리젝당하지만 않는다면 배포는 생각보다 어렵지 않은것 같아요.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-deploy/" data-id="cld01x9fv007jtmqq86dzikg9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "react native(리액트 네이티브) ios 배포하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
+        "keywords": "react frontend deploy native react native 리액트 네이티브 배포 apple ios",
+        "genre": "frontend ReactNative",
+        "datePublished": "2023-01-17",
+        "dateCreated": "2023-01-17",
+        "dateModified": "2023-01-17",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-ios-deploy/",
+        "description": "시작하기ios 배포를 하기 위해서는 ios 개발자 계정이 필요합니다.애플 개발자계정은 apple developer에서 등록할 수 있습니다.개발자 멤버쉽을 구매해야하는데 1년에 129,000원정도 합니다. 1년마다 만료가 되기때문에 1년이 되기전에 갱신을 해주어야 합니다.아이폰, 아이패드 등의 애플기기가 있어야만 등록이 가능합니다. 멤버쉽을 구매하고 며칠을 ",
+        "wordCount": 633
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/frontend/ReactNative/react-native-android-deploy/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">react native(리액트 네이티브) 안드로이드 배포하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-android-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) 안드로이드 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-android-deploy/" class="title">react native(리액트 네이티브) 안드로이드 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-11T01:11:56.000Z" itemprop="datePublished">2023-01-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-admob/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/admob-thumb.jpg)" alt="react native에서 구글 애드몹(admob) 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-admob/" class="title">react native에서 구글 애드몹(admob) 적용하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-10T05:09:56.000Z" itemprop="datePublished">2023-01-10</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/etc/arduino/one-button/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/arduino-thumb.jpg)" alt="아두이노 푸쉬버튼 OneButton library 사용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/etc/">etc</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/etc/arduino/">arduino</a></p>
+                            <p class="item-title"><a href="/etc/arduino/one-button/" class="title">아두이노 푸쉬버튼 OneButton library 사용하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-09T02:02:23.000Z" itemprop="datePublished">2023-01-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-realm-react/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/realm-thumb.jpg)" alt="React native @realm/react 패키지 적용하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-realm-react/" class="title">React native @realm/react 패키지 적용하기</a></p>
+                            <p class="item-date"><time datetime="2022-12-22T01:18:43.000Z" itemprop="datePublished">2022-12-22</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2023 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
