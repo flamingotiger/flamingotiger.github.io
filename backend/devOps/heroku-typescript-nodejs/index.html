@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>heroku node 서버 배포하기(typescript) | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="heroku,nodejs,typescript">
+    
+    <meta name="description" content="node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript  초기 설정npm 기본 설정값을 생성합니다. 1npm init -y  npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다. 1npm i @types/express @">
+<meta name="keywords" content="heroku,nodejs,typescript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="heroku node 서버 배포하기(typescript)">
+<meta property="og:url" content="http://flamingotiger.github.io/backend/devOps/heroku-typescript-nodejs/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript  초기 설정npm 기본 설정값을 생성합니다. 1npm init -y  npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다. 1npm i @types/express @">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/heroku-thumb.jpg">
+<meta property="og:updated_time" content="2021-10-14T08:23:35.160Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="heroku node 서버 배포하기(typescript)">
+<meta name="twitter:description" content="node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript  초기 설정npm 기본 설정값을 생성합니다. 1npm init -y  npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다. 1npm i @types/express @">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/heroku-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/backend/devops/heroku-typescript-nodejs/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/flutter/">flutter</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/backend/">backend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/backend/devOps/">devOps</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-backend/devOps/heroku-typescript-nodejs" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        heroku node 서버 배포하기(typescript)
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/backend/devOps/heroku-typescript-nodejs/" class="article-date">
+         <time datetime="2021-10-12T08:05:24.000Z" itemprop="datePublished">2021-10-12</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/heroku/">heroku</a>, <a class="tag-link" href="/tags/nodejs/">nodejs</a>, <a class="tag-link" href="/tags/typescript/">typescript</a>
+    </div>
+
+                
+   <span id="/backend/devOps/heroku-typescript-nodejs/" class="leancloud-visitors" data-flag-title="heroku node 서버 배포하기(typescript)">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">427</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="node-js-를-이용해서-heroku-서버-배포하기"><a href="#node-js-를-이용해서-heroku-서버-배포하기" class="headerlink" title="node js 를 이용해서 heroku 서버 배포하기"></a>node js 를 이용해서 heroku 서버 배포하기</h1><h2 id="프로젝트-생성"><a href="#프로젝트-생성" class="headerlink" title="프로젝트 생성"></a>프로젝트 생성</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir heroku-nodejs-typescript</span><br><span class="line">cd heroku-nodejs-typescript</span><br></pre></td></tr></table></figure>
+
+<h2 id="초기-설정"><a href="#초기-설정" class="headerlink" title="초기 설정"></a>초기 설정</h2><p>npm 기본 설정값을 생성합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="npm-패키지-설치"><a href="#npm-패키지-설치" class="headerlink" title="npm 패키지 설치"></a>npm 패키지 설치</h2><p>타입스크립트를 포함하여 express를 설치하여 줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i @types/express @types/node express nodemon ts-node typescript</span><br></pre></td></tr></table></figure>
+
+<h2 id="타입스크립트-설정"><a href="#타입스크립트-설정" class="headerlink" title="타입스크립트 설정"></a>타입스크립트 설정</h2><p>tsc 커맨드가 안먹힌다면, typescript를 설치하여 줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g typescript</span><br></pre></td></tr></table></figure>
+
+<p>타입스크립트 설정 파일을 생성해줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --init</span><br></pre></td></tr></table></figure>
+
+<p>설정파일이 완료되었다면 tsconfig.json 파일에서 root 바로 밑에 값을 넣어줍니다.<br>include는 src내부의 ts확장자로 끝나는 파일들을 컴파일 하겠다는 설정입니다.<br>exclude는 gitignore처럼 컴파일을 하지 않는 것입니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">"include" : [</span><br><span class="line">    "src/**/*.ts"</span><br><span class="line">],</span><br><span class="line">"exclude" : [</span><br><span class="line">    "node_modules"</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="package-json-설정"><a href="#package-json-설정" class="headerlink" title="package.json 설정"></a>package.json 설정</h2><p>package.json에 스크립트와 엔진을 넣어줍니다.<br>engines에는 node와 npm버전을 입력해주면 됩니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 버전 확인 방법</span></span><br><span class="line">npm -v # 6.14.12</span><br><span class="line">node -v # v14.16.1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ...</span></span><br><span class="line">"scripts": &#123;</span><br><span class="line">    "start": "ts-node src/index.ts",</span><br><span class="line">    "dev": "nodemon -x ts-node src/index.ts"</span><br><span class="line">&#125;,</span><br><span class="line">"engines": &#123;</span><br><span class="line">    "node": "v14.16.1",</span><br><span class="line">    "npm": "6.14.12"</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> ...</span></span><br></pre></td></tr></table></figure>
+
+<p><code>@types</code> 파일들은 모두 devDependencies에서 dependencies로 설치를 해주어야합니다. 아니면 서버 올리고 컴파일 에러가 발생합니다.</p>
+<h2 id="src-index-ts-생성"><a href="#src-index-ts-생성" class="headerlink" title="src/index.ts 생성"></a>src/index.ts 생성</h2><p>src 폴더를 만들고 그 내부에 index.ts 파일을 생성합니다.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">"express"</span>;</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> PORT: <span class="built_in">string</span> | <span class="built_in">number</span> = process.env.PORT || <span class="number">5000</span>;</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">"*"</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.send(<span class="string">"&lt;h1&gt;서버가 실행되었습니다.&lt;/h1&gt;"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(PORT, <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">`server port: <span class="subst">$&#123;PORT&#125;</span>`</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="테스트"><a href="#테스트" class="headerlink" title="테스트"></a>테스트</h2><p>로컬 서버 테스트는 <code>npm run dev</code>로 하면됩니다.</p>
+<h2 id="heroku-deploy"><a href="#heroku-deploy" class="headerlink" title="heroku deploy"></a>heroku deploy</h2><p>heroku에 가입과 <a href="https://devcenter.heroku.com/articles/heroku-cli#download-and-install" rel="external nofollow noopener noreferrer" target="_blank">heroku cli 설치</a>는 완료되었다는 전제하에 진행합니다.<br>heroku에 배포해보도록 하겠습니다. 배포하는 방법은 정말 간단합니다.</p>
+<h2 id="heroku-로그인"><a href="#heroku-로그인" class="headerlink" title="heroku 로그인"></a>heroku 로그인</h2><p>프로젝트 내부에서 다음 명령어를 입력하면 브라우저가 열리고 로그인할 수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku login</span><br></pre></td></tr></table></figure>
+
+<h2 id="heroku-create"><a href="#heroku-create" class="headerlink" title="heroku create"></a>heroku create</h2><p>heroku 사이트에서 생성을 하거나 다음 명령어를 입력해서 app을 생성할 수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">heroku create</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">heroku create [앱이름]</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git init .</span><br><span class="line">git add .</span><br><span class="line">git commit -m "heroku setup"</span><br></pre></td></tr></table></figure>
+
+<h2 id="git-push"><a href="#git-push" class="headerlink" title="git push"></a>git push</h2><p>heroku 서버에 배포합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku main</span><br></pre></td></tr></table></figure>
+
+<h2 id="마치며"><a href="#마치며" class="headerlink" title="마치며"></a>마치며</h2><p>nodejs를 통해서 heroku 배포를 해보았습니다.<br>heroku가 무료로 제공하기에 소규모의 개인사이트를 만들떈 적합했습니다.<br>배포하는 과정은 aws보다 비교적 쉬웠습니다.</p>
+<p>배포를 하면 기본적으로 https로 배포가 됩니다. 그래서 바로 프론트엔드 서버에서 api 호출이 가능합니다.<br>만약 도메인을 구매하고, 연결을 하고 싶다면 신용카드를 등록해야합니다. 신용카드를 등록하고 나서 배포를 하면 http로 연결이 되기때문에 https로 보안을 하고 싶다면, 유료버전으로 업데이트를 해야합니다. heroku 머리 잘썼네요.</p>
+<p>요약해서 도메인을 사용하고 싶다면 신용카드 등록과 유료버전 heroku를 사용해야한다는 것입니다.</p>
+<h2 id="heroku-명령어-요약"><a href="#heroku-명령어-요약" class="headerlink" title="heroku 명령어 요약"></a>heroku 명령어 요약</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 헤로쿠 생성</span></span><br><span class="line">heroku create</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">heroku create [앱이름]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 사이트에서는 master로 되어있지만 기본적으로 main으로 바뀜</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 배포할 브런치를 push 및 배포</span></span><br><span class="line">git push heroku main</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 터미널에 해당되는 프로젝트 브라우저 열기</span></span><br><span class="line">heroku open</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 현재 리모트 상태</span></span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 앱이름에 해당하는 사이트로 remote 변환</span></span><br><span class="line">heroku git:remote -a [앱이름]</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/backend/devOps/heroku-typescript-nodejs/" data-id="clsoe8jlv004yv3tmmvykcf6m" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "heroku node 서버 배포하기(typescript)",
+        "image": "http://flamingotiger.github.io/image/thumb/heroku-thumb.jpg",
+        "keywords": "heroku nodejs typescript",
+        "genre": "backend devOps",
+        "datePublished": "2021-10-12",
+        "dateCreated": "2021-10-12",
+        "dateModified": "2021-10-14",
+        "url": "http://flamingotiger.github.io/backend/devOps/heroku-typescript-nodejs/",
+        "description": "node js 를 이용해서 heroku 서버 배포하기프로젝트 생성12mkdir heroku-nodejs-typescriptcd heroku-nodejs-typescript
+
+초기 설정npm 기본 설정값을 생성합니다.
+1npm init -y
+
+npm 패키지 설치타입스크립트를 포함하여 express를 설치하여 줍니다.
+1npm i @types/express @",
+        "wordCount": 626
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/backend/node/npm-check-updates/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            package.json에 종속되어있는 패키지 최신화하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/style/styled-components-typescript/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Styled-components Typescript 적용하기 (+Media query)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-build-info/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="안드로이드 flutter 빌드시 주의사항" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-build-info/" class="title">안드로이드 flutter 빌드시 주의사항</a></p>
+                            <p class="item-date"><time datetime="2023-12-22T07:57:06.000Z" itemprop="datePublished">2023-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-analytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에서 firebase analytics 추가할때 에러수정" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-analytics/" class="title">flutter에서 firebase analytics 추가할때 에러수정</a></p>
+                            <p class="item-date"><time datetime="2023-12-20T07:31:50.000Z" itemprop="datePublished">2023-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-crashytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase crashlytics 추가하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-crashytics/" class="title">flutter firebase crashlytics 추가하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-19T07:45:16.000Z" itemprop="datePublished">2023-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-setting/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase 초기 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-setting/" class="title">flutter firebase 초기 설정하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-15T07:24:01.000Z" itemprop="datePublished">2023-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2024 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

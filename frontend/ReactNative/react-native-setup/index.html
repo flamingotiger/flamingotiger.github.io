@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React native (리액트 네이티브) 초기설정하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,native,react native">
+    
+    <meta name="description" content="시작하기react native 라이브러리를 이용하여 android, ios 크로스 네이티브 애플리케이션을 제작할 수 있습니다.react native를 사용해보면서 느꼈던 장단점이 있습니다. 이 내용은 매우 주관적이므로 참고만 해주시길 바랍니다. react native 장점재활용웹에서 사용한 react 나 자바스크립트로 작성한 로직 부분의 코드를 재활용할 수">
+<meta name="keywords" content="react,frontend,native,react native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React native (리액트 네이티브) 초기설정하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-setup/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기react native 라이브러리를 이용하여 android, ios 크로스 네이티브 애플리케이션을 제작할 수 있습니다.react native를 사용해보면서 느꼈던 장단점이 있습니다. 이 내용은 매우 주관적이므로 참고만 해주시길 바랍니다. react native 장점재활용웹에서 사용한 react 나 자바스크립트로 작성한 로직 부분의 코드를 재활용할 수">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+<meta property="og:updated_time" content="2022-02-09T04:52:21.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React native (리액트 네이티브) 초기설정하기">
+<meta name="twitter:description" content="시작하기react native 라이브러리를 이용하여 android, ios 크로스 네이티브 애플리케이션을 제작할 수 있습니다.react native를 사용해보면서 느꼈던 장단점이 있습니다. 이 내용은 매우 주관적이므로 참고만 해주시길 바랍니다. react native 장점재활용웹에서 사용한 react 나 자바스크립트로 작성한 로직 부분의 코드를 재활용할 수">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-setup/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/flutter/">flutter</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-setup" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React native (리액트 네이티브) 초기설정하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-setup/" class="article-date">
+         <time datetime="2020-01-13T04:13:34.000Z" itemprop="datePublished">2020-01-13</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-setup/" class="leancloud-visitors" data-flag-title="React native (리액트 네이티브) 초기설정하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">776</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>react native 라이브러리를 이용하여 android, ios 크로스 네이티브 애플리케이션을 제작할 수 있습니다.<br>react native를 사용해보면서 느꼈던 장단점이 있습니다. 이 내용은 매우 주관적이므로 참고만 해주시길 바랍니다.</p>
+<h2 id="react-native-장점"><a href="#react-native-장점" class="headerlink" title="react native 장점"></a>react native 장점</h2><h3 id="재활용"><a href="#재활용" class="headerlink" title="재활용"></a>재활용</h3><p>웹에서 사용한 react 나 자바스크립트로 작성한 로직 부분의 코드를 재활용할 수 있습니다.<br>ios와 android를 같은 방식으로 제작하기 때문에 손쉽습니다.</p>
+<h3 id="난이도"><a href="#난이도" class="headerlink" title="난이도"></a>난이도</h3><p>네이티브 앱개발에 필요한 러닝커브에 비해서 입문하는 난이도가 낮습니다. 웹 개발을 하던 사람들은 손쉽게 배울수 있습니다.<br>하지만 개발하면 할수록 점점 어려워집니다.</p>
+<h2 id="react-native-단점"><a href="#react-native-단점" class="headerlink" title="react native 단점"></a>react native 단점</h2><h3 id="성능"><a href="#성능" class="headerlink" title="성능"></a>성능</h3><p>자바스크립트 코드가 네이티브 브릿지를 통하기 때문에 네이티브 방식보다 성능이 떨어질 수 있습니다.</p>
+<h3 id="오류"><a href="#오류" class="headerlink" title="오류"></a>오류</h3><p>react native에서 기능을 추가하기위해서는 외부 라이브러리를 사용해야합니다. 모든 앱에서 기본적으로 사용함에도 불과하고 navigation 만해도 외부 라이브러리를 이용해야합니다. splash의 경우도 마찬가지입니다. 그리고 외부 라이브러리에서 에러가 발생하면 수정 비용이 높습니다. 디버깅을 해도 오류를 찾기 어렵거나 무엇때문에 에러가 발생했는지 알지 못합니다. 외부 라이브러리가 업데이트 하면 서로 호환이 맞지 않아 에러가 발생할 가능성이 높습니다. 정리하자면 <code>react native에서 에러가 나면 수정이나 디버깅이 번거롭다</code></p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><p>react native 사이트로 이동하면 설치 방법이 자세하게 나와 있습니다.</p>
+<p>expo와 react native cli가 있는데 되도록 react native cli를 사용하도록 하겠습니다.<br>expo는 간단한 어플을 만들시에 유용할수 있으나, 커스터마이징이나 네이티브 코드를 직접적으로 적용하기 힘든 단점이 있습니다.<br>그래서 react native cli로 설치를 시작하겠습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
+
+<p>brew를 통해 node와 watchman을 설치해줍니다.<br>node를 이미 사용중이라면 watchman만 설치하도록 합니다.</p>
+<h3 id="IOS-설치"><a href="#IOS-설치" class="headerlink" title="IOS 설치"></a>IOS 설치</h3><p><a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12" rel="external nofollow noopener noreferrer" target="_blank">App Store</a>에서 xcode를 설치하도록 합니다.<br>Xcode가 설치가 완료되었다면, <code>Xcode 명령 도구(Command line tools)</code>도 설치해야합니다. Xcode를 연 다음 Xcode 메뉴에서 <code>Preferences</code>를 선택합니다.<br><img src="/image/frontend/ReactNative/react-native-setup_4.png" alt="Command line tools"><br><code>Locations</code>패널로 이동하여 <code>Command line tools</code>드롭다운에서 최신버전을 선택하여 도구를 설치합니다.</p>
+<p><strong>Xcode에서 iOS 시뮬레이터 설치</strong><br>시뮬레이터로 개발중인 애플리케이션을 가상으로 테스트해 볼 수 있습니다.<br>시뮬레이터를 설치하려면 Xcode &gt; 환경설정을 열고 구성 요소 탭을 선택합니다.<br>사용하려는 해당 iOS 버전의 시뮬레이터를 선택합니다.</p>
+<p><strong>cocoaPods</strong><br><code>CocoaPods는 Xcode 프로젝트의 라이브러리 종속성을 관리합니다.</code><br>npm과 흡사하게 Swift 및 Objective-C 의 종속성 관리자로 수만개 이상의 라이브러리가 있으며 다양한 용도로 활용할 수 있습니다.<br>CocoaPods는 Ruby로 빌드되었으며 macOS에서 사용 가능한 기본 Ruby로 설치할 수 있습니다. Ruby 버전 관리자를 사용할 수 있지만 수행중인 작업을 모르는 경우 macOS에서 사용 가능한 표준 Ruby를 사용하는 것이 좋습니다.<br>기본 Ruby 설치를 사용하려면 sudo gem을 설치할 때 사용해야 합니다. (하지만 이것은 gem 설치 기간 동안 만 발생합니다.)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
+
+<h3 id="Android-설치"><a href="#Android-설치" class="headerlink" title="Android 설치"></a>Android 설치</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask adoptopenjdk/openjdk/adoptopenjdk11</span><br></pre></td></tr></table></figure>
+
+<p>시스템에 JDK를 이미 설치 한 경우 JDK 8 이상인지 확인합니다.</p>
+<p><a href="https://developer.android.com/studio/index.html" rel="external nofollow noopener noreferrer" target="_blank">안드로이드 스튜디오</a>를 설치합니다.</p>
+<p><strong>안드로이드 SDK 설치</strong><br>Android Studio는 기본적으로 최신 Android SDK를 설치합니다.<br>그러나 네이티브 코드로 React Native 앱을 빌드하려면 Android (Q) 특히 SDK가 필요합니다.<br>Android Studio의 SDK 관리자를 통해 추가 Android SDK를 설치할 수 있습니다.</p>
+<p>설치도중에 다음과 같은 보안설정이 나오면 좌측하단 잠금을 해제하고 설치를 허용해줍니다.<br><img src="/image/frontend/ReactNative/react-native-setup_0.png" alt="보안설정"></p>
+<p><img src="/image/frontend/ReactNative/react-native-setup_1.png" alt="설치완료"><br>SDK 관리자는 <code>Welcome to Android Studio</code>화면에서 액세스 할 수 있습니다.</p>
+<p>우측하단의 설정 아이콘을 클릭 한 다음 <code>SDK Manager</code>를 선택합니다.<br><img src="/image/frontend/ReactNative/react-native-setup_2.png" alt="설정 드롭다운"></p>
+<p>SDK 관리자에서 <code>SDK Platform</code>탭을 선택한 다음 오른쪽 하단에서 <code>Show Package Details</code>옆의 확인란을 선택합니다.<br><img src="/image/frontend/ReactNative/react-native-setup_3.png" alt="디테일"><br><code>Android 10 (Q)</code>항목 을 찾아 확장 한 후 다음 항목이 선택되어 있는지 확인합니다.</p>
+<ul>
+<li><code>Android SDK Platform 29</code></li>
+<li><code>Intel x86 Atom_64 System Image</code> 또는 <code>Google APIs Intel x86 Atom System Image</code></li>
+</ul>
+<p><code>Android SDK Build-Tools</code>항목을 찾아 확장 한 다음 29.0.2선택되어 있는지 확인합니다.</p>
+<p>마지막으로 <code>OK</code>를 클릭하여 Android SDK 및 관련 빌드 도구를 다운로드하고 설치를 완료합니다.</p>
+<p><strong>ANDROID_HOME 환경 변수구성</strong></p>
+<p>React Native 도구는 네이티브 코드로 앱을 빌드하기 위해 일부 환경 변수를 설정해야합니다.<br>현재 사용중인 터미널에 따라 다른파일에 입력 해주어야합니다.<br><code>$HOME/.bash_profile</code>또는 <code>$HOME/.zshrc</code>구성 파일에 다음 행을 추가 합니다.</p>
+<p><strong>쉘에 따라서 다르게 설정해야합니다</strong><br>자세한 사항은 <a href="https://flamingotiger.github.io/etc/etc/zsh-bash-problem/">쉘 관련 포스트</a>를 참고해주세요.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// bash termenal을 사용시</span><br><span class="line">vi ~/.bash_profile</span><br><span class="line"></span><br><span class="line">// zsh termenal을 사용시</span><br><span class="line">vi ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>vi 편집기로 bash_profile 을 연후에 <code>i</code>키를 입력후 다음을 붙여넣기합니다.</p>
+<figure class="highlight shell"><figcaption><span>~/.bash_profile 또는 ~/.zshrc</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ANDROID_HOME=$HOME/Library/Android/sdk</span><br><span class="line">export PATH=$PATH:$ANDROID_HOME/emulator</span><br><span class="line">export PATH=$PATH:$ANDROID_HOME/tools</span><br><span class="line">export PATH=$PATH:$ANDROID_HOME/tools/bin</span><br><span class="line">export PATH=$PATH:$ANDROID_HOME/platform-tools</span><br></pre></td></tr></table></figure>
+
+<p>마지막으로 <code>esc</code>키를 클릭한후 <code>:wq</code>로 파일을 저장합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br><span class="line">또는</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>현재 쉘에 구성을 로드합니다.</p>
+<h3 id="애플리케이션-프로젝트-생성"><a href="#애플리케이션-프로젝트-생성" class="headerlink" title="애플리케이션 프로젝트 생성"></a>애플리케이션 프로젝트 생성</h3><p>길었던 기본 설치가 완료 되었습니다.<br>이제 프로젝트를 생성해보도록 하겠습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx react-native init ProjectName</span><br></pre></td></tr></table></figure>
+
+<p><code>--template</code>인자를 이용해서 Typescript과 같은 사용자정의 react native 템플릿을 이용해서 프로젝트를 생성할 수 있습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx react-native init ProjectName --template react-native-template-typescript</span><br></pre></td></tr></table></figure>
+
+<h3 id="애플리케이션-프로젝트-실행"><a href="#애플리케이션-프로젝트-실행" class="headerlink" title="애플리케이션 프로젝트 실행"></a>애플리케이션 프로젝트 실행</h3><h4 id="IOS-실행"><a href="#IOS-실행" class="headerlink" title="IOS 실행"></a>IOS 실행</h4><p>다음 명령어를 입력시 자동으로 시뮬레이터를 실행합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ProjectName</span><br><span class="line">npx react-native run-ios</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-native-setup_5.png" alt="ios 실행"></p>
+<h4 id="Android-실행"><a href="#Android-실행" class="headerlink" title="Android 실행"></a>Android 실행</h4><p>android studio를 설치이후 에뮬레이터를 설정해주어야합니다.<br><code>Tools</code>에서 <code>AVD Manager</code>로 들어갑니다.<br>그러면 다음과 같은 페이지가 나옵니다.<br><img src="/image/frontend/ReactNative/react-native-setup_6.png" alt="에뮬레이터 설정"><br><img src="/image/frontend/ReactNative/react-native-setup_9.png" alt="기기 선택"><br>기기를 선택합니다. 이후 Recommended 에서 안드로이드 버전을 선택후 설치합니다.<br><img src="/image/frontend/ReactNative/react-native-setup_7.png" alt="설치 완료 후 기타 설정"><br><img src="/image/frontend/ReactNative/react-native-setup_8.png" alt="기기 설정 완료"><br>기기 설정이 완료되었습니다.<br><img src="/image/frontend/ReactNative/react-native-setup_10.png" alt="기기 실행"><br>기기를 한번 실행해주어야 프로젝트를 실행할 수 있습니다.<br>이제 애플리케이션 프로젝트를 실행해 보도록 하겠습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ProjectName</span><br><span class="line">npx react-native run-android</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-native-setup_11.png" alt="android 실행"></p>
+<p>자세한 방법은 <a href="https://facebook.github.io/react-native/docs/getting-started" rel="external nofollow noopener noreferrer" target="_blank">공식문서</a>를 확인해주시길 바랍니다.</p>
+<h5 id="Android-실행시-에러-날경우"><a href="#Android-실행시-에러-날경우" class="headerlink" title="Android 실행시 에러 날경우"></a>Android 실행시 에러 날경우</h5><p>한 터미널에서 react-native start를 해주고, 열로고 하는 프로젝트에서 react-native android로 실행을 해주면 에러가 안나는 것을 확인할 수 있다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-setup/" data-id="clsoe8jq000bsv3tmqtt0x95q" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "React native (리액트 네이티브) 초기설정하기",
+        "image": "http://flamingotiger.github.io/image/thumb/react-native-thumb.jpg",
+        "keywords": "react frontend native react native",
+        "genre": "frontend ReactNative",
+        "datePublished": "2020-01-13",
+        "dateCreated": "2020-01-13",
+        "dateModified": "2022-02-09",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-setup/",
+        "description": "시작하기react native 라이브러리를 이용하여 android, ios 크로스 네이티브 애플리케이션을 제작할 수 있습니다.react native를 사용해보면서 느꼈던 장단점이 있습니다. 이 내용은 매우 주관적이므로 참고만 해주시길 바랍니다.
+react native 장점재활용웹에서 사용한 react 나 자바스크립트로 작성한 로직 부분의 코드를 재활용할 수",
+        "wordCount": 814
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/javascript/eslint-setup/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            Eslint 적용하기(React + Typescript + Prettier)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/etc/etc/zsh-bash-problem/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Mac Catalina zsh에서 nvm not found 해결방법 (bash로 사용하기)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-build-info/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="안드로이드 flutter 빌드시 주의사항" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-build-info/" class="title">안드로이드 flutter 빌드시 주의사항</a></p>
+                            <p class="item-date"><time datetime="2023-12-22T07:57:06.000Z" itemprop="datePublished">2023-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-analytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에서 firebase analytics 추가할때 에러수정" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-analytics/" class="title">flutter에서 firebase analytics 추가할때 에러수정</a></p>
+                            <p class="item-date"><time datetime="2023-12-20T07:31:50.000Z" itemprop="datePublished">2023-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-crashytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase crashlytics 추가하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-crashytics/" class="title">flutter firebase crashlytics 추가하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-19T07:45:16.000Z" itemprop="datePublished">2023-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-setting/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase 초기 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-setting/" class="title">flutter firebase 초기 설정하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-15T07:24:01.000Z" itemprop="datePublished">2023-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2024 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

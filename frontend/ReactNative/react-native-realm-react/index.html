@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>React native @realm/react 패키지 적용하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="react,frontend,typescript,native,react native,리액트 네이티브,realm">
+    
+    <meta name="description" content="시작하기기존에 relam 관련 포스팅을 남겼었는데 시간이 지나 realm업데이트와 realm이 mongodb로 인수되는 과정을 통해서 많은 부분이 바뀐 것이 있습니다. 그리고 추가로 @realm/react 패키지를 사용해서 더 간편하게 realm을 사용하는 방법과 주의 사항등을 알아보도록 하겠습니다. 설치하기react-native v0.70.6에서 작성하였">
+<meta name="keywords" content="react,frontend,typescript,native,react native,리액트 네이티브,realm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React native @realm&#x2F;react 패키지 적용하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/ReactNative/react-native-realm-react/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기기존에 relam 관련 포스팅을 남겼었는데 시간이 지나 realm업데이트와 realm이 mongodb로 인수되는 과정을 통해서 많은 부분이 바뀐 것이 있습니다. 그리고 추가로 @realm/react 패키지를 사용해서 더 간편하게 realm을 사용하는 방법과 주의 사항등을 알아보도록 하겠습니다. 설치하기react-native v0.70.6에서 작성하였">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/realm-thumb.jpg">
+<meta property="og:updated_time" content="2022-12-22T06:19:30.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React native @realm&#x2F;react 패키지 적용하기">
+<meta name="twitter:description" content="시작하기기존에 relam 관련 포스팅을 남겼었는데 시간이 지나 realm업데이트와 realm이 mongodb로 인수되는 과정을 통해서 많은 부분이 바뀐 것이 있습니다. 그리고 추가로 @realm/react 패키지를 사용해서 더 간편하게 realm을 사용하는 방법과 주의 사항등을 알아보도록 하겠습니다. 설치하기react-native v0.70.6에서 작성하였">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/realm-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/reactnative/react-native-realm-react/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/flutter/">flutter</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/ReactNative/">ReactNative</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/ReactNative/react-native-realm-react" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        React native @realm/react 패키지 적용하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/ReactNative/react-native-realm-react/" class="article-date">
+         <time datetime="2022-12-22T01:18:43.000Z" itemprop="datePublished">2022-12-22</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/frontend/">frontend</a>, <a class="tag-link" href="/tags/native/">native</a>, <a class="tag-link" href="/tags/react/">react</a>, <a class="tag-link" href="/tags/react-native/">react native</a>, <a class="tag-link" href="/tags/realm/">realm</a>, <a class="tag-link" href="/tags/typescript/">typescript</a>, <a class="tag-link" href="/tags/리액트-네이티브/">리액트 네이티브</a>
+    </div>
+
+                
+   <span id="/frontend/ReactNative/react-native-realm-react/" class="leancloud-visitors" data-flag-title="React native @realm/react 패키지 적용하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">980</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>기존에 <a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-realm/">relam 관련 포스팅</a>을 남겼었는데 시간이 지나 realm업데이트와 realm이 mongodb로 인수되는 과정을 통해서 많은 부분이 바뀐 것이 있습니다. 그리고 추가로 @realm/react 패키지를 사용해서 더 간편하게 realm을 사용하는 방법과 주의 사항등을 알아보도록 하겠습니다.</p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><p>react-native v0.70.6에서 작성하였습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save realm @realm/react @types/realm react-native-get-random-values</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>react-native-get-random-values</code>: BSON랜덤 데이터 생성시 필요</li>
+<li><code>@types/realm</code>: realm type정의된 패키지</li>
+<li><code>realm</code>: realm 패키지</li>
+<li><code>@realm/react</code>: react에서 사용하기 편하게, hooks로 몇가지 메소드가 정의 되어있음</li>
+</ul>
+<p>패키지들을 설치해줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ios &amp;&amp; pod install &amp;&amp; cd ..</span><br></pre></td></tr></table></figure>
+
+<p>ios에 cocoapod을 설치합니다.<br>realm studio설치는 <a href="https://flamingotiger.github.io/frontend/ReactNative/react-native-realm/">relam 포스팅</a>을 참고해주세요.</p>
+<h2 id="코드-작성"><a href="#코드-작성" class="headerlink" title="코드 작성"></a>코드 작성</h2><p>realm을 이용해서 todo를 만들어보도록 하겠습니다.<br>조건은 다음과 같습니다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">todo 리스트를 만든다.</span><br><span class="line">생성과 삭제가 가능하다.</span><br><span class="line">주소들과 이름을 작성할 수 있어야 한다.</span><br></pre></td></tr></table></figure>
+
+<p>먼저 Todo스키마를 만들어줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>src/db/Todo.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'react-native-get-random-values'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;Realm&#125; <span class="keyword">from</span> <span class="string">'@realm/react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> ITodo &#123;</span><br><span class="line">  _id?: <span class="built_in">string</span>;</span><br><span class="line">  text: <span class="built_in">string</span>;</span><br><span class="line">  addresses: IAddress[];</span><br><span class="line">  createdAt?: <span class="built_in">string</span>;</span><br><span class="line">  updatedAt?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> IAddress &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> AddressSchema = &#123;</span><br><span class="line">  name: <span class="string">'Address'</span>,</span><br><span class="line">  embedded: <span class="literal">true</span>,</span><br><span class="line">  properties: &#123;</span><br><span class="line">    name: <span class="string">'string'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> TodoSchema = &#123;</span><br><span class="line">  name: <span class="string">'Todo'</span>,</span><br><span class="line">  properties: &#123;</span><br><span class="line">    _id: &#123;<span class="keyword">type</span>: <span class="string">'string'</span>, <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">new</span> Realm.BSON.ObjectId()&#125;</span>`</span>&#125;,</span><br><span class="line">    text: <span class="string">'string'</span>,</span><br><span class="line">    addresses: &#123;<span class="keyword">type</span>: <span class="string">'list'</span>, objectType: <span class="string">'Address'</span>&#125;,</span><br><span class="line">    createdAt: &#123;<span class="keyword">type</span>: <span class="string">'string'</span>, <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString()&#125;,</span><br><span class="line">    updatedAt: &#123;<span class="keyword">type</span>: <span class="string">'string'</span>, <span class="keyword">default</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString()&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  primaryKey: <span class="string">'_id'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> TodoModel <span class="keyword">extends</span> Realm.Object &#123;</span><br><span class="line">  <span class="keyword">static</span> schema = TodoSchema;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> TodoModel;</span><br></pre></td></tr></table></figure>
+
+<p>스키마를 만들고나면 realm 초기설정과 함께 스키마를 불러오는 코드를 작성합니다.</p>
+<figure class="highlight typescript"><figcaption><span>src/db/index.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createRealmContext&#125; <span class="keyword">from</span> <span class="string">'@realm/react'</span>;</span><br><span class="line"><span class="keyword">import</span> TodoModel <span class="keyword">from</span> <span class="string">'./Todo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SCHEMA_VERSION = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">  schema: [TodoModel],</span><br><span class="line">  schemaVersion: SCHEMA_VERSION,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> realmContext = createRealmContext(config);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> realmContext;</span><br></pre></td></tr></table></figure>
+
+<p>초기설정이 되었다면 다음으로 react에 연동해보도록 하겠습니다.<br>AppWrapper를 만들어서 App을 RealmProvider로 감싸줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>AppWrapper.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span>;</span><br><span class="line"><span class="keyword">import</span> realmContext <span class="keyword">from</span> <span class="string">'./src/db'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AppWrapper = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;RealmProvider&#125; = realmContext;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;RealmProvider&gt;</span><br><span class="line">      &lt;App /&gt;</span><br><span class="line">    &lt;<span class="regexp">/RealmProvider&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default AppWrapper;</span></span><br></pre></td></tr></table></figure>
+
+<p>index.js파일을 수정해줍니다.</p>
+<figure class="highlight javascript"><figcaption><span>index.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @format</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;AppRegistry&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;name <span class="keyword">as</span> appName&#125; <span class="keyword">from</span> <span class="string">'./app.json'</span>;</span><br><span class="line"><span class="keyword">import</span> AppWrapper <span class="keyword">from</span> <span class="string">'./AppWrapper'</span>;</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent(appName, () =&gt; AppWrapper);</span><br></pre></td></tr></table></figure>
+
+<p>작성하고 실행을 해보면 다음과 같은 에러가 나옵니다.</p>
+<p><img src="/image/frontend/ReactNative/react-natvie-realm-react-0.png" alt="에러"></p>
+<p><strong>주의</strong> 이때는 embedded가 true로 되어있는 스키마도 config에 넣어주어야 합니다.<br>TodoSchema에 연결되어 있더라도 따로 불러와 주어야 합니다.</p>
+<figure class="highlight typescript"><figcaption><span>src/db/index.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createRealmContext&#125; <span class="keyword">from</span> <span class="string">'@realm/react'</span>;</span><br><span class="line"><span class="keyword">import</span> TodoModel, &#123;AddressSchema&#125; <span class="keyword">from</span> <span class="string">'./Todo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SCHEMA_VERSION = <span class="number">2</span>; <span class="comment">// 디비구조가 바뀌면 버전을 바꿔야합니다. </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> config = &#123;</span><br><span class="line">  schema: [TodoModel, AddressSchema], <span class="comment">// AddressSchema 추가</span></span><br><span class="line">  schemaVersion: SCHEMA_VERSION,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> realmContext = createRealmContext(config);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> realmContext;</span><br></pre></td></tr></table></figure>
+
+<p>스키마에 <code>프로퍼티가 하나라도 바뀔시</code>에는 SCHEMA_VERSION을 바꾸어야합니다. properties의 타입이 추가되거나 바뀌어도 버전을 바꾸어줘야합니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;Button, SafeAreaView, TextInput, View&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">import</span> realmContext <span class="keyword">from</span> <span class="string">'./src/db'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;useRealm&#125; = realmContext;</span><br><span class="line">  <span class="keyword">const</span> realm = useRealm();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;SafeAreaView&gt;</span><br><span class="line">      &lt;View&gt;</span><br><span class="line">        &lt;TextInput</span><br><span class="line">          style=&#123;&#123;</span><br><span class="line">            borderWidth: <span class="number">1</span>,</span><br><span class="line">            height: <span class="number">40</span>,</span><br><span class="line">          &#125;&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;Button</span><br><span class="line">          title=<span class="string">"생성"</span></span><br><span class="line">          onPress=&#123;<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(realm.path);</span><br><span class="line">          &#125;&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>SafeAreaView&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<p>앱 컴포넌트를 작성합니다.</p>
+<h2 id="realm-studio-실행"><a href="#realm-studio-실행" class="headerlink" title="realm studio 실행"></a>realm studio 실행</h2><p>버튼을 누르고 콘솔을 확인해보면 다음과 같은 path가 나옵니다.<br><img src="/image/frontend/ReactNative/react-natvie-realm-react-1.png" alt="path경로"></p>
+<p>터미널을 새로 열고, open 명령어를 이용해서 폴더를 열어줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open /Users/&lt;사용자이름&gt;/Library/Developer/CoreSimulator/Devices/&lt;값&gt;/data/Containers/Data/Application/&lt;값&gt;/Documents/default.realm</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/frontend/ReactNative/react-natvie-realm-react-2.png" alt="realm studio"></p>
+<h2 id="생성-및-삭제-구현"><a href="#생성-및-삭제-구현" class="headerlink" title="생성 및 삭제 구현"></a>생성 및 삭제 구현</h2><p>useTodo를 생성합니다.<br>realm이 수정되면 자동으로 리렌터링이 되기 때문에 state관리를 따로 하지 않아도 됩니다. state을 수동으로 관리를 하려면 realm을 useRealm이 아닌 직접 realm을 open시켜주어야 합니다.</p>
+<figure class="highlight typescript"><figcaption><span>src/hooks/useTodo.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;useCallback&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> realmContext <span class="keyword">from</span> <span class="string">'../db'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;ITodo&#125; <span class="keyword">from</span> <span class="string">'../db/Todo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useTodo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;useQuery, useRealm&#125; = realmContext;</span><br><span class="line">  <span class="keyword">const</span> todos: Realm.Results&lt;ITodo&gt; = useQuery&lt;ITodo&gt;(<span class="string">'Todo'</span>);</span><br><span class="line">  <span class="keyword">const</span> realm = useRealm();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> createTodo = useCallback(</span><br><span class="line">    (todo: ITodo) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (!todo.text) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        realm.write(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> t: ITodo = realm.create(<span class="string">'Todo'</span>, &#123;</span><br><span class="line">            text: todo.text,</span><br><span class="line">            addresses: todo.addresses,</span><br><span class="line">          &#125;);</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">`created one todo: <span class="subst">$&#123;t.text&#125;</span>`</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Fail create'</span>, error);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [realm],</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> deleteTodo = useCallback(</span><br><span class="line">    (_id: <span class="built_in">string</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> todo = realm.objectForPrimaryKey&lt;ITodo&gt;(<span class="string">'Todo'</span>, _id);</span><br><span class="line">        <span class="keyword">if</span> (todo) &#123;</span><br><span class="line">          realm.write(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            realm.delete(todo);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Not found id'</span>, error);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [realm],</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> &#123;createTodo, deleteTodo, todos&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> useTodo;</span><br></pre></td></tr></table></figure>
+
+<p>그리고 App을 수정해줍니다.</p>
+<figure class="highlight typescript"><figcaption><span>App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;useState&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  Button,</span><br><span class="line">  FlatList,</span><br><span class="line">  SafeAreaView,</span><br><span class="line">  Text,</span><br><span class="line">  TextInput,</span><br><span class="line">  View,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">import</span> useTodo <span class="keyword">from</span> <span class="string">'./src/hooks/useTodo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [text, setText] = useState(<span class="string">''</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123;createTodo, deleteTodo, todos&#125; = useTodo();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;SafeAreaView&gt;</span><br><span class="line">      &lt;View&gt;</span><br><span class="line">        &lt;TextInput</span><br><span class="line">          style=&#123;&#123;</span><br><span class="line">            borderWidth: <span class="number">1</span>,</span><br><span class="line">            height: <span class="number">40</span>,</span><br><span class="line">          &#125;&#125;</span><br><span class="line">          onChangeText=&#123;setText&#125;</span><br><span class="line">          value=&#123;text&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;Button</span><br><span class="line">          title=<span class="string">"생성"</span></span><br><span class="line">          onPress=&#123;<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            createTodo(&#123;</span><br><span class="line">              text,</span><br><span class="line">              addresses: [],</span><br><span class="line">            &#125;);</span><br><span class="line">            setText(<span class="string">''</span>);</span><br><span class="line">          &#125;&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">        &lt;FlatList</span><br><span class="line">          data=&#123;todos&#125;</span><br><span class="line">          extraData=&#123;todos&#125;</span><br><span class="line">          keyExtractor=&#123;<span class="function"><span class="params">item</span> =&gt;</span> <span class="string">`<span class="subst">$&#123;item._id&#125;</span><span class="subst">$&#123;<span class="built_in">Math</span>.random()&#125;</span>`</span>&#125;</span><br><span class="line">          renderItem=&#123;<span class="function">(<span class="params">&#123;item&#125;</span>) =&gt;</span> (</span><br><span class="line">            &lt;View&gt;</span><br><span class="line">              &lt;Text&gt;&#123;item.text&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">              &lt;Button</span></span><br><span class="line"><span class="regexp">                title="삭제"</span></span><br><span class="line"><span class="regexp">                onPress=&#123;() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">                  if (item._id) &#123;</span></span><br><span class="line"><span class="regexp">                    deleteTodo(item._id);</span></span><br><span class="line"><span class="regexp">                  &#125;</span></span><br><span class="line"><span class="regexp">                &#125;&#125;</span></span><br><span class="line"><span class="regexp">              /</span>&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">          )&#125;</span></span><br><span class="line"><span class="regexp">        /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>SafeAreaView&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<p>앱을 실행시켜줍니다.</p>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p><img src="/image/frontend/ReactNative/react-natvie-realm-react-3.gif" alt="결과"></p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>react-native 와 realm 그리고 @realm/react를 같이 사용해보았습니다.<br>다른 자세한 내용은 <a href="https://www.mongodb.com/docs/realm/sdk/react-native/install/" rel="external nofollow noopener noreferrer" target="_blank">공식문서</a>에서 찾아보시면 됩니다.</p>
+<p>공식문서의 예시가 적고 구글에서도 React native에서 realm을 사용하는 사례가 많지 않아서 구현하기 번거로움이 많았습니다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/ReactNative/react-native-realm-react/" data-id="clsoe8jpy00blv3tmt11odf3g" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "React native @realm/react 패키지 적용하기",
+        "image": "http://flamingotiger.github.io/image/thumb/realm-thumb.jpg",
+        "keywords": "react frontend typescript native react native 리액트 네이티브 realm",
+        "genre": "frontend ReactNative",
+        "datePublished": "2022-12-22",
+        "dateCreated": "2022-12-22",
+        "dateModified": "2022-12-22",
+        "url": "http://flamingotiger.github.io/frontend/ReactNative/react-native-realm-react/",
+        "description": "시작하기기존에 relam 관련 포스팅을 남겼었는데 시간이 지나 realm업데이트와 realm이 mongodb로 인수되는 과정을 통해서 많은 부분이 바뀐 것이 있습니다. 그리고 추가로 @realm/react 패키지를 사용해서 더 간편하게 realm을 사용하는 방법과 주의 사항등을 알아보도록 하겠습니다.
+설치하기react-native v0.70.6에서 작성하였",
+        "wordCount": 2237
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/etc/arduino/one-button/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            아두이노 푸쉬버튼 OneButton library 사용하기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/etc/arduino/hm10-module/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">아두이노 블루투스 모듈 사용법 (arduino hm10 module)</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-build-info/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="안드로이드 flutter 빌드시 주의사항" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-build-info/" class="title">안드로이드 flutter 빌드시 주의사항</a></p>
+                            <p class="item-date"><time datetime="2023-12-22T07:57:06.000Z" itemprop="datePublished">2023-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-analytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에서 firebase analytics 추가할때 에러수정" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-analytics/" class="title">flutter에서 firebase analytics 추가할때 에러수정</a></p>
+                            <p class="item-date"><time datetime="2023-12-20T07:31:50.000Z" itemprop="datePublished">2023-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-crashytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase crashlytics 추가하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-crashytics/" class="title">flutter firebase crashlytics 추가하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-19T07:45:16.000Z" itemprop="datePublished">2023-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-setting/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase 초기 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-setting/" class="title">flutter firebase 초기 설정하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-15T07:24:01.000Z" itemprop="datePublished">2023-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2024 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

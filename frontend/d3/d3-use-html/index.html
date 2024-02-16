@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>D3 기본 알아보기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="javascript,d3">
+    
+    <meta name="description" content="시작하기웹에서 차트를 그리기 위해서는 다양한 방법이있습니다. chartjs, vxchart 등 라이브러리가 많습니다. 그중에 기본이 되는 d3을 얕게 한번 알아보겠습니다. 선택기1document.querySelectorAll(&quot;pre, code&quot;);  일반적으로 자바스크립트에서 엘리먼트다수를 선택할때 사용하는 방법입니다. 1d3.selectAll(&quot;pre,">
+<meta name="keywords" content="javascript,d3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="D3 기본 알아보기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/d3/d3-use-html/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기웹에서 차트를 그리기 위해서는 다양한 방법이있습니다. chartjs, vxchart 등 라이브러리가 많습니다. 그중에 기본이 되는 d3을 얕게 한번 알아보겠습니다. 선택기1document.querySelectorAll(&quot;pre, code&quot;);  일반적으로 자바스크립트에서 엘리먼트다수를 선택할때 사용하는 방법입니다. 1d3.selectAll(&quot;pre,">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/d3-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.276Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="D3 기본 알아보기">
+<meta name="twitter:description" content="시작하기웹에서 차트를 그리기 위해서는 다양한 방법이있습니다. chartjs, vxchart 등 라이브러리가 많습니다. 그중에 기본이 되는 d3을 얕게 한번 알아보겠습니다. 선택기1document.querySelectorAll(&quot;pre, code&quot;);  일반적으로 자바스크립트에서 엘리먼트다수를 선택할때 사용하는 방법입니다. 1d3.selectAll(&quot;pre,">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/d3-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/d3/d3-use-html/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/flutter/">flutter</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/d3/">d3</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/d3/d3-use-html" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        D3 기본 알아보기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/d3/d3-use-html/" class="article-date">
+         <time datetime="2020-06-23T06:53:57.000Z" itemprop="datePublished">2020-06-23</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/d3/">d3</a>, <a class="tag-link" href="/tags/javascript/">javascript</a>
+    </div>
+
+                
+   <span id="/frontend/d3/d3-use-html/" class="leancloud-visitors" data-flag-title="D3 기본 알아보기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">1.4k</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>웹에서 차트를 그리기 위해서는 다양한 방법이있습니다. chartjs, vxchart 등 라이브러리가 많습니다. 그중에 기본이 되는 d3을 얕게 한번 알아보겠습니다.</p>
+<h2 id="선택기"><a href="#선택기" class="headerlink" title="선택기"></a>선택기</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">"pre, code"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>일반적으로 자바스크립트에서 엘리먼트다수를 선택할때 사용하는 방법입니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d3.selectAll(<span class="string">"pre, code"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>d3에서 선택할때 사용하는 방법입니다.<br>선택값은 배열입니다.</p>
+<h2 id="스타일-속성주기"><a href="#스타일-속성주기" class="headerlink" title="스타일 속성주기"></a>스타일 속성주기</h2><p>selectAll에 선택된 모든 엘리먼트에 속성이나 스타일을 줄 수 있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> circles = d3.selectAll(<span class="string">"circle"</span>);</span><br><span class="line">circles.attr(<span class="string">"cx"</span>, <span class="number">20</span>).attr(<span class="string">"cy"</span>, <span class="number">20</span>).attr(<span class="string">"r"</span>, <span class="number">20</span>).style(<span class="string">"fill"</span>, <span class="string">"red"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>메소드 체이닝을 통해서 간단하게 스타일을 줄 수 있습니다.</p>
+<h2 id="요소-추가하기"><a href="#요소-추가하기" class="headerlink" title="요소 추가하기"></a>요소 추가하기</h2><p>append 메소드를 이용하면 새요소를 추가할 수 있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> body = d3.select(<span class="string">"body"</span>);</span><br><span class="line"><span class="keyword">var</span> h1 = body.append(<span class="string">"h1"</span>);</span><br><span class="line">h1.text(<span class="string">"Hello h1!!"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// section 각 태그들 내부에 h1을 추가합니다.</span></span><br><span class="line"><span class="keyword">var</span> section = d3.selectAll(<span class="string">"section"</span>);</span><br><span class="line"><span class="keyword">var</span> h1 = section.append(<span class="string">"h1"</span>);</span><br><span class="line">h1.text(<span class="string">"Hello section h1!"</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d3.selectAll(<span class="string">"section"</span>)</span><br><span class="line">.style(<span class="string">"backgroundColor"</span>, <span class="string">"red"</span>);</span><br><span class="line">.append(<span class="string">"h1"</span>);</span><br><span class="line">text(<span class="string">"Hello section h1!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>style메소드까지는 대상이 section이었습니다.<br>append메소드를 사용하면 새로운 h1을 대상으로 지정합니다.</p>
+<h2 id="데이터-입력"><a href="#데이터-입력" class="headerlink" title="데이터 입력"></a>데이터 입력</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> svg = d3.select(<span class="string">"svg"</span>);</span><br><span class="line"><span class="keyword">var</span> data = [</span><br><span class="line">  &#123; <span class="attr">x</span>: <span class="number">110.0</span>, <span class="attr">y</span>: <span class="number">129.14</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">x</span>: <span class="number">58.0</span>, <span class="attr">y</span>: <span class="number">118.14</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">x</span>: <span class="number">113.0</span>, <span class="attr">y</span>: <span class="number">88.24</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">x</span>: <span class="number">91.0</span>, <span class="attr">y</span>: <span class="number">118.07</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">x</span>: <span class="number">181.0</span>, <span class="attr">y</span>: <span class="number">60.26</span> &#125;,</span><br><span class="line">];</span><br><span class="line"><span class="keyword">var</span> circle = svg.selectAll(<span class="string">"circle"</span>).data(data);</span><br><span class="line">circle</span><br><span class="line">  .enter()</span><br><span class="line">  .append(<span class="string">"circle"</span>)</span><br><span class="line">  .attr(<span class="string">"cx"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.x;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"cy"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.y;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"r"</span>, <span class="number">10</span>)</span><br><span class="line">  .style(<span class="string">"fill"</span>, <span class="string">"red"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>데이터 객체 배열 data를 svg내부의 circle을 선택해서 enter로 넣습니다.<br>만약 없다면 데이터 수만큼 생성됩니다.<br>append로 내부에 circle을 추가합니다. 속성으로 데이터 값의 x, y를 사용합니다.</p>
+<p><img src="/image/frontend/d3/d3-use-html-0.png" alt="결과물"></p>
+<h3 id="기존에-요소가-없는-새로운데이터를-입력시"><a href="#기존에-요소가-없는-새로운데이터를-입력시" class="headerlink" title="기존에 요소가 없는 새로운데이터를 입력시"></a>기존에 요소가 없는 새로운데이터를 입력시</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> circle = svg</span><br><span class="line">  .selectAll(<span class="string">"circle"</span>)</span><br><span class="line">  .data(data)</span><br><span class="line">  .enter()</span><br><span class="line">  .append(<span class="string">"circle"</span>)</span><br><span class="line">  .attr(<span class="string">"cx"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.x;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"cy"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.y;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"r"</span>, <span class="number">2.5</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="기존-요소에-결합한-새-데이터"><a href="#기존-요소에-결합한-새-데이터" class="headerlink" title="기존 요소에 결합한 새 데이터"></a>기존 요소에 결합한 새 데이터</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> circle = svg</span><br><span class="line">  .selectAll(<span class="string">"circle"</span>)</span><br><span class="line">  .data(data)</span><br><span class="line">  .attr(<span class="string">"cx"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.x;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"cy"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.y;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"r"</span>, <span class="number">2.5</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="키-기능"><a href="#키-기능" class="headerlink" title="키 기능"></a>키 기능</h2><p>join을 제어할 수 있습니다.<br>기본적으로 join은 index입니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> svg = d3.select(<span class="string">"svg"</span>);</span><br><span class="line"><span class="keyword">var</span> data = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"Alice"</span>, <span class="attr">x</span>: <span class="number">110.0</span>, <span class="attr">y</span>: <span class="number">129.14</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"Bob"</span>, <span class="attr">x</span>: <span class="number">58.0</span>, <span class="attr">y</span>: <span class="number">118.14</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"Carol"</span>, <span class="attr">x</span>: <span class="number">113.0</span>, <span class="attr">y</span>: <span class="number">88.24</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"Dave"</span>, <span class="attr">x</span>: <span class="number">91.0</span>, <span class="attr">y</span>: <span class="number">118.07</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">"Edith"</span>, <span class="attr">x</span>: <span class="number">181.0</span>, <span class="attr">y</span>: <span class="number">60.26</span> &#125;,</span><br><span class="line">];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">key</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> circle = svg</span><br><span class="line">  .selectAll(<span class="string">"circle"</span>)</span><br><span class="line">  .data(data, key)</span><br><span class="line">  .enter()</span><br><span class="line">  .append(<span class="string">"circle"</span>)</span><br><span class="line">  .attr(<span class="string">"cx"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="keyword">return</span> data.x;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"cy"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> data.y;</span><br><span class="line">  &#125;)</span><br><span class="line">  .attr(<span class="string">"r"</span>, <span class="number">10</span>)</span><br><span class="line">  .style(<span class="string">"fill"</span>, <span class="string">"red"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>키 함수는 각 데이터에 대해 고유 한 문자열을 반환합니다.<br>자세한 사항은 <a href="https://bost.ocks.org/mike/join/" rel="external nofollow noopener noreferrer" target="_blank">Thinking with joins</a>에서 확인할 수 있습니다.</p>
+<h2 id="데이터-로딩"><a href="#데이터-로딩" class="headerlink" title="데이터 로딩"></a>데이터 로딩</h2><figure class="highlight json"><figcaption><span>stock.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Jan 2000"</span>, <span class="attr">"price"</span>: <span class="number">1394.46</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Feb 2000"</span>, <span class="attr">"price"</span>: <span class="number">1366.42</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Mar 2000"</span>, <span class="attr">"price"</span>: <span class="number">1498.58</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Apr 2000"</span>, <span class="attr">"price"</span>: <span class="number">1452.43</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"May 2000"</span>, <span class="attr">"price"</span>: <span class="number">1420.6</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Jun 2000"</span>, <span class="attr">"price"</span>: <span class="number">1454.6</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Jul 2000"</span>, <span class="attr">"price"</span>: <span class="number">1430.83</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">"symbol"</span>: <span class="string">"S&amp;P 500"</span>, <span class="attr">"date"</span>: <span class="string">"Aug 2000"</span>, <span class="attr">"price"</span>: <span class="number">1517.68</span> &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> format = d3.time.format(<span class="string">"%b %Y"</span>);</span><br><span class="line">d3.json(<span class="string">"./stocks.json"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">stocks</span>) </span>&#123;</span><br><span class="line">  stocks.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123;</span><br><span class="line">    d.date = format.parse(d.date);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>날짜구문을 분석해서 변환해야 합니다.</p>
+<h2 id="Scales과-Axes"><a href="#Scales과-Axes" class="headerlink" title="Scales과 Axes"></a>Scales과 Axes</h2><p>속성 및 스타일은 위치와 모양을 제어한다.<br>scale은 데이터 공간에서 시각적인 공간으로 매핑되는 함수이다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear().domain([<span class="number">10</span>, <span class="number">20</span>]).range([<span class="number">0</span>, <span class="number">700</span>]);</span><br><span class="line"></span><br><span class="line">x(<span class="number">16</span>); <span class="comment">// 240</span></span><br></pre></td></tr></table></figure>
+
+<p>위의 코드를 보자면 선형 스케일은 단순히 변환합니다.<br>스케일의 도메인은 예상되는 데이터 값(예시로 10 ~ 20)이며 원하는 출력값입니다.<br>0은 차트 왼쪽이고 700은 찬트의 오른쪽입니다.</p>
+<p><code>d3.scaleSqrt</code><br><code>d3.scaleLog</code><br>sqrt (또는 pow) 스케일은 지수 변환을 적용합니다.<br>log 스케일은 로그 변환을 적용합니다.</p>
+<h2 id="Domains과-Ranges"><a href="#Domains과-Ranges" class="headerlink" title="Domains과 Ranges"></a>Domains과 Ranges</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear()</span><br><span class="line">  .domain([<span class="number">0</span>, d3.max(numbers)])</span><br><span class="line">  .range([<span class="number">0</span>, <span class="number">700</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><code>d3.min</code> 과 <code>d3.max</code>도메인을 계산합니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLog().domain(d3.extent(numbers)).range([<span class="number">0</span>, <span class="number">700</span>]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">value</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> x = d3.scaleLog()</span><br><span class="line">  .domain(d3.extent(objects, value)) <span class="comment">// 원하는 경우 array.map을 사용할 수 있습니다.</span></span><br><span class="line">  .range([<span class="number">0</span>, <span class="number">720</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><code>d3.extent</code>는 최소값과 최대값을 동시에 계산합니다.</p>
+<h2 id="Interpolators"><a href="#Interpolators" class="headerlink" title="Interpolators"></a>Interpolators</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear().domain([<span class="number">12</span>, <span class="number">24</span>]).range([<span class="string">"steelblue"</span>, <span class="string">"brown"</span>]);</span><br><span class="line">x(<span class="number">16</span>); <span class="comment">// #666586</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = d3.scaleLinear().domain([<span class="number">12</span>, <span class="number">24</span>]).range([<span class="string">"0px"</span>, <span class="string">"720px"</span>]);</span><br><span class="line">x(<span class="number">16</span>); <span class="comment">// 240px</span></span><br></pre></td></tr></table></figure>
+
+<p>RGB 보간을 위해 색상이 자동으로 감지됩니다.<br>문자열 보간은 포함 된 숫자와 일치합니다. 매우 유연합니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear()</span><br><span class="line">  .domain([<span class="number">12</span>, <span class="number">24</span>])</span><br><span class="line">  .range([<span class="string">"steelblue"</span>, <span class="string">"brown"</span>])</span><br><span class="line">  .interpolate(d3.interpolateHsl);</span><br><span class="line"></span><br><span class="line">x(<span class="number">16</span>); <span class="comment">// #3cb05f</span></span><br></pre></td></tr></table></figure>
+
+<p>원하는 경우 보간기를 명시 적으로 설정할 수 있습니다.</p>
+<h2 id="Ordinal-Scales"><a href="#Ordinal-Scales" class="headerlink" title="Ordinal Scales"></a>Ordinal Scales</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleOrdinal()</span><br><span class="line">  .domain([<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>, <span class="string">"D"</span>])</span><br><span class="line">  .rangeRoundBands([<span class="number">0</span>, <span class="number">720</span>], <span class="number">0.2</span>);</span><br><span class="line"></span><br><span class="line">x(<span class="string">"B"</span>); <span class="comment">// 206, bar position</span></span><br><span class="line">x.rangeBand(); <span class="comment">// 137, bar width</span></span><br></pre></td></tr></table></figure>
+
+<p>여기서 scale은 막대의 왼쪽 위치를 반환하는 반면 rangeBand 메서드는 막대 너비를 반환합니다. rangeBands (여기서 .2)에 대한 두 번째 인수는 막대 사이에 예약 할 패딩의 양입니다.</p>
+<p>rangeRoundBands 메서드는 앤티 앨리어싱이 모호해지지 않도록 전체 픽셀로 반올림한다는 점을 제외하고 rangeBands와 동일합니다.</p>
+<h2 id="Axes"><a href="#Axes" class="headerlink" title="Axes"></a>Axes</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// var yAxis = d3.svg.axis().scale(y).orient("left");</span></span><br><span class="line"><span class="keyword">var</span> yAxis = d3.axisLeft().scale(y);</span><br></pre></td></tr></table></figure>
+
+<p>주어진 스케일에 대한 축을 생성하고 원하는대로 구성합니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svg.append(<span class="string">"g"</span>).attr(<span class="string">"class"</span>, <span class="string">"y axis"</span>).call(yAxis);</span><br></pre></td></tr></table></figure>
+
+<p><g>선택을 호출하여 축을 렌더링합니다.</g></p>
+<h2 id="Ticks"><a href="#Ticks" class="headerlink" title="Ticks"></a>Ticks</h2><p>사람이 읽을 수있도록 값에 대해 정량적 척도를 작성 할 수 ​​있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear().domain([<span class="number">12</span>, <span class="number">24</span>]).range([<span class="number">0</span>, <span class="number">700</span>]);</span><br><span class="line">x.ticks(<span class="number">5</span>); <span class="comment">// [12, 14, 16, 18, 20, 22, 24]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Svg-좌표"><a href="#Svg-좌표" class="headerlink" title="Svg 좌표"></a>Svg 좌표</h2><p><img src="/image/frontend/d3/d3-use-html-1.jpg" alt="좌표"><br>transforms를 이용해서 origin의 위치를 정의할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> svg = d3</span><br><span class="line">  .select(<span class="string">"body"</span>)</span><br><span class="line">  .append(<span class="string">"svg"</span>)</span><br><span class="line">  .attr(<span class="string">"width"</span>, outerWidth)</span><br><span class="line">  .attr(<span class="string">"height"</span>, outerHeight);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> g = svg</span><br><span class="line">  .append(<span class="string">"g"</span>)</span><br><span class="line">  .attr(<span class="string">"transform"</span>, <span class="string">"translate("</span> + marginLeft + <span class="string">","</span> + marginTop + <span class="string">")"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Svg-기본"><a href="#Svg-기본" class="headerlink" title="Svg 기본"></a>Svg 기본</h2><p>svg에서 사용하는 요소들 입니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;rect x=<span class="string">"0"</span> y=<span class="string">"0"</span> width=<span class="string">"0"</span> height=<span class="string">"0"</span> rx=<span class="string">"0"</span> ry=<span class="string">"0"</span>&gt; <span class="comment">// 사각형</span></span><br><span class="line">&lt;circle cx=<span class="string">"0"</span> cy=<span class="string">"0"</span> r=<span class="string">"0"</span>&gt; <span class="comment">// 원</span></span><br><span class="line">&lt;line x1=<span class="string">"0"</span> y1=<span class="string">"0"</span> x2=<span class="string">"0"</span> y2=<span class="string">"0"</span>&gt; <span class="comment">// 선</span></span><br><span class="line">&lt;text x=<span class="string">"0"</span> y=<span class="string">"0"</span> dx=<span class="string">"0"</span> dy=<span class="string">"0"</span> text-anchor=<span class="string">"start"</span>&gt; <span class="comment">// 텍스트 본문</span></span><br><span class="line">&lt;path d=<span class="string">"M152.64962091501462,320.5600780855698L133.88913955606318,325.4363177123538L134.96890954443046,330.37917634921996L131.19348249532786,331.158393614812L98.56681109628815,335.53933807857004L91.14450799488135,333.796620..."</span>&gt; <span class="comment">// 경로</span></span><br></pre></td></tr></table></figure>
+
+<p>path에서는 다른 숫자로된 언어가 필요합니다.</p>
+<h2 id="Path-Generator"><a href="#Path-Generator" class="headerlink" title="Path Generator"></a>Path Generator</h2><h3 id="d3-line"><a href="#d3-line" class="headerlink" title="d3.line"></a>d3.line</h3><p>x와 y로 경로를 정의할 수 있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear(),</span><br><span class="line">  y = d3.scaleLinear();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> line = d3.line()</span><br><span class="line">  .x(<span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x(d.x);</span><br><span class="line">  &#125;)</span><br><span class="line">  .y(<span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y(d.y);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">svg.append(<span class="string">"path"</span>).datum(objects).attr(<span class="string">"class"</span>, <span class="string">"line"</span>).attr(<span class="string">"d"</span>, line);</span><br></pre></td></tr></table></figure>
+
+<p>데이터 접근 자로 스케일을 구성하여 위치를 정의합니다.<br>데이터를 직접 라인 생성기로 전달하거나 selection.attr을 통해 전달해야 합니다.</p>
+<h3 id="d3-svg-area"><a href="#d3-svg-area" class="headerlink" title="d3.svg.area"></a>d3.svg.area</h3><p>x, y0 및 y1로 경로를 정의할 수 있습니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = d3.scaleLinear(),</span><br><span class="line">  y = d3.scaleLinear();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> area = d3.svg</span><br><span class="line">  .area()</span><br><span class="line">  .x(<span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x(d.x);</span><br><span class="line">  &#125;)</span><br><span class="line">  .y0(height)</span><br><span class="line">  .y1(<span class="function"><span class="keyword">function</span> (<span class="params">d</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> y(d.y);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>스택되지 않은 영역 차트의 경우 y0는 일정합니다.</p>
+<h2 id="Radial-Areas-amp-Lines"><a href="#Radial-Areas-amp-Lines" class="headerlink" title="Radial Areas &amp; Lines"></a>Radial Areas &amp; Lines</h2><h3 id="d3-arc"><a href="#d3-arc" class="headerlink" title="d3.arc"></a>d3.arc</h3><p>파이 및 도넛형 차트의 경로생성기입니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myArc = &#123;</span><br><span class="line">  innerRadius: <span class="number">0</span>,</span><br><span class="line">  outerRadius: <span class="number">360</span>,</span><br><span class="line">  startAngle: <span class="number">0</span>, <span class="comment">// 12 o'clock</span></span><br><span class="line">  endAngle: <span class="number">1.2</span>, <span class="comment">// radians</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arc = d3.arc().innerRadius(<span class="number">0</span>).outerRadius(<span class="number">360</span>);</span><br></pre></td></tr></table></figure>
+
+<p>기본적으로 호 관련 속성이있는 객체를 입력으로 사용합니다.</p>
+<h3 id="d3-pie"><a href="#d3-pie" class="headerlink" title="d3.pie"></a>d3.pie</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pie의 기본레이아웃</span></span><br><span class="line"><span class="keyword">var</span> pie = d3.pie();</span><br></pre></td></tr></table></figure>
+
+<p>d3.pie를 사용하여 데이터에서 시작 및 끝 각도를 계산할 수 있습니다..</p>
+<h2 id="Layouts"><a href="#Layouts" class="headerlink" title="Layouts"></a>Layouts</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">d3.treemap;</span><br><span class="line">d3.tree;</span><br><span class="line">d3.pack;</span><br><span class="line">d3.partition;</span><br><span class="line">d3.force;</span><br><span class="line">d3.bundle;</span><br><span class="line">d3.voronoi;</span><br><span class="line">d3.chord;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> treemap = d3.treemap().padding(<span class="number">4</span>).size([width, height]);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">y</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dx</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.dx;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dy</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> d.dy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">svg</span><br><span class="line">  .selectAll(<span class="string">".cell"</span>)</span><br><span class="line">  .data(treemap.nodes(root))</span><br><span class="line">  .enter()</span><br><span class="line">  .append(<span class="string">"rect"</span>)</span><br><span class="line">  .attr(<span class="string">"class"</span>, <span class="string">"cell"</span>)</span><br><span class="line">  .attr(<span class="string">"x"</span>, x)</span><br><span class="line">  .attr(<span class="string">"y"</span>, y)</span><br><span class="line">  .attr(<span class="string">"width"</span>, dx)</span><br><span class="line">  .attr(<span class="string">"height"</span>, dy);</span><br></pre></td></tr></table></figure>
+
+<p>계층적 레이아웃은 데이터의 공유 표현을 사용합니다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = &#123;<span class="string">"children"</span>: […]&#125;,</span><br><span class="line">     child = &#123;<span class="string">"value"</span>: …&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="마지막으로"><a href="#마지막으로" class="headerlink" title="마지막으로"></a>마지막으로</h2><p>d3 기본이 다져진다면 아무리 어려운 그래프라도 처음에는 어렵겠지만, 차근차근 하다보면 충분히 만들수 있습니다.<br>D3.js 창시자인 <a href="https://bost.ocks.org/mike/d3/workshop/#86" rel="external nofollow noopener noreferrer" target="_blank">엠보스톡의 워크샵</a>을 참고했습니다.</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/d3/d3-use-html/" data-id="clsoe8jnt007fv3tmhsi5l6ke" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "D3 기본 알아보기",
+        "image": "http://flamingotiger.github.io/image/thumb/d3-thumb.jpg",
+        "keywords": "javascript d3",
+        "genre": "frontend d3",
+        "datePublished": "2020-06-23",
+        "dateCreated": "2020-06-23",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/d3/d3-use-html/",
+        "description": "시작하기웹에서 차트를 그리기 위해서는 다양한 방법이있습니다. chartjs, vxchart 등 라이브러리가 많습니다. 그중에 기본이 되는 d3을 얕게 한번 알아보겠습니다.
+선택기1document.querySelectorAll("pre, code");
+
+일반적으로 자바스크립트에서 엘리먼트다수를 선택할때 사용하는 방법입니다.
+1d3.selectAll("pre,",
+        "wordCount": 2114
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/d3/d3-barchart/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            D3로 bar chart 그리기
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/backend/db/docker-mysql-install/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Docker를 이용해서 mysql 설치하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-build-info/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="안드로이드 flutter 빌드시 주의사항" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-build-info/" class="title">안드로이드 flutter 빌드시 주의사항</a></p>
+                            <p class="item-date"><time datetime="2023-12-22T07:57:06.000Z" itemprop="datePublished">2023-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-analytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에서 firebase analytics 추가할때 에러수정" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-analytics/" class="title">flutter에서 firebase analytics 추가할때 에러수정</a></p>
+                            <p class="item-date"><time datetime="2023-12-20T07:31:50.000Z" itemprop="datePublished">2023-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-crashytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase crashlytics 추가하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-crashytics/" class="title">flutter firebase crashlytics 추가하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-19T07:45:16.000Z" itemprop="datePublished">2023-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-setting/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase 초기 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-setting/" class="title">flutter firebase 초기 설정하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-15T07:24:01.000Z" itemprop="datePublished">2023-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2024 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+

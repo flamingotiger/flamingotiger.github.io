@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400&display=swap&subset=korean" rel="stylesheet">
+    
+
+    
+    <title>Rollup을 사용해서 npm 배포하기 | 플타 앞발자의 삽질로그</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="npm,typescript,rollup">
+    
+    <meta name="description" content="시작하기제작중인 라이브러리를 npm에 배포하는 방법입니다.webpack 도구와는 조금 다른 rollup을 사용해서 번들링 하도록 하려고 합니다.webpack을 쓸 수도 있는데 rollup을 쓰는 이유는 webpack은 ES Module 형태로 번들을 할 수 없습니다.webpack을 사용 할 때에는 일반적으로 commonjs 형태로 번들링을 하게 됩니다com">
+<meta name="keywords" content="npm,typescript,rollup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rollup을 사용해서 npm 배포하기">
+<meta property="og:url" content="http://flamingotiger.github.io/frontend/DevEnv/rollup-setup/index.html">
+<meta property="og:site_name" content="플타 앞발자의 삽질로그">
+<meta property="og:description" content="시작하기제작중인 라이브러리를 npm에 배포하는 방법입니다.webpack 도구와는 조금 다른 rollup을 사용해서 번들링 하도록 하려고 합니다.webpack을 쓸 수도 있는데 rollup을 쓰는 이유는 webpack은 ES Module 형태로 번들을 할 수 없습니다.webpack을 사용 할 때에는 일반적으로 commonjs 형태로 번들링을 하게 됩니다com">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://flamingotiger.github.io/image/thumb/npm-thumb.jpg">
+<meta property="og:updated_time" content="2021-04-30T03:36:18.273Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rollup을 사용해서 npm 배포하기">
+<meta name="twitter:description" content="시작하기제작중인 라이브러리를 npm에 배포하는 방법입니다.webpack 도구와는 조금 다른 rollup을 사용해서 번들링 하도록 하려고 합니다.webpack을 쓸 수도 있는데 rollup을 쓰는 이유는 webpack은 ES Module 형태로 번들을 할 수 없습니다.webpack을 사용 할 때에는 일반적으로 commonjs 형태로 번들링을 하게 됩니다com">
+<meta name="twitter:image" content="http://flamingotiger.github.io/image/thumb/npm-thumb.jpg">
+    
+    <link rel="canonical" href="http://flamingotiger.github.io/frontend/devenv/rollup-setup/">
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-154231351-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+    
+    
+
+
+    
+    <meta name="naver-site-verification" content="96957d99f1626e70d2fa3abb8d32652c7bb2feeb">
+    <script data-ad-client="ca-pub-8152771856955361" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="alternate" href="/rss2.xml" title="플타 앞발자의 삽질로그" type="application/rss+xml">
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">플타 앞발자의 삽질로그 👷🏼‍️🛠</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Clone/">Clone</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/">DevTIL</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Algorithm/">Algorithm</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/CS/">CS</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevTIL/Study/">Study</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/">Js / Ts</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/lib/">lib</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Js-Ts/typescript/">typescript</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/">backend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/db/">db</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/devOps/">devOps</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/backend/node/">node</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/">etc</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/arduino/">arduino</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/etc/">etc</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/google/">google</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/hexo/">hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/etc/rfid/">rfid</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/">frontend</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/DevEnv/">DevEnv</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/ReactNative/">ReactNative</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/Testing/">Testing</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/d3/">d3</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/flutter/">flutter</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/html5/">html5</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/react/">react</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/frontend/svg/">svg</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/style/">style</a></li></ul>
+                                    
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/frontend/DevEnv/">DevEnv</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-frontend/DevEnv/rollup-setup" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Rollup을 사용해서 npm 배포하기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+      <i class="fa fa-calendar"></i>
+      <a href="/frontend/DevEnv/rollup-setup/" class="article-date">
+         <time datetime="2021-04-07T07:22:19.000Z" itemprop="datePublished">2021-04-07</time>
+      </a>
+    </div>
+
+
+                
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/npm/">npm</a>, <a class="tag-link" href="/tags/rollup/">rollup</a>, <a class="tag-link" href="/tags/typescript/">typescript</a>
+    </div>
+
+                
+   <span id="/frontend/DevEnv/rollup-setup/" class="leancloud-visitors" data-flag-title="Rollup을 사용해서 npm 배포하기">
+   <i class="fa fa-eye"></i>
+   <span class="post-meta-item-text">Views: </span>
+   <i class="leancloud-visitors-count">856</i>
+   </span>
+
+
+                
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="시작하기"><a href="#시작하기" class="headerlink" title="시작하기"></a>시작하기</h1><p>제작중인 라이브러리를 npm에 배포하는 방법입니다.<br>webpack 도구와는 조금 다른 rollup을 사용해서 번들링 하도록 하려고 합니다.<br>webpack을 쓸 수도 있는데 rollup을 쓰는 이유는 webpack은 ES Module 형태로 번들을 할 수 없습니다.<br>webpack을 사용 할 때에는 일반적으로 commonjs 형태로 번들링을 하게 됩니다<br>commonjs로 번들링한 라이브러리를 나중에 다른 프로젝트에서 사용하게 되면 <code>Tree-shaking</code>이 지원되지 않습니다.</p>
+<h2 id="간단요약"><a href="#간단요약" class="headerlink" title="간단요약"></a>간단요약</h2><p>webpack은 웹 어플리케이션을 제작시 주로 사용하고<br>rollup은 라이브러리 제작시 사용합니다.<br>lerna는 라이브러리를 패키지 분리할때 사용합니다.<br>lerna예시로는 @name/blabl, @name/blabla1 와 같이 사용합니다.</p>
+<h2 id="설치하기"><a href="#설치하기" class="headerlink" title="설치하기"></a>설치하기</h2><p>rollup 패키지를 설치하겠습니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs rollup-plugin-terser @rollup/plugin-url @rollup/plugin-image rollup-plugin-typescript2 rollup-plugin-peer-deps-external rollup-plugin-sourcemaps @rollup/plugin-babel @svgr/rollup</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>rollup</strong>: rollup 패키지 입니다.</li>
+<li><strong>@rollup/plugin-node-resolve</strong>: node_modules에서 써드파티 모듈을 사용하는 용도로 사용합니다.</li>
+<li><strong>@rollup/plugin-commonjs</strong>: CommonJS 모듈을 ES6으로 변환하는 롤업 플러그인입니다.</li>
+<li><strong>rollup-plugin-terser</strong>: 생성 된 es 번들을 최소화하기위한 롤업 플러그인 후드 아래에서 terser 를 사용합니다.</li>
+<li><strong>@rollup/plugin-url</strong>: 파일을 데이터 URI 또는 ​​ES모듈로 가져오는 롤업 플러그인입니다.</li>
+<li><strong>@rollup/plugin-image</strong>: JPG, PNG, GIF, SVG 및 WebP 파일을 가져 오는 롤업 플러그인입니다.</li>
+<li><strong>rollup-plugin-typescript2</strong>: 타입스크립트를 지원합니다.</li>
+<li><strong>rollup-plugin-peer-deps-external</strong>: peerDependency로 설치된 라이브러리의 코드가 번들링된 결과에 포함되지 않고, import 구문으로 불러와서 사용할 수 있게 해주는 플러그인입니다.</li>
+<li><strong>rollup-plugin-sourcemaps</strong>: rollup으로 번들하기 전에 소스 맵으로 파일을 변환합니다.</li>
+<li><strong>@rollup/plugin-babel</strong>: rollup에서 babel 을 사용 할 수 있게 해주는 플러그인입니다. <em>rollup-plugin-babel은 deprecated되었습니다.</em></li>
+</ul>
+<h2 id="설정하기"><a href="#설정하기" class="headerlink" title="설정하기"></a>설정하기</h2><p>패키지가 모두 설치가 완료되었습니다.<br>이제 rollup 설정을 해보도록 하겠습니다.</p>
+<h3 id="peerDependency-설정하기"><a href="#peerDependency-설정하기" class="headerlink" title="peerDependency 설정하기"></a>peerDependency 설정하기</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --peer react react-dom styled-components</span><br></pre></td></tr></table></figure>
+
+<p>react, react-dom, styled-components을 peer로 설치해주도록 합니다.</p>
+<figure class="highlight javascript"><figcaption><span>package.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"peerDependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"react"</span>: <span class="string">"^16.12.0"</span>,</span><br><span class="line">    <span class="string">"react-dom"</span>: <span class="string">"^16.12.0"</span>,</span><br><span class="line">    <span class="string">"styled-components"</span>: <span class="string">"^5.0.1"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="rollup-config-js-설정하기"><a href="#rollup-config-js-설정하기" class="headerlink" title="rollup.config.js 설정하기"></a>rollup.config.js 설정하기</h3><p>rollup.config.js 파일을 생성후 설정해주도록 합니다</p>
+<figure class="highlight javascript"><figcaption><span>rollup.config.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">"@rollup/plugin-commonjs"</span>;</span><br><span class="line"><span class="keyword">import</span> typescript <span class="keyword">from</span> <span class="string">"rollup-plugin-typescript2"</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">"@rollup/plugin-node-resolve"</span>;</span><br><span class="line"><span class="keyword">import</span> svgr <span class="keyword">from</span> <span class="string">"@svgr/rollup"</span>;</span><br><span class="line"><span class="keyword">import</span> image <span class="keyword">from</span> <span class="string">"@rollup/plugin-image"</span>;</span><br><span class="line"><span class="keyword">import</span> url <span class="keyword">from</span> <span class="string">"@rollup/plugin-url"</span>;</span><br><span class="line"><span class="keyword">import</span> peerDepsExternal <span class="keyword">from</span> <span class="string">"rollup-plugin-peer-deps-external"</span>;</span><br><span class="line"><span class="keyword">import</span> sourcemaps <span class="keyword">from</span> <span class="string">"rollup-plugin-sourcemaps"</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">"@rollup/plugin-babel"</span>;</span><br><span class="line"><span class="keyword">import</span> pkg <span class="keyword">from</span> <span class="string">"./package.json"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> extensions = [<span class="string">".js"</span>, <span class="string">".jsx"</span>, <span class="string">".ts"</span>, <span class="string">".tsx"</span>];</span><br><span class="line"><span class="keyword">const</span> external = [<span class="string">"react"</span>, <span class="string">"react-dom"</span>, <span class="string">"styled-components"</span>];</span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">  input: pkg.source,</span><br><span class="line">  output: [</span><br><span class="line">    &#123;</span><br><span class="line">      sourcemap: <span class="literal">true</span>,</span><br><span class="line">      file: pkg.main,</span><br><span class="line">      format: <span class="string">"cjs"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      sourcemap: <span class="literal">true</span>,</span><br><span class="line">      file: pkg.module,</span><br><span class="line">      format: <span class="string">"esm"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    external,</span><br><span class="line">    plugins: [</span><br><span class="line">      resolve(&#123; extensions &#125;),</span><br><span class="line">      babel(&#123; <span class="attr">exclude</span>: <span class="string">"node_modules/**"</span> &#125;),</span><br><span class="line">      commonjs(&#123; <span class="attr">include</span>: <span class="string">"node_modules/**"</span> &#125;),</span><br><span class="line">      typescript(&#123; <span class="attr">tsconfig</span>: <span class="string">"./tsconfig.json"</span>, <span class="attr">clean</span>: <span class="literal">true</span> &#125;),</span><br><span class="line">      svgr(),</span><br><span class="line">      image(),</span><br><span class="line">      url(),</span><br><span class="line">      peerDepsExternal(),</span><br><span class="line">      sourcemaps(),</span><br><span class="line">      del(&#123; <span class="attr">targets</span>: [<span class="string">"dist/*"</span>] &#125;),</span><br><span class="line">    ],</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> config;</span><br></pre></td></tr></table></figure>
+
+<h2 id="tsconfig-json-설정"><a href="#tsconfig-json-설정" class="headerlink" title="tsconfig.json 설정"></a>tsconfig.json 설정</h2><figure class="highlight json"><figcaption><span>tsconfig.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"es5"</span>,</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"es2015"</span>,</span><br><span class="line">    <span class="attr">"lib"</span>: [<span class="string">"dom"</span>, <span class="string">"dom.iterable"</span>, <span class="string">"esnext"</span>],</span><br><span class="line">    <span class="attr">"jsx"</span>: <span class="string">"react"</span>,</span><br><span class="line">    <span class="attr">"declaration"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"declarationDir"</span>: <span class="string">"./dist"</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"outDir"</span>: <span class="string">"./dist"</span>,</span><br><span class="line">    <span class="attr">"strict"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"noImplicitThis"</span>: <span class="literal">false</span> /* Raise error on 'this' expressions with an implied 'any' type. */,</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">"src"</span>,</span><br><span class="line">    <span class="attr">"esModuleInterop"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"forceConsistentCasingInFileNames"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"include"</span>: [<span class="string">"src"</span>],</span><br><span class="line">  <span class="attr">"exclude"</span>: [<span class="string">"node_modules"</span>, <span class="string">"dist"</span>, <span class="string">"**/*.stories.tsx"</span>, <span class="string">"cypress"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="package-json-및-모듈-설정"><a href="#package-json-및-모듈-설정" class="headerlink" title="package.json 및 모듈 설정"></a>package.json 및 모듈 설정</h2><p><code>package.json</code> 과 내보낼 모듈을 설정해주어야합니다.</p>
+<figure class="highlight typescript"><figcaption><span>src/index.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Rfdd <span class="keyword">from</span> <span class="string">"./view/Rfdd"</span>;</span><br><span class="line"><span class="keyword">import</span> RfddOption <span class="keyword">from</span> <span class="string">"./view/RfddOption"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; Rfdd, RfddOption &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 혹은</span></span><br><span class="line"><span class="keyword">export</span> &#123; <span class="keyword">default</span> <span class="keyword">as</span> Rfdd &#125; <span class="keyword">from</span> <span class="string">"./view.Rfdd"</span>;</span><br><span class="line"><span class="keyword">export</span> &#123; <span class="keyword">default</span> <span class="keyword">as</span> RfddOption &#125; <span class="keyword">from</span> <span class="string">"./view/RfddOption"</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>package.json</code>파일을 수정 하겠습니다.</p>
+<figure class="highlight json"><figcaption><span>package.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"react-free-dropdown"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"Easy custom dropdown list with React"</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/react-free-dropdown.js"</span>,</span><br><span class="line">  <span class="attr">"types"</span>: <span class="string">"dist/index.d.ts"</span>,</span><br><span class="line">  <span class="attr">"sideEffects"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"rollup -c"</span></span><br><span class="line">    //...</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"repository"</span>: &#123;</span><br><span class="line">    <span class="attr">"type"</span>: <span class="string">"git"</span>,</span><br><span class="line">    <span class="attr">"url"</span>: <span class="string">"git+https://github.com/flamingotiger/react-free-dropdown.git"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"keywords"</span>: [<span class="string">"free"</span>, <span class="string">"dropdown"</span>, <span class="string">"custom"</span>, <span class="string">"react.js"</span>, <span class="string">"react"</span>],</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">"flamingotiger &lt;hhbhong@gmail.com&gt;"</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"MIT"</span>,</span><br><span class="line">  <span class="attr">"bugs"</span>: &#123;</span><br><span class="line">    <span class="attr">"url"</span>: <span class="string">"https://github.com/flamingotiger/react-free-dropdown/issues"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"files"</span>: [<span class="string">"src"</span>, <span class="string">"dist"</span>]</span><br><span class="line">  //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>name</strong>: 프로젝트(패키지) 이름을 설정합니다.</li>
+<li><strong>version</strong>: 프로젝트(패키지)의 버전을 설정해주도록 합니다.</li>
+<li><strong>description</strong>: 프로젝트(패키지)의 설명을 지정합니다.</li>
+<li><strong>main</strong>: 프로젝트(패키지)의 기본 진입점(entry point)를 지정합니다.</li>
+<li><strong>module</strong>: 프로젝트(패키지)의 기본 진입점(entry point)를 지정합니다.</li>
+<li><strong>keywords</strong>: 프로젝트(패키지)의 키워드를 배열로 지정합니다.</li>
+<li><strong>types</strong>: 타입스크립트 사용시 기본 진입점(entry point)를 지정합니다.</li>
+<li><strong>license</strong>: 프로젝트(패키지) 사용을 허용하는 방법과 제한 사항을 알 수 있도록 라이센스를 지정합니다.</li>
+</ul>
+<h2 id="npmignore"><a href="#npmignore" class="headerlink" title=".npmignore"></a>.npmignore</h2><p>파일 최상단 루트 폴더에 <code>.gitignore</code>처럼 <code>.npmignore</code>파일을 생성해줍니다.<br>npm에 배포할 필요없는 폴더 혹은 파일을 지정해줍니다.</p>
+<figure class="highlight"><figcaption><span>.npmignore</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">node_modules</span><br><span class="line">yarn-error.log</span><br><span class="line">npm-debug.log</span><br><span class="line">npm-debug.log.*</span><br><span class="line">yarn-error.log</span><br><span class="line">yarn.lock</span><br><span class="line">.DS_Store</span><br><span class="line">.vscode</span><br><span class="line">.idea</span><br><span class="line">.github</span><br><span class="line">stories</span><br><span class="line">storybook-static</span><br><span class="line">.storybook</span><br><span class="line">cypress</span><br><span class="line">cypress.json</span><br><span class="line">.npmignore</span><br><span class="line">.babelrc</span><br><span class="line">.eslintrc</span><br><span class="line">jest.config.js</span><br><span class="line">tsconfig.json</span><br><span class="line">.prettierrc</span><br><span class="line">rollup.config.js</span><br><span class="line">rollup.min.config.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="NPM-배포"><a href="#NPM-배포" class="headerlink" title="NPM 배포"></a>NPM 배포</h2><p>이것으로 배포 준비가 완료되었습니다.</p>
+<h3 id="npm-로그인"><a href="#npm-로그인" class="headerlink" title="npm 로그인"></a>npm 로그인</h3><p><a href="https://www.npmjs.com/" rel="external nofollow noopener noreferrer" target="_blank">npm 공식 홈페이지</a>로 접속해서 로그인 해주도록 합니다.<br>로그인 계정이 없다면 회원가입을 해줍니다.<br>회원가입시 이메일 인증을 필수로 해야합니다.<br><img src="/image/frontend/DevEnv/rollup-npm-deploy_0.png" alt="로그인"></p>
+<h3 id="npm-배포하기"><a href="#npm-배포하기" class="headerlink" title="npm 배포하기"></a>npm 배포하기</h3><p>프로젝트로 돌아와서 npm cli 몇가지를 사용합니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd project</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm login</span><br></pre></td></tr></table></figure>
+
+<p><code>npm adduser</code> 혹은 <code>npm login</code>을 입력하고 유저이름 비밀번호 그리고 이메일 인증한 이메일도 입력해야합니다.</p>
+<p>로그인이 성공했다면 <code>npm publish</code> 를 입력해줍니다.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+
+<p>배포에서 다음과 같은 에러가 발생시<br><img src="/image/frontend/DevEnv/rollup-npm-deploy_1.png" alt="npm 배포 에러"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure>
+
+<p>커맨드를 입력해줍니다.<br>관련 <a href="https://github.com/snowdreamtech/jweixin/issues/1" rel="external nofollow noopener noreferrer" target="_blank">Github Issue</a></p>
+<p>추가로 로그인이 되어있는지 확인하려면<br><code>npm whoami</code>를 입력해주면 확인할 수 있습니다.</p>
+<p>로그아웃은 <code>npm logout</code>을 입력하면 됩니다.</p>
+<p>이후 사이트를 확인하면 등록이 된 것을 확인할 수 있습니다.<br><img src="/image/frontend/DevEnv/rollup-npm-deploy_2.png" alt="npm 배포완료"></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://flamingotiger.github.io/frontend/DevEnv/rollup-setup/" data-id="clsoe8jn3006sv3tmc6pgmnw0" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "Hong Hakbeom"
+        },
+        "headline": "Rollup을 사용해서 npm 배포하기",
+        "image": "http://flamingotiger.github.io/image/thumb/npm-thumb.jpg",
+        "keywords": "npm typescript rollup",
+        "genre": "frontend DevEnv",
+        "datePublished": "2021-04-07",
+        "dateCreated": "2021-04-07",
+        "dateModified": "2021-04-30",
+        "url": "http://flamingotiger.github.io/frontend/DevEnv/rollup-setup/",
+        "description": "시작하기제작중인 라이브러리를 npm에 배포하는 방법입니다.webpack 도구와는 조금 다른 rollup을 사용해서 번들링 하도록 하려고 합니다.webpack을 쓸 수도 있는데 rollup을 쓰는 이유는 webpack은 ES Module 형태로 번들을 할 수 없습니다.webpack을 사용 할 때에는 일반적으로 commonjs 형태로 번들링을 하게 됩니다com",
+        "wordCount": 1278
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        <script src="https://utteranc.es/client.js" repo="flamingotiger/blog-comments" issue-term="[ENTER TERM HERE]" theme="github-dark" crossorigin="anonymous" async>
+</script>            
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="envelope" href="mailto:hhbhong@gmail.com" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-envelope"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="share-alt-square" href="https://stackshare.io/flamingotiger/my-stack" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-share-alt-square"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="linkedin" href="https://www.linkedin.com/in/hakbum-hong-ab420a196/" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                
+            
+                
+                    <li>
+                        <a class="social-tooltip" title="github" href="https://github.com/flamingotiger" target="_blank" rel="external nofollow noopener noreferrer">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div id="theme-mode-change">
+        <div class="icon-flex">
+            <div class="mode-icon">
+                <i class="fa fa-moon-o"></i>
+            </div>
+            <label class="switch">
+                <input id="mode-switch" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+            <div class="mode-icon">
+                <i class="fa fa-sun-o"></i>
+            </div>
+        </div>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/frontend/react/react-add-font/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">newer</strong>
+        <p class="article-nav-title">
+        
+            리액트 프로젝트에 폰트추가
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/frontend/flutter/flutter-style/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">flutter에 스타일(margin, padding, border, border-radius) 적용하기</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-build-info/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="안드로이드 flutter 빌드시 주의사항" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-build-info/" class="title">안드로이드 flutter 빌드시 주의사항</a></p>
+                            <p class="item-date"><time datetime="2023-12-22T07:57:06.000Z" itemprop="datePublished">2023-12-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-analytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter에서 firebase analytics 추가할때 에러수정" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-analytics/" class="title">flutter에서 firebase analytics 추가할때 에러수정</a></p>
+                            <p class="item-date"><time datetime="2023-12-20T07:31:50.000Z" itemprop="datePublished">2023-12-20</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-crashytics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase crashlytics 추가하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-crashytics/" class="title">flutter firebase crashlytics 추가하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-19T07:45:16.000Z" itemprop="datePublished">2023-12-19</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/flutter/flutter-firebase-setting/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/flutter-thumb.jpg)" alt="flutter firebase 초기 설정하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/flutter/">flutter</a></p>
+                            <p class="item-title"><a href="/frontend/flutter/flutter-firebase-setting/" class="title">flutter firebase 초기 설정하기</a></p>
+                            <p class="item-date"><time datetime="2023-12-15T07:24:01.000Z" itemprop="datePublished">2023-12-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/frontend/ReactNative/react-native-ios-deploy/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/image/thumb/react-native-thumb.jpg)" alt="react native(리액트 네이티브) ios 배포하기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/frontend/">frontend</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/frontend/ReactNative/">ReactNative</a></p>
+                            <p class="item-title"><a href="/frontend/ReactNative/react-native-ios-deploy/" class="title">react native(리액트 네이티브) ios 배포하기</a></p>
+                            <p class="item-date"><time datetime="2023-01-17T04:02:36.000Z" itemprop="datePublished">2023-01-17</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2024 Hong Hakbeom</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+
